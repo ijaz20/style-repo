@@ -2,11 +2,11 @@ package com.style.webapp.action;
 
 import com.opensymphony.xwork2.Preparable;
 import org.apache.struts2.ServletActionContext;
-import org.appfuse.Constants;
-import org.appfuse.dao.SearchException;
-import org.appfuse.model.Role;
-import org.appfuse.model.User;
-import org.appfuse.service.UserExistsException;
+import com.style.Constants;
+import com.style.dao.SearchException;
+import com.style.model.Role;
+import com.style.model.User;
+import com.style.service.UserExistsException;
 import com.style.webapp.util.RequestUtil;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mail.MailException;

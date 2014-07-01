@@ -10,7 +10,7 @@ import com.opensymphony.xwork2.util.ValueStack;
 import com.opensymphony.xwork2.util.ValueStackFactory;
 import org.apache.commons.logging.Log;
 import org.apache.struts2.ServletActionContext;
-import org.appfuse.Constants;
+import com.style.Constants;
 import org.junit.After;
 import org.junit.Before;
 import org.springframework.mail.javamail.JavaMailSenderImpl;

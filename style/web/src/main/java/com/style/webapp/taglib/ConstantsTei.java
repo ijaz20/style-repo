@@ -2,7 +2,7 @@ package com.style.webapp.taglib;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.Constants;
+import com.style.Constants;
 
 import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;

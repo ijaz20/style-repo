@@ -1,7 +1,7 @@
 package com.style.webapp.action;
 
 import org.apache.struts2.ServletActionContext;
-import org.appfuse.Constants;
+import com.style.Constants;
 
 import java.io.File;
 import java.io.FileInputStream;

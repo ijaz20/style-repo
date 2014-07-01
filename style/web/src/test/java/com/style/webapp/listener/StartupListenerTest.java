@@ -1,7 +1,7 @@
 package com.style.webapp.listener;
 
 import junit.framework.TestCase;
-import org.appfuse.Constants;
+import com.style.Constants;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.ContextLoaderListener;

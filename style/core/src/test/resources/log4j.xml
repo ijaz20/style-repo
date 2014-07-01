@@ -6,7 +6,7 @@
     <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
-                value="[${artifactId}] %p [%t] %c{1}.%M(%L) | %m%n"/>
+                value="%p - %C{1}.%M(%L) | %m%n"/>
         </layout>
     </appender>
 
@@ -39,20 +39,8 @@
         <level value="WARN"/>
     </logger>
    
-    <logger name="org.appfuse">
-        <level value="INFO"/>
-    </logger>
-
-    <logger name="org.appfuse.util">
-        <level value="WARN"/>
-    </logger>
-    
-    <logger name="com.style.webapp.filter">
-        <level value="ERROR"/>
-    </logger>
-    
-    <logger name="com.style.webapp.listener.UserCounterListener">
-        <level value="WARN"/>
+    <logger name="com.style">
+        <level value="DEBUG"/>
     </logger>
 
     <root>

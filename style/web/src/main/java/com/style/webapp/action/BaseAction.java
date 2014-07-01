@@ -4,11 +4,11 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
-import org.appfuse.Constants;
-import org.appfuse.model.User;
-import org.appfuse.service.MailEngine;
-import org.appfuse.service.RoleManager;
-import org.appfuse.service.UserManager;
+import com.style.Constants;
+import com.style.model.User;
+import com.style.service.MailEngine;
+import com.style.service.RoleManager;
+import com.style.service.UserManager;
 import org.springframework.mail.SimpleMailMessage;
 
 import javax.servlet.http.HttpServletRequest;

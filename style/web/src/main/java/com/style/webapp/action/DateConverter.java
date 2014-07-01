@@ -2,7 +2,7 @@ package com.style.webapp.action;
 
 import com.opensymphony.xwork2.conversion.TypeConversionException;
 import org.apache.struts2.util.StrutsTypeConverter;
-import org.appfuse.util.DateUtil;
+import com.style.util.DateUtil;
 
 import java.text.ParseException;
 import java.util.Date;
