@@ -77,6 +77,16 @@
         </plugins>
     </build>
 
+  
+    
+    
+  
+
+    <modules>
+        <module>core</module>
+        <module>web</module>
+    </modules>
+
     <repositories>
         <repository>
             <id>appfuse-snapshots</id>
@@ -126,17 +136,18 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- Dependencies calculated by AppFuse when running full-source plugin -->
+    <!-- Dependencies calculated by AppFuse when running full-source plugin -->
     <dependencies>
         <dependency>
             <groupId>${jdbc.groupId}</groupId>
             <artifactId>${jdbc.artifactId}</artifactId>
             <version>${jdbc.version}</version>
         </dependency>
-       <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockito.version}</version>
-            <scope>test</scope>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons.lang.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -145,9 +156,78 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mail</artifactId>
+                    <groupId>javax.mail</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jms</artifactId>
+                    <groupId>javax.jms</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jmxtools</artifactId>
+                    <groupId>com.sun.jdmk</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jmxri</artifactId>
+                    <groupId>com.sun.jmx</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-ldap</artifactId>
+            <version>${spring.security.version}</version>
         </dependency>
         <dependency>
             <groupId>org.subethamail</groupId>
@@ -156,8 +236,8 @@
             <scope>test</scope>
             <exclusions>
                 <exclusion>
-                    <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
+                    <groupId>javax.servlet</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -325,11 +405,11 @@
         <dao.framework>hibernate</dao.framework>
         <web.framework>struts</web.framework>
         <amp.genericCore>true</amp.genericCore>
-        <amp.fullSource>false</amp.fullSource>
+        <amp.fullSource>true</amp.fullSource>
         <db.name>style</db.name>
 
         <!-- Framework dependency versions -->
-        <appfuse.version>3.0.0</appfuse.version>
+        <appfuse.version>3.0.1-SNAPSHOT</appfuse.version>
         <bootstrap.version>3.0.2</bootstrap.version>
         <commons.fileupload.version>1.3</commons.fileupload.version>
         <commons.io.version>2.4</commons.io.version>
@@ -370,11 +450,35 @@
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</jdbc.url>
         <jdbc.username>root</jdbc.username>
-        <jdbc.password/>
+        <jdbc.password></jdbc.password>
+
+        <!-- Properties calculated by AppFuse when running full-source plugin -->
+
+
+        <!-- Properties calculated by AppFuse when running full-source plugin -->
+        <aspectj.version>1.7.4</aspectj.version>
+        <commons.beanutils.version>1.8.3</commons.beanutils.version>
+        <commons.collections.version>3.2.1</commons.collections.version>
+        <commons.dbcp.version>1.4</commons.dbcp.version>
+        <commons.lang.version>2.6</commons.lang.version>
+        <cxf.version>2.7.7</cxf.version>
+        <dwr.version>2.0.10</dwr.version>
+        <ehcache.version>2.6.6</ehcache.version>
+        <ehcache.web.version>2.0.4</ehcache.web.version>
+        <hibernate.search.version>4.1.1.Final</hibernate.search.version>
+        <hibernate.version>4.2.7.Final</hibernate.version>
+        <javamail.version>1.4.1</javamail.version>
+        <jpa.version>2.0-cr-1</jpa.version>
+        <jstl.version>1.2</jstl.version>
+        <log4j.version>1.2.17</log4j.version>
+        <sitemesh.version>2.4.2</sitemesh.version>
+        <slf4j.version>1.7.5</slf4j.version>
+        <spring.security.version>3.2.3.RELEASE</spring.security.version>
+        <struts.menu.version>2.4.3</struts.menu.version>
+        <urlrewrite.version>3.1.0</urlrewrite.version>
+        <velocity.version>1.7</velocity.version>
+        <wro4j.version>1.7.5</wro4j.version>
+
         <jdbc.validationQuery>SELECT 1 + 1</jdbc.validationQuery>
     </properties>
-  <modules>
-    <module>core</module>
-    <module>web</module>
-  </modules>
 </project>

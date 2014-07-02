@@ -61,11 +61,11 @@
         <level value="WARN"/>
     </logger>
 
-    <logger name="org.appfuse">
+    <logger name="com.style">
         <level value="DEBUG"/>
     </logger>
 
-    <logger name="org.appfuse.tool">
+    <logger name="com.style.tool">
         <level value="INFO"/>
     </logger>
 

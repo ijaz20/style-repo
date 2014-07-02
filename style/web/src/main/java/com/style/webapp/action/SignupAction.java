@@ -2,9 +2,9 @@ package com.style.webapp.action;
 
 
 import org.apache.struts2.ServletActionContext;
-import org.appfuse.Constants;
-import org.appfuse.model.User;
-import org.appfuse.service.UserExistsException;
+import com.style.Constants;
+import com.style.model.User;
+import com.style.service.UserExistsException;
 import com.style.webapp.util.RequestUtil;
 import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;

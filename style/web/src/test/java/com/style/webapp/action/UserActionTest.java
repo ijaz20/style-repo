@@ -1,8 +1,8 @@
 package com.style.webapp.action;
 
 import org.apache.struts2.ServletActionContext;
-import org.appfuse.model.User;
-import org.appfuse.service.UserManager;
+import com.style.model.User;
+import com.style.service.UserManager;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
