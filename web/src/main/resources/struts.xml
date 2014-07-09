@@ -75,6 +75,10 @@
             <result name="success">/WEB-INF/pages/home.jsp</result>
         </action>
 
+		<action name="style-home/home">
+            <result name="success">/WEB-INF/pages/home.jsp</result>
+        </action>
+        
         <action name="signup">
             <result>/WEB-INF/pages/signup.jsp</result>
         </action>
