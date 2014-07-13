@@ -11,4 +11,7 @@
     <decorator name="style-home" page="vstyleu-home.jsp">
         <pattern>/style-home*</pattern>
     </decorator>
+    <decorator name="product" page="vstyleu-home.jsp">
+        <pattern>/product*</pattern>
+    </decorator>
 </decorators>

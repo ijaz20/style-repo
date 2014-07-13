@@ -19,7 +19,7 @@ import java.util.Set;
 @Table(name = "product_category")
 @Indexed
 @XmlRootElement
-public class ProductCategory implements Serializable {
+public class ProductCategory extends BaseObject implements Serializable {
 
 	/**
 	 * 
@@ -69,5 +69,23 @@ public class ProductCategory implements Serializable {
 
 	public void setProducts(Set<Product> products) {
 		this.products = products;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Table(name = "product_price")
 @Indexed
 @XmlRootElement
-public class ProductPrice implements Serializable {
+public class ProductPrice extends BaseObject implements Serializable {
 
 	/**
 	 * 
@@ -67,6 +67,24 @@ public class ProductPrice implements Serializable {
 
 	public void setPrice(String price) {
 		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -1,5 +1,7 @@
 ﻿<!DOCTYPE html>
+<%@ include file="/common/taglibs.jsp"%>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -349,6 +351,7 @@
 				</div>
 				
 				<div class="col-sm-9 padding-right">
+					<decorator:body/>
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
 						<div class="col-sm-4">
