@@ -18,10 +18,10 @@ import java.util.Set;
  * Created by Manager on 12/7/14.
  */
 @Entity
-@Table(name = "products")
+@Table(name = "product")
 @Indexed
 @XmlRootElement
-public class Product implements Serializable {
+public class Product extends BaseObject implements Serializable {
 
 	/**
 	 * 
@@ -31,14 +31,14 @@ public class Product implements Serializable {
 	private String name;
 	private Set<Branch> branches = new HashSet<Branch>();
 	private Set<ProductPrice> productPrices = new HashSet<ProductPrice>();
-	private Boolean isDefaultProduct;
+	private Boolean isComboProduct;
 
 	public Product() {
 	}
 
-	public Product(String name, Boolean isDefaultProduct) {
+	public Product(String name, Boolean isComboProduct) {
 		this.name = name;
-		this.isDefaultProduct = isDefaultProduct;
+		this.isComboProduct = isComboProduct;
 	}
 
 	@Column(name = "name", nullable = false, length = 50, unique = true)
@@ -51,13 +51,13 @@ public class Product implements Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "isDefaultProduct", nullable = false)
-	public Boolean getIsDefaultProduct() {
-		return isDefaultProduct;
+	@Column(name = "is_combo_product", nullable = false)
+	public Boolean getIsComboProduct() {
+		return isComboProduct;
 	}
 
-	public void setIsDefaultProduct(Boolean isDefaultProduct) {
-		this.isDefaultProduct = isDefaultProduct;
+	public void setIsComboProduct(Boolean isComboProduct) {
+		this.isComboProduct = isComboProduct;
 	}
 
 	@Id
@@ -99,8 +99,20 @@ public class Product implements Serializable {
 				ToStringStyle.DEFAULT_STYLE);
 		sb.append("id : ", getId());
 		sb.append("name :", getName());
-		sb.append("isDefaultProduct :", getIsDefaultProduct());
+		sb.append("isComboProduct :", getIsComboProduct());
 		return sb.toString();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
