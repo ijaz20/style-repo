@@ -65,6 +65,12 @@
                     <webApp>
                         <contextPath>/</contextPath>
                     </webApp>
+                    <connectors>
+		            <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+		                <port>2020</port>
+		                <maxIdleTime>60000</maxIdleTime>
+		            </connector>
+                    </connectors>
                 </configuration>
             </plugin>
             <!-- clean-up previous hibernate-search indexed from integration tests, as there could be a lock -->
@@ -281,6 +287,12 @@
             <artifactId>struts2-core</artifactId>
             <version>${struts.version}</version>
         </dependency>
+        <!-- Struts 2 JSON Plugins added by mathi-->
+	    <dependency>
+            <groupId>org.apache.struts</groupId>
+		    <artifactId>struts2-json-plugin</artifactId>
+		    <version>${struts.version}</version>
+	    </dependency>
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-convention-plugin</artifactId>

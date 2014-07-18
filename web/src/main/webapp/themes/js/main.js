@@ -10,7 +10,7 @@
 
 $(document).ready(function(){
 	$(function () {
-		$.scrollUp({
+		$(window).slideUp({
 	        scrollName: 'scrollUp', // Element ID
 	        scrollDistance: 300, // Distance from top/bottom before showing element (px)
 	        scrollFrom: 'top', // 'top' or 'bottom'

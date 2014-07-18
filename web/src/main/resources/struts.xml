@@ -144,10 +144,14 @@
     </package>
     
     <!-- Actions in this package will be prefixed with /product/ -->
-    <package name="product" extends="default" namespace="/product">
+    <package name="product" extends="default, json-default" namespace="/product">
         <action name="vstyleu-products" class="com.style.webapp.action.ProductAction" method="getAllProducts">
             <result name="success">/WEB-INF/pages/product/vstyleu-products.jsp</result>
         </action>
+        <action name="vstyleu-filter-products" class="com.style.webapp.action.ProductAction" method="getFilterProducts">
+        	<result type="json" />
+        </action>
+                
     </package>
     
 </struts>
