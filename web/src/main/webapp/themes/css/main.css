@@ -659,6 +659,12 @@ ul.sub-menu {
   padding-bottom: 20px;
   padding-top: 15px;
 }
+
+/* added by mathi for sticky side menu */
+.left-sidebar {
+	position: fixed;
+}
+
 .left-sidebar h2, .brands_products h2 {
   color: #FE980F;
   font-family: 'Roboto', sans-serif;
@@ -1556,7 +1562,7 @@ h2.title {
 }
 
 .breadcrumbs .breadcrumb > li + li:before {
-  content: " ";
+  content: "ï¿½";
 }
 
 #cart_items .cart_info {

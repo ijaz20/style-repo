@@ -1,118 +1,132 @@
 package com.style.model;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.search.annotations.DocumentId;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
-
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.search.annotations.Indexed;
+
 /**
- * Created by Manager on 12/7/14.
+ * This class represents the basic "product" object in VSU that allows for
+ * managing product
+ * 
+ * @auther ganesh
+ * @author mathi
  */
 @Entity
-@Table(name = "product")
+@Table(name = "vsu_product")
 @Indexed
 @XmlRootElement
 public class Product extends BaseObject implements Serializable {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private Long id;
-	private String name;
-	private Set<Branch> branches = new HashSet<Branch>();
-	private Set<ProductPrice> productPrices = new HashSet<ProductPrice>();
-	private Boolean isComboProduct;
+    private static final long serialVersionUID = 1L;
+    private String id;
+    private String productName;
+    private boolean isComboProduct;
+    private String gender;
+    private Set<ProductPrice> productPrices = new HashSet<ProductPrice>();
 
-	public Product() {
-	}
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    public String getId() {
+        return id;
+    }
 
-	public Product(String name, Boolean isComboProduct) {
-		this.name = name;
-		this.isComboProduct = isComboProduct;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	@Column(name = "name", nullable = false, length = 50, unique = true)
-	@Field
-	public String getName() {
-		return name;
-	}
+    @Column(name="product_name")
+    public String getProductName() {
+        return productName;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
-	@Column(name = "is_combo_product", nullable = false)
-	public Boolean getIsComboProduct() {
-		return isComboProduct;
-	}
+    @Column(name="is_combo_product")
+    public boolean isComboProduct() {
+        return isComboProduct;
+    }
 
-	public void setIsComboProduct(Boolean isComboProduct) {
-		this.isComboProduct = isComboProduct;
-	}
+    public void setComboProduct(boolean isComboProduct) {
+        this.isComboProduct = isComboProduct;
+    }
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@DocumentId
-	public Long getId() {
-		return id;
-	}
+    @Column(name="gender")
+    public String isGender() {
+        return gender;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SELECT)
-	@JoinTable(name = "product_branch_mapping", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = @JoinColumn(name = "branchId"))
-	public Set<Branch> getBranches() {
-		return branches;
-	}
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = ProductPrice.class, mappedBy = "product", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OrderBy("id")
+    @Fetch(value = FetchMode.SELECT)
+    public Set<ProductPrice> getProductPrices() {
+        return productPrices;
+    }
 
-	public void setBranches(Set<Branch> branches) {
-		this.branches = branches;
-	}
+    public void setProductPrices(Set<ProductPrice> productPrices) {
+        this.productPrices = productPrices;
+    }
 
-	public void setProductPrices(Set<ProductPrice> productPrices) {
-		this.productPrices = productPrices;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public String toString() {
+        ToStringBuilder sb = new ToStringBuilder(this,
+                ToStringStyle.DEFAULT_STYLE).append("productName",
+                this.productName);
+        return sb.toString();
+    }
 
-	@OneToMany(fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SELECT)
-	@JoinTable(name = "product_price_mapping", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = @JoinColumn(name = "productId"))
-	public Set<ProductPrice> getProductPrices() {
+    /**
+     * {@inheritDoc}
+     */
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Product)) {
+            return false;
+        }
 
-		return productPrices;
-	}
+        final Product product = (Product) o;
 
-	public String toString() {
-		ToStringBuilder sb = new ToStringBuilder(this,
-				ToStringStyle.DEFAULT_STYLE);
-		sb.append("id : ", getId());
-		sb.append("name :", getName());
-		sb.append("isComboProduct :", getIsComboProduct());
-		return sb.toString();
-	}
+        return !(id != null ? !id.equals(product.getId())
+                : product.getId() != null);
 
-	@Override
-	public boolean equals(Object o) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    }
 
-	@Override
-	public int hashCode() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public int hashCode() {
+        return (id != null ? id.hashCode() : 0);
+    }
 
 }

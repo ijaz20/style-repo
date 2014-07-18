@@ -29,6 +29,11 @@ public class ProductAction extends BaseAction implements Preparable {
 		return "success";
 	}
 	
+	public String getFilterProducts(){
+	    products = productManager.getAll();
+	    return "success";
+	}
+	
 	public List<Product> getProducts() {
 		return products;
 	}

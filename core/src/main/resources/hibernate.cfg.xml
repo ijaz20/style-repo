@@ -8,9 +8,10 @@
     <session-factory>
         <mapping class="com.style.model.User"/>
         <mapping class="com.style.model.Role"/>
-        <mapping class="com.style.model.Product"/>
-        <mapping class="com.style.model.ProductPrice"/>
+        <mapping class="com.style.model.Brand"/>
         <mapping class="com.style.model.Branch"/>
         <mapping class="com.style.model.ProductCategory"/>
+        <mapping class="com.style.model.Product"/>
+        <mapping class="com.style.model.ProductPrice"/>
     </session-factory>
 </hibernate-configuration>

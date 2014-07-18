@@ -119,58 +119,58 @@
             <value description="role_id">-2</value>
         </row>
     </table>
-    <table name="product">
+    <table name="vsu_product">
         <column>id</column>
-        <column>name</column>
+        <column>product_name</column>
         <column>is_combo_product</column>
         <row>
-            <value description="id">-10</value>
-            <value description="name">product1</value>
+            <value description="id">9cc33fde-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="product_name">product1</value>
             <value description="is_combo_product">false</value>
         </row>
         <row>
-            <value description="id">-9</value>
-            <value description="name">product2</value>
+            <value description="id">a32f36ec-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="product_name">product2</value>
             <value description="is_combo_product">false</value>
         </row>
         <row>
-            <value description="id">-8</value>
-            <value description="name">product3</value>
+            <value description="id">a7e7ce82-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="product_name">product3</value>
             <value description="is_combo_product">false</value>
         </row>
         <row>	
-            <value description="id">-7</value>
-            <value description="name">product4</value>
+            <value description="id">acb9f08e-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="product_name">product4</value>
             <value description="is_combo_product">false</value>
         </row>
         <row>
-            <value description="id">-6</value>
-            <value description="name">product5</value>
+            <value description="id">b2f0678a-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="product_name">product5</value>
             <value description="is_combo_product">false</value>
         </row>
         <row>
-            <value description="id">-5</value>
-            <value description="name">product6</value>
+            <value description="id">b7b17c7a-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="product_name">product6</value>
             <value description="is_combo_product">false</value>
         </row>
         <row>
-            <value description="id">-4</value>
-            <value description="name">product7</value>
+            <value description="id">bc04ad2e-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="product_name">product7</value>
             <value description="is_combo_product">false</value>
         </row>
         <row>
-            <value description="id">-3</value>
-            <value description="name">product8</value>
+            <value description="id">c1f81fc3-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="product_name">product8</value>
             <value description="is_combo_product">false</value>
         </row>
         <row>
-            <value description="id">-2</value>
-            <value description="name">product9</value>
+            <value description="id">c9ed7566-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="product_name">product9</value>
             <value description="is_combo_product">false</value>
         </row>
         <row>
-            <value description="id">-1</value>
-            <value description="name">product10</value>
+            <value description="id">cf18c41b-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="product_name">product10</value>
             <value description="is_combo_product">false</value>
         </row>
     </table>

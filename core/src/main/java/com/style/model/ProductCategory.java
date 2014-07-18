@@ -1,91 +1,111 @@
 package com.style.model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.search.annotations.DocumentId;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
-
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.search.annotations.Indexed;
+
 /**
- * Created by Manager on 12/7/14.
+ * This class represents the basic "ProductCategory" object in VSU that allows
+ * for managing product category
+ * 
+ * @auther ganesh
+ * @author mathi
  */
 @Entity
-@Table(name = "product_category")
+@Table(name = "vsu_product_category")
 @Indexed
 @XmlRootElement
 public class ProductCategory extends BaseObject implements Serializable {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Long categoryId;
-	private Long categoryName;
-	private Set<Product> products = new HashSet<Product>();
+    private String id;
+    private String categoryName;
+    private Set<Product> products = new HashSet<Product>();
 
-	public ProductCategory() {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    public String getId() {
+        return id;
+    }
 
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public ProductCategory(Long id, String name) {
+    @Column(name="category_name")
+    public String getCategoryName() {
+        return categoryName;
+    }
 
-	}
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@DocumentId
-	public Long getCategoryId() {
-		return categoryId;
-	}
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "vsu_relation_product_category_product", joinColumns = { @JoinColumn(name = "product_category_id") }, inverseJoinColumns = @JoinColumn(name = "product_id"))
+    public Set<Product> getProducts() {
+        return products;
+    }
 
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
-	}
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
 
-	@Column(name = "categoryName", nullable = false, length = 50, unique = true)
-	@Field
-	public Long getCategoryName() {
+    /**
+     * {@inheritDoc}
+     */
+    public String toString() {
+        ToStringBuilder sb = new ToStringBuilder(this,
+                ToStringStyle.DEFAULT_STYLE).append("categoryName",
+                this.categoryName);
+        return sb.toString();
+    }
 
-		return categoryName;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ProductCategory)) {
+            return false;
+        }
 
-	public void setCategoryName(Long categoryName) {
-		this.categoryName = categoryName;
-	}
+        final ProductCategory productCategory = (ProductCategory) o;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SELECT)
-	@JoinTable(name = "product_category_mapping", joinColumns = { @JoinColumn(name = "categoryId") }, inverseJoinColumns = @JoinColumn(name = "id"))
-	public Set<Product> getProducts() {
-		return products;
-	}
+        return !(id != null ? !id.equals(productCategory.getId())
+                : productCategory.getId() != null);
 
-	public void setProducts(Set<Product> products) {
-		this.products = products;
-	}
+    }
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int hashCode() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public int hashCode() {
+        return (id != null ? id.hashCode() : 0);
+    }
 }
