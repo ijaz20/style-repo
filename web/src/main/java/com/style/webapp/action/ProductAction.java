@@ -34,6 +34,9 @@ public class ProductAction extends BaseAction implements Preparable {
 	    return "success";
 	}
 	
+	public String getProductDetails(){
+		return "success";
+	}
 	public List<Product> getProducts() {
 		return products;
 	}

@@ -82,7 +82,7 @@
         <action name="signup">
             <result>/WEB-INF/pages/signup.jsp</result>
         </action>
-
+		
         <action name="saveSignup" class="signupAction" method="save">
             <result name="cancel" type="redirect">/</result>
             <result name="input">/WEB-INF/pages/signup.jsp</result>
@@ -144,14 +144,29 @@
     </package>
     
     <!-- Actions in this package will be prefixed with /product/ -->
-    <package name="product" extends="default, json-default" namespace="/product">
-        <action name="vstyleu-products" class="com.style.webapp.action.ProductAction" method="getAllProducts">
-            <result name="success">/WEB-INF/pages/product/vstyleu-products.jsp</result>
+    <package name="vstyleu" extends="default, json-default" namespace="/vstyleu">
+        <action name="products" class="com.style.webapp.action.ProductAction" method="getAllProducts">
+            <result name="success">/WEB-INF/pages/vstyleu/products.jsp</result>
         </action>
-        <action name="vstyleu-filter-products" class="com.style.webapp.action.ProductAction" method="getFilterProducts">
+        <action name="filter-products" class="com.style.webapp.action.ProductAction" method="getFilterProducts">
         	<result type="json" />
         </action>
-                
+		<action name="product-details" class="com.style.webapp.action.ProductAction" method="getProductDetails">
+            <result name="success">/WEB-INF/pages/vstyleu/product-details.jsp</result>
+        </action> 
+        <action name="login">
+            <result>/WEB-INF/pages/vstyleu/login.jsp</result>
+        </action>
+        <action name="contact">
+            <result>/WEB-INF/pages/vstyleu/contact.jsp</result>
+        </action>               
     </package>
+    
+    <!-- Actions in this package will be prefixed with /product/ -->
+    <!-- <package name="vstyleu" extends="default, json-default" namespace="vstyleu">
+        <action name="login">
+            <result>/WEB-INF/pages/vstyleu/login.jsp</result>
+        </action>
+    </package> -->
     
 </struts>

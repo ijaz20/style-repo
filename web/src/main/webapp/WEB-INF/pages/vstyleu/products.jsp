@@ -12,9 +12,10 @@
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo text-center">
-                            <img
+                            <a href="/vstyleu/product-details"><img
                                 src='/images/products/<s:property value="productName"/>.jpg'
                                 alt="" />
+                            </a>
                             <h2>$56</h2>
                             <p>
                                 <s:property value="productName" />

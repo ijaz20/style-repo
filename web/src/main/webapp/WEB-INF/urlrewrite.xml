@@ -23,7 +23,7 @@
     <!-- Add rules here for anything that shouldn't be served up by Struts. -->
     <rule>
         <from>/</from>
-        <to type="redirect" last="true">home</to>
+        <to type="redirect" last="true">/vstyleu/products</to>
     </rule>
     <rule>
         <from>/j_security_check</from>
@@ -61,6 +61,10 @@
         <from>/login*</from>
         <to>/login.jsp</to>
     </rule>
+    <!-- <rule>
+        <from>/products</from>
+        <to>/product/vstyleu-products</to>
+    </rule> -->
     <rule>
         <from>/logout*</from>
         <to>/logout.jsp</to>

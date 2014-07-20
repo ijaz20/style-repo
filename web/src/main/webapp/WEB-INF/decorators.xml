@@ -5,13 +5,14 @@
         <pattern>/struts/*</pattern>
         <pattern>/resources/*</pattern>
     </excludes> 
-    <decorator name="default" page="default.jsp">
-        <pattern>/*</pattern>
-    </decorator>
+    <decorator name="admin" page="default.jsp">
+        <pattern>/admin*</pattern>
+    </decorator> 
     <decorator name="style-home" page="vstyleu-home.jsp">
         <pattern>/style-home*</pattern>
     </decorator>
-    <decorator name="product" page="vstyleu-home.jsp">
-        <pattern>/product*</pattern>
+    <decorator name="vstyleu" page="vstyleu-home.jsp">
+        <pattern>/*</pattern>
     </decorator>
+    
 </decorators>
