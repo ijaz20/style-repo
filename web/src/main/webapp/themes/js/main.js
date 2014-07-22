@@ -44,10 +44,10 @@ function loadMoreProducts(scrollTop, moreProductsTop, renderId) {
 										+ '<div class="product-image-wrapper">'
 										+ '<div class="single-products">'
 										+ '<div class="productinfo text-center">'
-										+ '<a href="/vstyleu/product-details?productName='+response.products[i].productName+'&productId='+response.products[i].id+'>'
+										+ '<a href="/vstyleu/product-details?productName='+response.products[i].productName+'&productId='+response.products[i].id+'">'
 										+ '<img src="/images/products/'
 										+ response.products[i].productName
-										+ '.jp" alt="" />'
+										+ '.jpg" alt="" />'
 										+'</a>'
 										+ '<h2>'
 										+ response.products[i].price.currencyCode

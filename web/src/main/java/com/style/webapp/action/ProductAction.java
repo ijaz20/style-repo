@@ -33,17 +33,20 @@ public class ProductAction extends BaseAction implements Preparable {
         // TODO Auto-generated method stub
     }
 
-    public String getAllProducts() {
+    public String loadAllProducts() {
+        System.out.println("-----all products");
         products = productManager.getAll();
         return "success";
     }
 
-    public String getFilterProducts() {
+    public String loadFilteredProducts() {
+        System.out.println("----filter products");
         products = productManager.getAll();
         return "success";
     }
 
-    public String getProductDetails() {
+    public String loadProductDetails() {
+        System.out.println("--- product");
         if (null != getProductId()) {
             product = productManager.get(getProductId());
         }
