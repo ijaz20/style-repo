@@ -174,4 +174,126 @@
             <value description="is_combo_product">false</value>
         </row>
     </table>
+    
+    <table name="vsu_branch">
+        <column>id</column>
+        <column>branch_name</column>
+        <row>
+            <value description="id">a90c1b57-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_name">naturals</value>
+        </row>
+        <row>
+            <value description="id">e7c50484-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_name">femina</value>
+        </row>
+        <row>
+            <value description="id">ef77509e-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_name">naturals</value>
+        </row>
+        <row>
+            <value description="id">f720f892-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_name">femina</value>
+        </row>
+        <row>
+            <value description="id">fd871f45-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_name">femina</value>
+        </row>
+    </table>
+    
+    <table name="vsu_product_price">
+        <column>id</column>
+        <column>branch_id</column>
+        <column>product_id</column>
+        <column>price</column>
+        <column>currency_code</column>
+        <column>currency_symbol</column>
+        <row>
+            <value description="id">b4aa9bfc-10cb-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_id">a90c1b57-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="product_id">c9ed7566-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="price">100</value>
+            <value description="currency_code">Rs.</value>
+            <value description="currency_symbol"></value>
+        </row>
+        <row>
+            <value description="id">179f3a0e-10ce-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_id">e7c50484-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="product_id">9cc33fde-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="price">100</value>
+            <value description="currency_code">Rs.</value>
+            <value description="currency_symbol"></value>
+        </row>
+        <row>
+            <value description="id">0fe4bbd2-10ce-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_id">a90c1b57-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="product_id">a32f36ec-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="price">100</value>
+            <value description="currency_code">Rs.</value>
+            <value description="currency_symbol"></value>
+        </row>
+        <row>
+            <value description="id">070ead10-10ce-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_id">e7c50484-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="product_id">a7e7ce82-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="price">100</value>
+            <value description="currency_code">Rs.</value>
+            <value description="currency_symbol"></value>
+        </row>
+        <row>
+            <value description="id">0099e656-10ce-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_id">a90c1b57-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="product_id">acb9f08e-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="price">100</value>
+            <value description="currency_code">Rs.</value>
+            <value description="currency_symbol"></value>
+        </row>
+        <row>
+            <value description="id">f95cdbc0-10cd-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_id">ef77509e-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="product_id">b2f0678a-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="price">100</value>
+            <value description="currency_code">Rs.</value>
+            <value description="currency_symbol"></value>
+        </row>
+        <row>
+            <value description="id">f25a788e-10cd-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_id">ef77509e-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="product_id">b7b17c7a-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="price">100</value>
+            <value description="currency_code">Rs.</value>
+            <value description="currency_symbol"></value>
+        </row>
+        <row>
+            <value description="id">e9e89cba-10cd-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_id">fd871f45-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="product_id">bc04ad2e-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="price">100</value>
+            <value description="currency_code">Rs.</value>
+            <value description="currency_symbol"></value>
+        </row>
+        <row>
+            <value description="id">e2d65f90-10cd-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_id">fd871f45-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="product_id">c1f81fc3-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="price">100</value>
+            <value description="currency_code">Rs.</value>
+            <value description="currency_symbol"></value>
+        </row>
+        <row>
+            <value description="id">dd421f53-10cd-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_id">f720f892-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="product_id">b2f0678a-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="price">100</value>
+            <value description="currency_code">Rs.</value>
+            <value description="currency_symbol"></value>
+        </row>
+        <row>
+            <value description="id">d7b8c997-10cd-11e4-ad71-e069959ac2ac</value>
+            <value description="branch_id">f720f892-10cc-11e4-ad71-e069959ac2ac</value>
+            <value description="product_id">cf18c41b-0e98-11e4-ad3f-e069959ac2ac</value>
+            <value description="price">100</value>
+            <value description="currency_code">Rs.</value>
+            <value description="currency_symbol"></value>
+        </row>
+    </table>
 </dataset>

@@ -46,7 +46,7 @@ public class Branch extends BaseObject implements Serializable {
     private String id;
     private String branchName;
     private Address address = new Address();;
-    private Brand brand;
+    //private Brand brand;
     private Set<ProductCategory> productCategories = new HashSet<ProductCategory>();
     private Set<ProductPrice> productPrices = new HashSet<ProductPrice>();
     
@@ -78,7 +78,7 @@ public class Branch extends BaseObject implements Serializable {
         this.address = address;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id")
     public Brand getBrand() {
         return brand;
@@ -86,7 +86,7 @@ public class Branch extends BaseObject implements Serializable {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
-    }
+    }*/
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)

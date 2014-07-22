@@ -39,13 +39,15 @@ public class ProductPrice extends BaseObject implements Serializable {
     private Product product;
     private Branch branch;
     private String price;
+    private String currencyCode;
+    private String currencySymbol;
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     public String getId() {
         return id;
-    }
+    } 
 
     public void setId(String id) {
         this.id = id;
@@ -62,7 +64,7 @@ public class ProductPrice extends BaseObject implements Serializable {
         this.product = product;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "branch_id", referencedColumnName = "id", nullable = true)
     @JsonIgnore
     public Branch getBranch() {
@@ -80,6 +82,24 @@ public class ProductPrice extends BaseObject implements Serializable {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    @Column(name = "currency_code", nullable = false)
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
+    }
+
+    @Column(name = "currency_symbol")
+    public String getCurrencySymbol() {
+        return currencySymbol;
+    }
+
+    public void setCurrencySymbol(String currencySymbol) {
+        this.currencySymbol = currencySymbol;
     }
 
     public String toString() {
