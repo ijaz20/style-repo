@@ -12,12 +12,12 @@
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo text-center">
-                            <a href="/vstyleu/product-details"><img
-                                src='/images/products/<s:property value="productName"/>.jpg'
+                            <a href="/vstyleu/product-details?productName=<s:property value="productName" />&id=<s:property value="id" />"><img
+                                src='/images/products/<s:property value="productName"/>.jp'
                                 alt="" />
                             </a>
-                            <h2>$56</h2>
-                            <p>
+                            <h2><s:property value="price.currencyCode" /> <s:property value="price.price" /></h2>
+                            <p class="text-capitalize">
                                 <s:property value="productName" />
                             </p>
                             <a href="#"

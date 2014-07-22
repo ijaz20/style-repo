@@ -9,9 +9,15 @@ import com.style.product.service.ProductManager;
 import com.style.service.impl.GenericManagerImpl;
 
 @Service("productManager")
-public class ProductManagerImpl extends GenericManagerImpl<Product, Long> implements ProductManager {
-
-	private ProductDao productDao;
+public class ProductManagerImpl extends GenericManagerImpl<Product, String> implements ProductManager {
+    
+    private ProductDao productDao;
+    
+    @Autowired
+	public ProductManagerImpl(ProductDao productDao) {
+        super(productDao);
+        this.productDao = productDao;
+    }
 
 	@Autowired
 	public void setProductDao(ProductDao productDao) {

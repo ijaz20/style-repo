@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -44,6 +45,7 @@ public class Product extends BaseObject implements Serializable {
     private boolean isComboProduct;
     private String gender;
     private Set<ProductPrice> productPrices = new HashSet<ProductPrice>();
+    private ProductPrice price = new ProductPrice();
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -92,6 +94,21 @@ public class Product extends BaseObject implements Serializable {
 
     public void setProductPrices(Set<ProductPrice> productPrices) {
         this.productPrices = productPrices;
+    }
+
+    @Transient
+    public ProductPrice getPrice() {
+        if(!getProductPrices().isEmpty()){
+            for(ProductPrice productPrice : getProductPrices()){
+                price = productPrice;
+                break;
+            }
+        }
+        return price;
+    }
+
+    public void setPrice(ProductPrice price) {
+        this.price = price;
     }
 
     /**

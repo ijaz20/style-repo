@@ -7,7 +7,7 @@ import com.style.model.Product;
 import com.style.product.dao.ProductDao;
 
 @Repository("productDao")
-public class ProductDaoHibernate extends GenericDaoHibernate<Product, Long> implements ProductDao {
+public class ProductDaoHibernate extends GenericDaoHibernate<Product, String> implements ProductDao {
 
 	public ProductDaoHibernate() {
 		super(Product.class);

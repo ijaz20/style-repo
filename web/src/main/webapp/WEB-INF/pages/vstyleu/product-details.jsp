@@ -8,12 +8,12 @@
 		<!--product-details-->
 		<div class="col-sm-5">
 			<div class="view-product">
-				<img src="/images/products/1.jpg" alt="" />
-				<h3>ZOOM</h3>
+				<img src="/images/products/<s:property value="productName"/>.jpg" alt="" />
+				<!-- <h3>ZOOM</h3> -->
 			</div>
-			<div id="similar-product" class="carousel slide" data-ride="carousel">
+			<!-- <div id="similar-product" class="carousel slide" data-ride="carousel">
 
-				<!-- Wrapper for slides -->
+				Wrapper for slides
 				<div class="carousel-inner">
 					<div class="item active">
 						<a href=""><img src="/images/products/similar1.jpg"
@@ -36,23 +36,23 @@
 
 				</div>
 
-				<!-- Controls -->
+				Controls
 				<a class="left item-control" href="#similar-product"
 					data-slide="prev"> <i class="fa fa-angle-left"></i>
 				</a> <a class="right item-control" href="#similar-product"
 					data-slide="next"> <i class="fa fa-angle-right"></i>
 				</a>
-			</div>
+			</div> -->
 
 		</div>
 		<div class="col-sm-7">
 			<div class="product-information">
 				<!--/product-information-->
 				<img src="/images/products/new.jpg" class="newarrival" alt="" />
-				<h2>Anne Klein Sleeveless Colorblock Scuba</h2>
+				<h2><s:property value="productName" /></h2>
 				<p>Web ID: 1089772</p>
 				<img src="/images/products/rating.png" alt="" /> <span>
-					<span>US $59</span> <label>Quantity:</label> <input type="text"
+					<span><s:property value="currencyCode" /> <s:property value="price" /></span> <label>Quantity:</label> <input type="text"
 					value="3" />
 					<button type="button" class="btn btn-fefault cart">
 						<i class="fa fa-shopping-cart"></i> Add to cart
