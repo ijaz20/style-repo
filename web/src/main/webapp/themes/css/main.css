@@ -772,13 +772,13 @@ h2.title:before{
   padding-top: 15px;
 }
 
-
+/* mathi changed the padding from 25 to 10 for reduce padding between checkbox and name in filters*/
 .brands-name .nav-stacked li a {
   background-color: #FFFFFF;
   color: #696763;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
-  padding: 5px 25px;
+  padding: 5px 10px;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -833,6 +833,15 @@ h2.title:before{
 
 .padding-right {
   padding-right: 0;
+}
+
+.padding-left-10 {
+  padding-left: 10;
+}
+
+/* added by mathi*/
+.margin-left{
+    margin-left:0 !important;	
 }
 
 .features_items{

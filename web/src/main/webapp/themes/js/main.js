@@ -32,29 +32,29 @@ function loadMoreProducts(scrollTop, moreProductsTop, renderId) {
 					},
 					dataType : "json",
 					success : function(response) {
-						if (response.products != null
-								&& response.products != '') {
+						if (response != null
+								&& response != '') {
 							var productsHtml = "";
-							for ( var i in response.products) {
+							for ( var i in response) {
 								// alert(response.products[i].name);
 								productsHtml = productsHtml
 										+ '<div class="col-sm-4" id="'
-										+ response.products[i].id
+										+ response[i].id
 										+ '">'
 										+ '<div class="product-image-wrapper">'
 										+ '<div class="single-products">'
 										+ '<div class="productinfo text-center">'
-										+ '<a href="/vstyleu/product-details?productName='+response.products[i].productName+'&productId='+response.products[i].id+'">'
+										+ '<a href="/vstyleu/product-details?productName='+response[i].productName+'&productId='+response[i].id+'">'
 										+ '<img src="/images/products/'
-										+ response.products[i].productName
-										+ '.jpg" alt="" />'
+										+ response[i].productName
+										+ '.jp" alt="" />'
 										+'</a>'
 										+ '<h2>'
-										+ response.products[i].price.currencyCode
-										+ '' + response.products[i].price.price
+										+ response[i].price.currencyCode
+										+ '' + response[i].price.price
 										+'</h2>'
 										+ '<p>'
-										+ response.products[i].productName
+										+ response[i].productName
 										+ '</p>'
 										+ '<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>'
 										+ '</div>'
@@ -69,10 +69,94 @@ function loadMoreProducts(scrollTop, moreProductsTop, renderId) {
 							$("#" + renderId).append(productsHtml);
 						} else {
 							// need to add no product found
+							$("#" + renderId).append("No Results Found");
 						}
 					}
 				});
 	}
+}
+
+$("#category-filters a").click(function(e){
+    var href = $(this).attr("href");//get the href so we can navigate later
+    if($(this).find("input:checkbox").is(':checked')){
+    	$(this).find("input:checkbox").prop('checked', false);
+    } else {
+    	$(this).find("input:checkbox").prop('checked', true);
+    }
+    filterProducts("features_products");
+});
+
+$("#brand-filters a").click(function(e){
+    var href = $(this).attr("href");//get the href so we can navigate later
+    if($(this).find("input:checkbox").is(':checked')){
+    	$(this).find("input:checkbox").prop('checked', false);
+    } else {
+    	$(this).find("input:checkbox").prop('checked', true);
+    }
+    filterProducts("features_products");
+});
+
+function filterProducts(renderId){
+	var categories = [];
+	var brands = [];
+    $('#category-filters input:checked').each(function() {
+    	categories.push($(this).val());
+    });
+    $('#brand-filters input:checked').each(function() {
+    	brands.push($(this).val());
+    });
+    
+    $
+	.ajax({
+		url : "/vstyleu/filter-products",
+		type : "POST",
+		data : {
+			categories:categories,
+			brands:brands
+		},
+		dataType : "json",
+		success : function(response) {
+			if (response != null
+					&& response != '') {
+				var productsHtml = "";
+				for ( var i in response) {
+					// alert(response.products[i].name);
+					productsHtml = productsHtml
+							+ '<div class="col-sm-4" id="'
+							+ response[i].id
+							+ '">'
+							+ '<div class="product-image-wrapper">'
+							+ '<div class="single-products">'
+							+ '<div class="productinfo text-center">'
+							+ '<a href="/vstyleu/product-details?productName='+response[i].productName+'&productId='+response[i].id+'">'
+							+ '<img src="/images/products/'
+							+ response[i].productName
+							+ '.jp" alt="" />'
+							+'</a>'
+							+ '<h2>'
+							+ response[i].price.currencyCode
+							+ '' + response[i].price.price
+							+'</h2>'
+							+ '<p class="text-capitalize">'
+							+ response[i].productName
+							+ '</p>'
+							+ '<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>'
+							+ '</div>'
+							+ '</div>'
+							+ '<div class="choose">'
+							+ '<ul class="nav nav-pills nav-justified">'
+							+ '<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>'
+							+ '<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>'
+							+ '</ul>' + '</div>' + '</div>'
+							+ '</div>'
+				}
+				$("#" + renderId).html(productsHtml);
+			} else {
+				// need to add no product found
+				$("#" + renderId).html("No Results Found");
+			}
+		}
+	});
 }
 
 /*

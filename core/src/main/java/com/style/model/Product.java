@@ -10,6 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -18,6 +21,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.struts2.json.annotations.JSON;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
@@ -46,6 +51,7 @@ public class Product extends BaseObject implements Serializable {
     private String gender;
     private Set<ProductPrice> productPrices = new HashSet<ProductPrice>();
     private ProductPrice price = new ProductPrice();
+    private Set<ProductCategory> categories = new HashSet<ProductCategory>(); 
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -77,7 +83,7 @@ public class Product extends BaseObject implements Serializable {
     }
 
     @Column(name="gender")
-    public String isGender() {
+    public String getGender() {
         return gender;
     }
 
@@ -111,7 +117,19 @@ public class Product extends BaseObject implements Serializable {
         this.price = price;
     }
 
-    /**
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JSON(serialize=false)
+    @JoinTable(name = "vsu_relation_product_category_product", joinColumns = { @JoinColumn(name = "product_id") }, inverseJoinColumns = @JoinColumn(name = "product_category_id"))
+    public Set<ProductCategory> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<ProductCategory> categories) {
+		this.categories = categories;
+	}
+
+	/**
      * {@inheritDoc}
      */
     public String toString() {

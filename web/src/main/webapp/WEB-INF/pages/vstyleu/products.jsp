@@ -13,7 +13,7 @@
                     <div class="single-products">
                         <div class="productinfo text-center">
                             <a href="/vstyleu/product-details?productName=<s:property value="productName" />&productId=<s:property value="id" />"><img
-                                src='/images/products/<s:property value="productName"/>.jpg'
+                                src='/images/products/<s:property value="productName"/>.jp'
                                 alt="" />
                             </a>
                             <h2><s:property value="price.currencyCode" /> <s:property value="price.price" /></h2>

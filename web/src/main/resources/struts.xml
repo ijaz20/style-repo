@@ -145,13 +145,17 @@
     
     <!-- Actions in this package will be prefixed with /product/ -->
     <package name="vstyleu" extends="default, json-default" namespace="/vstyleu">
-        <action name="products" class="com.style.webapp.action.ProductAction" method="loadAllProducts">
+        <action name="products" class="com.style.webapp.action.ProductAction" method="getAllProducts">
             <result name="success">/WEB-INF/pages/vstyleu/products.jsp</result>
         </action>
-        <action name="filter-products" class="com.style.webapp.action.ProductAction" method="loadFilteredProducts">
-        	<result type="json" />
+        <action name="filter-products" class="com.style.webapp.action.ProductAction" method="getFilteredProducts">
+        	<result type="json" >
+                <param name="root">
+                    products
+                </param>
+            </result>
         </action>
-		<action name="product-details" class="com.style.webapp.action.ProductAction" method="loadProductDetails">
+		<action name="product-details" class="com.style.webapp.action.ProductAction" method="getProductDetails">
             <result name="success">/WEB-INF/pages/vstyleu/product-details.jsp</result>
         </action> 
         <action name="login">

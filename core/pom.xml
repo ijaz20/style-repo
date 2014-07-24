@@ -329,6 +329,13 @@
 		    <artifactId>twilio-java-sdk</artifactId>
 		    <version>3.4.5</version>
 		</dependency>
+        <!-- Struts 2 JSON Plugins added by mathi-->
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-json-plugin</artifactId>
+            <version>${struts.version}</version>
+        </dependency>
+                
     </dependencies>
 
     <profiles>

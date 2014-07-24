@@ -22,6 +22,8 @@ public class ProductAction extends BaseAction implements Preparable {
     private String priceRange;
     private String minimumPrice;
     private String maximumPrice;
+    private List<String> categories;
+    private List<String> brands;
 
     @Autowired
     public void setProductManager(ProductManager productManager) {
@@ -33,19 +35,22 @@ public class ProductAction extends BaseAction implements Preparable {
         // TODO Auto-generated method stub
     }
 
-    public String loadAllProducts() {
+    public String getAllProducts() {
         System.out.println("-----all products");
         products = productManager.getAll();
         return "success";
     }
 
-    public String loadFilteredProducts() {
-        System.out.println("----filter products");
-        products = productManager.getAll();
+    public String getFilteredProducts() {
+        System.out.println("------"+getRequest().getParameterValues("brands[]"));
+        System.out.println("------"+getRequest().getParameterValues("categories[]"));
+        System.out.println("----filter products"+getBrands()+"------"+getCategories());
+        products = productManager.getAllProducts(0, 11, getRequest().getParameterValues("brands[]"), getRequest().getParameterValues("categories[]"));
+        
         return "success";
     }
 
-    public String loadProductDetails() {
+    public String getProductDetails() {
         System.out.println("--- product");
         if (null != getProductId()) {
             product = productManager.get(getProductId());
@@ -131,6 +136,22 @@ public class ProductAction extends BaseAction implements Preparable {
 
     public void setMaximumPrice(String maximumPrice) {
         this.maximumPrice = maximumPrice;
+    }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
+
+    public List<String> getBrands() {
+        return brands;
+    }
+
+    public void setBrands(List<String> brands) {
+        this.brands = brands;
     }
 
 }

@@ -80,6 +80,22 @@ public final class Constants {
      * when adding/editing a user.
      */
     public static final String AVAILABLE_ROLES = "availableRoles";
+    
+    /**
+     * The name of the available categories list, a request-scoped attributes
+     * 
+     */
+    public static final String AVAILABLE_CATEGORIES = "availableCategories";
+    
+    /**
+     * The name of the available brands list, a request-scoped attributes
+     */
+    public static final String AVAILABLE_BRANDS = "availableBrands";
+    
+    /**
+     * The name of the available partners list, a request-scoped attributes
+     */
+    public static final String AVAILABLE_PARTNERS = "availablePartners";
 
     /**
      * The name of the CSS Theme setting.

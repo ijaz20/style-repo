@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.struts2.json.annotations.JSON;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Indexed;
 
@@ -26,9 +28,9 @@ import org.hibernate.search.annotations.Indexed;
  * @author mathi
  */
 @Entity
-@Table(name = "vsu_brand")
+@Table(name = "vsu_partner")
 @Indexed
-public class Brand extends BaseObject implements Serializable {
+public class Partner extends BaseObject implements Serializable {
 
     /**
      * 
@@ -36,7 +38,7 @@ public class Brand extends BaseObject implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String id;
-    private String brandName;
+    private String partnerName;
     private Set<Branch> branches = new HashSet<Branch>();
 
     @Id
@@ -50,16 +52,18 @@ public class Brand extends BaseObject implements Serializable {
         this.id = id;
     }
 
-    @Column(name="brand_name")
-    public String getBrandName() {
-        return brandName;
+    @Column(name="partner_name")
+    public String getPartnerName() {
+        return partnerName;
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
+    public void setPartnerName(String partnerName) {
+        this.partnerName = partnerName;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "brand", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JSON(serialize=false)
     public Set<Branch> getBranches() {
         return branches;
     }
@@ -74,7 +78,7 @@ public class Brand extends BaseObject implements Serializable {
     public String toString() {
         ToStringBuilder sb = new ToStringBuilder(this,
                 ToStringStyle.DEFAULT_STYLE)
-                .append("brandName", this.brandName);
+                .append("brandName", this.partnerName);
         return sb.toString();
     }
 
@@ -85,11 +89,11 @@ public class Brand extends BaseObject implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Brand)) {
+        if (!(o instanceof Partner)) {
             return false;
         }
 
-        final Brand brand = (Brand) o;
+        final Partner brand = (Partner) o;
 
         return !(id != null ? !id.equals(brand.getId()) : brand.getId() != null);
 

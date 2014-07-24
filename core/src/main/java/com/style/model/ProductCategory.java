@@ -17,6 +17,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.struts2.json.annotations.JSON;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
@@ -42,7 +44,7 @@ public class ProductCategory extends BaseObject implements Serializable {
 
     private String id;
     private String categoryName;
-    private Set<Product> products = new HashSet<Product>();
+    private Set<Branch> branches = new HashSet<Branch>(); 
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -65,16 +67,18 @@ public class ProductCategory extends BaseObject implements Serializable {
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "vsu_relation_product_category_product", joinColumns = { @JoinColumn(name = "product_category_id") }, inverseJoinColumns = @JoinColumn(name = "product_id"))
-    public Set<Product> getProducts() {
-        return products;
-    }
+    @JsonIgnore
+    @Fetch(value = FetchMode.SELECT)
+    @JoinTable(name = "vsu_relation_branch_product_category", joinColumns = { @JoinColumn(name = "product_category_id") }, inverseJoinColumns = @JoinColumn(name = "branch_id"))
+    public Set<Branch> getBranches() {
+		return branches;
+	}
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
+	public void setBranches(Set<Branch> branches) {
+		this.branches = branches;
+	}
 
-    /**
+	/**
      * {@inheritDoc}
      */
     public String toString() {
