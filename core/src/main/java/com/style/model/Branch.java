@@ -20,6 +20,8 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.struts2.json.annotations.JSON;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
@@ -46,8 +48,7 @@ public class Branch extends BaseObject implements Serializable {
     private String id;
     private String branchName;
     private Address address = new Address();;
-    //private Brand brand;
-    private Set<ProductCategory> productCategories = new HashSet<ProductCategory>();
+    private Partner partner;
     private Set<ProductPrice> productPrices = new HashSet<ProductPrice>();
     
     @Id
@@ -78,30 +79,22 @@ public class Branch extends BaseObject implements Serializable {
         this.address = address;
     }
 
-    /*@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "brand_id")
-    public Brand getBrand() {
-        return brand;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "partner_id")
+    @JsonIgnore
+    @JSON(serialize=false)
+    public Partner getPartner() {
+        return partner;
     }
 
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }*/
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)
-    @JoinTable(name = "vsu_relation_branch_product_category", joinColumns = { @JoinColumn(name = "branch_id") }, inverseJoinColumns = @JoinColumn(name = "product_category_id"))
-    public Set<ProductCategory> getProductCategories() {
-        return productCategories;
+    public void setPartner(Partner partner) {
+        this.partner = partner;
     }
 
-    public void setProductCategories(Set<ProductCategory> productCategories) {
-        this.productCategories = productCategories;
-    }
-
-    @OneToMany(cascade = CascadeType.ALL, targetEntity=ProductPrice.class, mappedBy="branch", fetch=FetchType.EAGER, orphanRemoval = true)
-    @OrderBy("id")
-    @Fetch(value = FetchMode.SELECT)
+    @OneToMany(cascade = CascadeType.ALL, targetEntity=ProductPrice.class, mappedBy="branch", fetch=FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
+    @JSON(serialize=false)
+    //@Fetch(value = FetchMode.SELECT)
     public Set<ProductPrice> getProductPrices() {
         return productPrices;
     }

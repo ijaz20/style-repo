@@ -6,9 +6,13 @@
 
 <hibernate-configuration>
     <session-factory>
+    	<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">true</property>
+		<!-- Echo all executed SQL in format to Stdout -->
+		<property name="format_sql">true</property>
         <mapping class="com.style.model.User"/>
         <mapping class="com.style.model.Role"/>
-        <!-- <mapping class="com.style.model.Brand"/> -->
+        <mapping class="com.style.model.Partner"/>
         <mapping class="com.style.model.Branch"/>
         <mapping class="com.style.model.ProductCategory"/>
         <mapping class="com.style.model.Product"/>

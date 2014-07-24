@@ -4,47 +4,42 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.struts2.json.annotations.JSON;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Indexed;
 
 /**
- * This class represents the basic "ProductCategory" object in VSU that allows
- * for managing product category
+ * This class represents the basic "Brand" object in VSU that allows for
+ * managing partners
  * 
  * @auther ganesh
  * @author mathi
  */
 @Entity
-@Table(name = "vsu_product_category")
+@Table(name = "vsu_partner")
 @Indexed
-@XmlRootElement
-public class ProductCategory extends BaseObject implements Serializable {
+public class Partner extends BaseObject implements Serializable {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 1L;
 
     private String id;
-    private String categoryName;
-    private Set<Branch> branches = new HashSet<Branch>(); 
+    private String partnerName;
+    private Set<Branch> branches = new HashSet<Branch>();
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -57,34 +52,33 @@ public class ProductCategory extends BaseObject implements Serializable {
         this.id = id;
     }
 
-    @Column(name="category_name")
-    public String getCategoryName() {
-        return categoryName;
+    @Column(name="partner_name")
+    public String getPartnerName() {
+        return partnerName;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setPartnerName(String partnerName) {
+        this.partnerName = partnerName;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL)
     @JsonIgnore
-    @Fetch(value = FetchMode.SELECT)
-    @JoinTable(name = "vsu_relation_branch_product_category", joinColumns = { @JoinColumn(name = "product_category_id") }, inverseJoinColumns = @JoinColumn(name = "branch_id"))
+    @JSON(serialize=false)
     public Set<Branch> getBranches() {
-		return branches;
-	}
+        return branches;
+    }
 
-	public void setBranches(Set<Branch> branches) {
-		this.branches = branches;
-	}
+    public void setBranches(Set<Branch> branches) {
+        this.branches = branches;
+    }
 
-	/**
+    /**
      * {@inheritDoc}
      */
     public String toString() {
         ToStringBuilder sb = new ToStringBuilder(this,
-                ToStringStyle.DEFAULT_STYLE).append("categoryName",
-                this.categoryName);
+                ToStringStyle.DEFAULT_STYLE)
+                .append("brandName", this.partnerName);
         return sb.toString();
     }
 
@@ -95,14 +89,13 @@ public class ProductCategory extends BaseObject implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ProductCategory)) {
+        if (!(o instanceof Partner)) {
             return false;
         }
 
-        final ProductCategory productCategory = (ProductCategory) o;
+        final Partner brand = (Partner) o;
 
-        return !(id != null ? !id.equals(productCategory.getId())
-                : productCategory.getId() != null);
+        return !(id != null ? !id.equals(brand.getId()) : brand.getId() != null);
 
     }
 
