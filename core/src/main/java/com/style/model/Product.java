@@ -74,11 +74,11 @@ public class Product extends BaseObject implements Serializable {
     }
 
     @Column(name="is_combo_product")
-    public boolean isComboProduct() {
+    public boolean getIsComboProduct() {
         return isComboProduct;
     }
 
-    public void setComboProduct(boolean isComboProduct) {
+    public void setIsComboProduct(boolean isComboProduct) {
         this.isComboProduct = isComboProduct;
     }
 
@@ -104,7 +104,9 @@ public class Product extends BaseObject implements Serializable {
 
     @Transient
     public ProductPrice getPrice() {
+    	System.out.println("price-------");
         if(!getProductPrices().isEmpty()){
+        	System.out.println("price not null-------");
             for(ProductPrice productPrice : getProductPrices()){
                 price = productPrice;
                 break;

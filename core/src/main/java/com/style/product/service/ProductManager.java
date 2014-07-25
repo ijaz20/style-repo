@@ -6,21 +6,21 @@ import com.style.model.Product;
 import com.style.model.ProductCategory;
 import com.style.service.GenericManager;
 
-public interface ProductManager extends GenericManager<Product, String>{
+public interface ProductManager extends GenericManager<Product, String> {
 
-    /**
-     * get all products
-     * 
-     * @param start
-     * @param end
-     * @return
-     */
-    List<Product> getAllProducts(int start, int end, String[] brands, String[] categories);
-    
-    /**
-     * get all product categories
-     * 
-     * @return
-     */
-    List<ProductCategory> getAllProductCategoriess();
+	/**
+	 * get all products
+	 * 
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	List<Product> getAllProducts(int start, String[] brands, String[] categories);
+
+	/**
+	 * get all product categories
+	 * 
+	 * @return
+	 */
+	List<ProductCategory> getAllProductCategoriess();
 }

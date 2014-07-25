@@ -83,7 +83,7 @@ $("#category-filters a").click(function(e){
     } else {
     	$(this).find("input:checkbox").prop('checked', true);
     }
-    filterProducts("features_products");
+    filterProducts(true, "features_products", 0);
 });
 
 $("#brand-filters a").click(function(e){
@@ -93,10 +93,10 @@ $("#brand-filters a").click(function(e){
     } else {
     	$(this).find("input:checkbox").prop('checked', true);
     }
-    filterProducts("features_products");
+    filterProducts(true, "features_products", 0);
 });
 
-function filterProducts(renderId){
+function filterProducts(isFilter, renderId, productCount){
 	var categories = [];
 	var brands = [];
     $('#category-filters input:checked').each(function() {
@@ -111,6 +111,7 @@ function filterProducts(renderId){
 		url : "/vstyleu/filter-products",
 		type : "POST",
 		data : {
+			productCount:productCount,
 			categories:categories,
 			brands:brands
 		},
@@ -150,10 +151,18 @@ function filterProducts(renderId){
 							+ '</ul>' + '</div>' + '</div>'
 							+ '</div>'
 				}
-				$("#" + renderId).html(productsHtml);
+				if(isFilter){
+					$("#" + renderId).html(productsHtml);
+				} else {
+					$("#" + renderId).append(productsHtml);
+				}
 			} else {
 				// need to add no product found
-				$("#" + renderId).html("No Results Found");
+				if(isFilter){
+					$("#" + renderId).html("No Results Found");
+				} else {
+					//$("#" + renderId).append(productsHtml);
+				}
 			}
 		}
 	});
@@ -174,7 +183,9 @@ $(window).scroll(function() {
 		var scrollTop = $(this).scrollTop();
 		var moreProductsTop = $("#more_products").offset().top;
 		// scrollSideMenu();
-		loadMoreProducts(scrollTop, moreProductsTop, "features_products");
+		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+			filterProducts(false, "features_products", $('#features_products').children().length);
+		}
 	}
 	// Updates scroll position to find scroll down/ up
 
