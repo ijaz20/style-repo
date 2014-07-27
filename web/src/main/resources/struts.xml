@@ -106,11 +106,11 @@
             <result name="success" type="redirectAction">admin/users</result>
         </action>
 
-        <action name="selectFile" class="com.style.webapp.action.FileUploadAction">
+        <action name="selectFile" class="fileUploadAction">
             <result name="success">/WEB-INF/pages/uploadForm.jsp</result>
         </action>
 
-        <action name="uploadFile" class="com.style.webapp.action.FileUploadAction" method="upload">
+        <action name="uploadFile" class="fileUploadAction" method="upload">
             <interceptor-ref name="fileUploadStack"/>
             <result name="input">/WEB-INF/pages/uploadForm.jsp</result>
             <result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
@@ -131,7 +131,7 @@
             <result name="success">/WEB-INF/pages/admin/activeUsers.jsp</result>
         </action>
 
-        <action name="reload" class="com.style.webapp.action.ReloadAction">
+        <action name="reload" class="reloadAction">
             <interceptor-ref name="adminCheck"/>
             <!-- this should never be used, it's here to prevent warnings -->
             <result name="success">/WEB-INF/pages/home.jsp</result>
@@ -145,17 +145,17 @@
     
     <!-- Actions in this package will be prefixed with /product/ -->
     <package name="vstyleu" extends="default, json-default" namespace="/vstyleu">
-        <action name="products" class="com.style.webapp.action.ProductAction" method="getAllProducts">
+        <action name="products" class="productAction" method="getAllProducts">
             <result name="success">/WEB-INF/pages/vstyleu/products.jsp</result>
         </action>
-        <action name="filter-products" class="com.style.webapp.action.ProductAction" method="getFilteredProducts">
+        <action name="filter-products" class="productAction" method="getFilteredProducts">
         	<result type="json" >
                 <param name="root">
                     products
                 </param>
             </result>
         </action>
-		<action name="product-details" class="com.style.webapp.action.ProductAction" method="getProductDetails">
+		<action name="product-details" class="productAction" method="getProductDetails">
             <result name="success">/WEB-INF/pages/vstyleu/product-details.jsp</result>
         </action> 
         <action name="login">
