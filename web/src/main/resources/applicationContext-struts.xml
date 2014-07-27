@@ -9,6 +9,9 @@
     
     <bean id="accessDeniedInterceptor" class="com.style.webapp.interceptor.AccessDeniedInterceptor" />
 
+    <bean id="baseAction" class="com.style.webapp.action.BaseAction" scope="prototype">
+    </bean>
+
     <bean id="signupAction" class="com.style.webapp.action.SignupAction" scope="prototype">
         <property name="userManager" ref="userManager"/>
         <property name="roleManager" ref="roleManager"/>
@@ -30,4 +33,13 @@
         <property name="mailEngine" ref="mailEngine"/>
         <property name="mailMessage" ref="mailMessage"/>
     </bean>
+
+    <bean id="productAction" class="com.style.webapp.action.ProductAction" scope="prototype"
+          parent="baseAction"/>
+
+    <bean id="reloadAction" class="com.style.webapp.action.ReloadAction" scope="prototype"
+          parent="baseAction"/>
+
+    <bean id="fileUploadAction" class="com.style.webapp.action.FileUploadAction" scope="prototype"
+          parent="baseAction"/>
 </beans>
