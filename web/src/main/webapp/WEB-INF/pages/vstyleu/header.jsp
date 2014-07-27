@@ -80,7 +80,7 @@
 		<!--header-bottom-->
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-6 pull-right">
+				<div class="col-sm-3 pull-right">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Search"
 							name="q">
