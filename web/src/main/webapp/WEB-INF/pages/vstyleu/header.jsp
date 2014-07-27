@@ -39,8 +39,7 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="logo pull-left">
-						<a href="/"><img alt=""
-							src="/themes/images/home/logo.png"></a>
+						<a href="/"><img alt="vstyleu" src="/themes/images/home/vstyleu.png"></a>
 					</div>
 				</div>
 				<div class="col-sm-8">
