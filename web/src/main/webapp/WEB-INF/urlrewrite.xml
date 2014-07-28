@@ -30,6 +30,10 @@
         <to>/j_security_check</to>
     </rule>
     <rule>
+    	<from>/spring_security_login</from>
+    	<to>/vstyleu/login</to>
+    </rule>
+    <rule>
         <from>/dwr/**</from>
         <to>/dwr/$1</to>
     </rule>

@@ -104,9 +104,7 @@ public class Product extends BaseObject implements Serializable {
 
     @Transient
     public ProductPrice getPrice() {
-    	System.out.println("price-------");
         if(!getProductPrices().isEmpty()){
-        	System.out.println("price not null-------");
             for(ProductPrice productPrice : getProductPrices()){
                 price = productPrice;
                 break;

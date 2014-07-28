@@ -2,8 +2,10 @@ package com.style.service;
 
 import java.util.List;
 
+import com.style.model.Branch;
 import com.style.model.LabelValue;
 import com.style.model.Partner;
+import com.style.model.ProductCategory;
 
 /**
  * Business Service Interface to talk to persistence layer and retrieve values
@@ -24,12 +26,40 @@ public interface LookupManager {
 	 * 
 	 * @return
 	 */
-	List<LabelValue> getProductCategories();
+	List<LabelValue> getAllProductCategories();
 
 	/**
 	 * Return all the partners
 	 * 
 	 * @return
 	 */
-	List<LabelValue> getPartners();
+	List<LabelValue> getAllPartners();
+	
+	/**
+	 * Returns all the branches
+	 * 
+	 * @return
+	 */
+	List<LabelValue> getAllBranches();
+	
+	/**
+	 * Return all the product categories
+	 * 
+	 * @return
+	 */
+	List<ProductCategory> getProductCategories();
+
+	/**
+	 * Return all the partners
+	 * 
+	 * @return
+	 */
+	List<Partner> getPartners();
+	
+	/**
+	 * Returns all the branches
+	 * 
+	 * @return
+	 */
+	List<Branch> getBranches();
 }

@@ -7,7 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Preparable;
+import com.style.model.Branch;
+import com.style.model.Partner;
 import com.style.model.Product;
+import com.style.model.ProductCategory;
 import com.style.product.service.ProductManager;
 
 public class ProductAction extends BaseAction implements Preparable {
@@ -27,6 +30,9 @@ public class ProductAction extends BaseAction implements Preparable {
 	private List<String> categories;
 	private List<String> brands;
 	private String productCount;
+	private Partner partner;
+	private Branch branch;
+	private ProductCategory category;
 
 	@Autowired
 	public void setProductManager(ProductManager productManager) {
@@ -64,7 +70,52 @@ public class ProductAction extends BaseAction implements Preparable {
 		}
 		return "success";
 	}
-
+	
+	public String showPartner(){
+		return "success";
+	}
+	
+	public String showBranch(){
+		return "success";
+	}
+	
+	public String showCategory(){
+		return "success";
+	}
+	
+	public String showProduct(){
+		return "success";
+	}
+	
+	public String savePartner(){
+		log.info("partner saving");
+		partner = productManager.savePartner(getPartner());
+		log.info("partner saved");
+		return "success";
+	}
+	
+	public String saveBranch(){
+		log.info("branch saving");
+		branch = productManager.saveBranch(branch);
+		log.info("branch saved");
+		return "success";
+	}
+	
+	public String saveCategory(){
+		System.out.println("category saving");
+		String[] branchIds = getRequest().getParameterValues("branches");
+		if(branchIds != null && branchIds.length > 0){
+			category.setBranches(new HashSet<Branch>(productManager.getBranches(branchIds)));
+			category = productManager.saveCategory(getCategory());
+		}
+		System.out.println("category saved");
+		return "success";
+	}
+	
+	public String saveProduct(){
+		return "success";
+	}
+	
 	public List<Product> getProducts() {
 		return products;
 	}
@@ -167,6 +218,30 @@ public class ProductAction extends BaseAction implements Preparable {
 
 	public void setProductCount(String productCount) {
 		this.productCount = productCount;
+	}
+
+	public Partner getPartner() {
+		return partner;
+	}
+
+	public void setPartner(Partner partner) {
+		this.partner = partner;
+	}
+
+	public Branch getBranch() {
+		return branch;
+	}
+
+	public void setBranch(Branch branch) {
+		this.branch = branch;
+	}
+
+	public ProductCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(ProductCategory category) {
+		this.category = category;
 	}
 
 }

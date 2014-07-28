@@ -79,10 +79,8 @@ public class Branch extends BaseObject implements Serializable {
         this.address = address;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "partner_id")
-    @JsonIgnore
-    @JSON(serialize=false)
     public Partner getPartner() {
         return partner;
     }
