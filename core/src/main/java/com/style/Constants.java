@@ -88,15 +88,31 @@ public final class Constants {
     public static final String AVAILABLE_CATEGORIES = "availableCategories";
     
     /**
-     * The name of the available brands list, a request-scoped attributes
+     * The name of the available branches list, a request-scoped attributes
      */
-    public static final String AVAILABLE_BRANDS = "availableBrands";
+    public static final String AVAILABLE_BRANCHES = "availableBranches";
     
     /**
      * The name of the available partners list, a request-scoped attributes
      */
     public static final String AVAILABLE_PARTNERS = "availablePartners";
 
+    /**
+     * The name of the available categories list, a request-scoped attributes
+     * 
+     */
+    public static final String CATEGORIES = "categories";
+    
+    /**
+     * The name of the available branches list, a request-scoped attributes
+     */
+    public static final String BRANCHES = "branches";
+    
+    /**
+     * The name of the available partners list, a request-scoped attributes
+     */
+    public static final String PARTNERS = "partners";
+    
     /**
      * The name of the CSS Theme setting.
      * @deprecated No longer used to set themes.

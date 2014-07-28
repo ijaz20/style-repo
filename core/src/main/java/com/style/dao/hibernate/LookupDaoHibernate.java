@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.style.dao.LookupDao;
+import com.style.model.Branch;
 import com.style.model.Partner;
 import com.style.model.ProductCategory;
 import com.style.model.Role;
@@ -49,7 +50,7 @@ public class LookupDaoHibernate implements LookupDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<ProductCategory> getProductCategories() {
-		log.debug("Retrieving all role names...");
+		log.debug("Retrieving all category names...");
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(ProductCategory.class).list();
 	}
@@ -59,8 +60,19 @@ public class LookupDaoHibernate implements LookupDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Partner> getPartners() {
-		log.debug("Retrieving all partners names...");
+		log.debug("Retrieving all partner names...");
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(Partner.class).list();
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Branch> getBranches() {
+		log.debug("Retrieving all branch names...");
+		Session session = sessionFactory.getCurrentSession();
+		return session.createCriteria(Branch.class).list();
+	}
+	
 }

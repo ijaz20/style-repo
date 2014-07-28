@@ -10,9 +10,12 @@
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
-						<form action="#">
-							<input type="text" placeholder="Name" />
-							<input type="email" placeholder="Email Address" />
+						<!-- <form action="#"> -->
+						<form method="post" id="loginForm" action="<c:url value='/j_security_check'/>"
+    onsubmit="saveUsername(this);return validateForm(this)" class="form-signin" autocomplete="off">
+							<input type="text" placeholder="Name" name="j_username"/>
+							<!-- <input type="email" placeholder="Email Address"/> -->
+							<input type="text" placeholder="password" name="j_password"/>
 							<span>
 								<input type="checkbox" class="checkbox"> 
 								Keep me signed in

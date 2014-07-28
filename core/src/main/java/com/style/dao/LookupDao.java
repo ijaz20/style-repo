@@ -2,6 +2,7 @@ package com.style.dao;
 
 import java.util.List;
 
+import com.style.model.Branch;
 import com.style.model.Partner;
 import com.style.model.ProductCategory;
 import com.style.model.Role;
@@ -36,4 +37,11 @@ public interface LookupDao {
 	 * @return
 	 */
 	List<Partner> getPartners();
+	
+	/**
+	 * Returns all the branches
+	 * 
+	 * @return
+	 */
+	List<Branch> getBranches();
 }
