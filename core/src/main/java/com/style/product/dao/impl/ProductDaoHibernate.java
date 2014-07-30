@@ -8,12 +8,19 @@ import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 
 import com.style.dao.hibernate.GenericDaoHibernate;
+import com.style.exception.AppException;
 import com.style.model.Branch;
 import com.style.model.Partner;
 import com.style.model.Product;
 import com.style.model.ProductCategory;
 import com.style.product.dao.ProductDao;
 
+/**
+ * This class interacts with Hibernate session to save/delete and retrieve
+ * Product objects.
+ * 
+ * @author mathi
+ */
 @Repository("productDao")
 public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 		implements ProductDao {
@@ -24,14 +31,19 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Branch> getBranches(String[] branchIds){
-		List<Branch> branchList = (List<Branch>) getSession()
-				.createQuery(
-						"select branch from com.style.model.Branch as branch where branch.id in (:branchIds)")
-				.setParameterList("branchIds", branchIds).list();
-		return branchList;
+	public List<Branch> getBranches(String[] branchIds) {
+		try {
+			List<Branch> branchList = (List<Branch>) getSession()
+					.createQuery(
+							"select branch from com.style.model.Branch as branch where branch.id in (:branchIds)")
+					.setParameterList("branchIds", branchIds).list();
+			return branchList;
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -81,7 +93,7 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 			} else if (categories != null) {
 				products = (List<Product>) getSession()
 						.createQuery(
-								"select product from Product as product join product.categories as category where category.id in (:categories) group by product.id order by product.id asc")
+								"select product from Product as product where product.category.id in (:categories) group by product.id order by product.id asc")
 						.setParameterList("categories", categories)
 						.setFirstResult(start).setMaxResults(start + 15).list();
 			} else {
@@ -92,6 +104,7 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 			}
 		} catch (HibernateException e) {
 			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
 		}
 		log.info("no of products------------" + products.size());
 		return products;
@@ -102,9 +115,15 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 	 */
 	@SuppressWarnings("unchecked")
 	public List<ProductCategory> getAllProductCategoriess() {
-		Criteria criteria = getSession().createCriteria(ProductCategory.class);
-		List<ProductCategory> categories = criteria.list();
-		return categories;
+		try {
+			Criteria criteria = getSession().createCriteria(
+					ProductCategory.class);
+			List<ProductCategory> categories = criteria.list();
+			return categories;
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
 	}
 
 	/**
@@ -115,7 +134,7 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 			return (Partner) getSession().merge(partner);
 		} catch (HibernateException e) {
 			log.error(e.getMessage(), e);
-			return null;
+			throw new AppException(e.getMessage(), e);
 		}
 	}
 
@@ -127,7 +146,7 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 			return (Branch) getSession().merge(branch);
 		} catch (HibernateException e) {
 			log.error(e.getMessage(), e);
-			return null;
+			throw new AppException(e.getMessage(), e);
 		}
 	}
 
@@ -139,7 +158,7 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 			return (ProductCategory) getSession().merge(category);
 		} catch (HibernateException e) {
 			log.error(e.getMessage(), e);
-			return null;
+			throw new AppException(e.getMessage(), e);
 		}
 	}
 
@@ -151,7 +170,49 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 			return (Product) getSession().merge(product);
 		} catch (HibernateException e) {
 			log.error(e.getMessage(), e);
-			return null;
+			throw new AppException(e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ProductCategory> getProductCategories() {
+		try {
+			log.debug("Retrieving all category names...");
+			return getSession().createCriteria(ProductCategory.class).list();
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Partner> getPartners() {
+		try {
+			log.debug("Retrieving all partner names...");
+			return getSession().createCriteria(Partner.class).list();
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Branch> getBranches() {
+		try {
+			log.debug("Retrieving all branch names...");
+			return getSession().createCriteria(Branch.class).list();
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
 		}
 	}
 }

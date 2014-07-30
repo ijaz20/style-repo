@@ -25,6 +25,11 @@
         <from>/</from>
         <to type="redirect" last="true">/vstyleu/products</to>
     </rule>
+    
+    <rule>
+    	<from>/admin</from>
+    	<to type="redirect" last="true">/admin/home</to>
+    </rule>
     <rule>
         <from>/j_security_check</from>
         <to>/j_security_check</to>

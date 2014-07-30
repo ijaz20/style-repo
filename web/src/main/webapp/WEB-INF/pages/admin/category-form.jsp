@@ -1,99 +1,137 @@
-<%@ include file="/common/taglibs.jsp" %>
+<%@ include file="/common/taglibs.jsp"%>
 
 <head>
-    <title><fmt:message key="category.form.title"/></title>
-    <meta name="menu" content="Category"/>
+<title><fmt:message key="category.form.title" /></title>
+<meta name="menu" content="Category" />
 </head>
 
 <div class="col-sm-2">
-    <h2><fmt:message key="category.form.heading"/></h2>
-    <p><fmt:message key="category.form.message"/></p>
+	<h2>
+		<fmt:message key="category.form.heading" />
+	</h2>
+	<p>
+		<fmt:message key="category.form.message" />
+	</p>
 </div>
 <div class="col-sm-7">
-	<s:form action="saveCategory" enctype="multipart/form-data" method="post" validate="true" id="partnerForm" cssClass="well">
-        <s:hidden key="category.id"/>
+	<s:form action="saveCategory" enctype="multipart/form-data"
+		method="post" validate="true" id="partnerForm" cssClass="well">
+		<s:hidden key="category.id" />
 
 		<div class="row">
-        	<s:textfield key="category.categoryName" required="true" autofocus="true" cssClass="form-control"/>
+			<s:textfield key="category.categoryName" required="true"
+				autofocus="true" cssClass="form-control" />
 		</div>
-		
-        <div class="row">
-        	<table id = "branchDetails" tabindex="5" cellpadding=20>
-	        	<tr>
-		        	<th>Partner</th>
-		        	<th>Branch</th>
-	        	</tr>
-	        	<tr>
-	        		<td>
-						<select id="partner" class="form-control" onchange="loadBranches();">
-			                <c:forEach items="${availablePartners}" var="partner">
-			                    <option value="${partner.value}" >${partner.label}</option>
-			                </c:forEach>
-			            </select>	        		
-	        		</td>
-	        		<td>
-	        			<select id="branches" name="branches" class="form-control" multiple="true">
-			                <c:forEach items="${branches}" var="branch">
-			                    <%-- <option value="${branch.id}" ${fn:contains(category.branch.id, branch.id) ? 'selected' : ''}>${branch.branchName}</option> --%>
-			                </c:forEach>
-			            </select>
-	        		</td>
-	        		<td>
-	        			<a href="#" onclick="cloneBranchRow();">Add</a>
-	        		</td>
-	        		<td>
-	        			<a href="#" onclick="removeBranchRow(this);">Remove</a>
-	        		</td>
-	        	</tr>
-            </table>
+
+		<div class="row">
+			<table id="branchDetails" tabindex="5" cellpadding=20>
+				<tr>
+					<th>Partner</th>
+					<th>Branch</th>
+					<th><input type="button" id="addRow" name="addRow"
+						value="Add Row" /></th>
+				</tr>
+				<tr>
+					<td><select id="partner1" class="form-control">
+							<c:forEach items="${availablePartners}" var="partner">
+								<option value="${partner.value}">${partner.label}</option>
+							</c:forEach>
+					</select></td>
+					<td><select id="branches1" name="branches"
+						class="form-control" multiple="true">
+							<c:forEach items="${branches}" var="branch">
+								<%-- <option value="${branch.id}" ${fn:contains(category.branch.id, branch.id) ? 'selected' : ''}>${branch.branchName}</option> --%>
+							</c:forEach>
+					</select></td>
+
+					<td><input id="deleteRow1" name="deleteRow" tabindex="3"
+						type="button" value="Remove Row" class="remove" /></td>
+				</tr>
+			</table>
 		</div>
-		
-        <div id="actions" class="form-group">
-            <s:submit type="button" cssClass="btn btn-primary" key="button.save" theme="simple">
-                <i class="icon-ok icon-white"></i>
-                <fmt:message key="button.save"/>
-            </s:submit>
-            <s:submit type="button" cssClass="btn btn-default" method="cancel" key="button.cancel" theme="simple">
-                <i class="icon-remove"></i>
-                <fmt:message key="button.cancel"/>
-            </s:submit>
-        </div>
-        </s:form>
-    </div>
+
+		<div id="actions" class="form-group">
+			<s:submit type="button" cssClass="btn btn-primary" key="button.save"
+				theme="simple">
+				<i class="icon-ok icon-white"></i>
+				<fmt:message key="button.save" />
+			</s:submit>
+			<s:submit type="button" cssClass="btn btn-default" method="cancel"
+				key="button.cancel" theme="simple">
+				<i class="icon-remove"></i>
+				<fmt:message key="button.cancel" />
+			</s:submit>
+		</div>
+	</s:form>
+</div>
+
+<!-- <table id="invoice">
+		<tr>
+			<th>Quantity</th>
+			<th>Item</th>
+			<th><input type="button" id="addnew" name="addnew"
+				value="Add Row" /></th>
+		</tr>
+		<tr id="id1">
+			<td><input id="quantity1" name="quantity[]" tabindex="1"
+				type="text" value="" /></td>
+			<td><select id="rate1" name="rate[]" tabindex="2" value="">
+					<option value="">SELECT</option>
+					<option value="1">ONE</option>
+					<option value="2">TWO</option>
+			</select></td>
+			<td><input id="remove1" name="remove[]" tabindex="3"
+				type="button" value="Remove Row" class="remove" /></td>
+		</tr>
+	</table> -->
 
 <script type="text/javascript">
-var rowCount = 2;
-
-function loadBranches(thisObject){
-	var branchOptions = '';
-	<c:forEach items="${branches}" var="branch">
-		if('${branch.partner.id}' == thisObject.val()){
-    		branchOptions = branchOptions+'<option value="${branch.id}">${branch.branchName}</option>';
-		}
-	</c:forEach>
-	$('#branches').html(branchOptions);
 	
-}
+	function loadBranches(rowCount) {
+		var branchOptions = '';
+		<c:forEach items="${branches}" var="branch">
+		if ('${branch.partner.id}' == $("#partner" + rowCount).val()) {
+			branchOptions = branchOptions
+					+ '<option value="${branch.id}">${branch.branchName}</option>';
+		}
+		</c:forEach>
+		$('#branches' + rowCount).html(branchOptions);
+	}
 
-$(document).ready(function() {
-		loadBranches($('#partner'));
-});
+	function addPartnerChangeEvent(rowCount) {
+		$('#branchDetails tr:eq(' + rowCount + ') td:eq(0) select').change(
+				function(e) {
+					loadBranches(rowCount);
+				});
+	}
+	
+	$('#addRow').click(function() {
+		var newRowNo = $('#branchDetails tr').length;
+		var oldRowNo = newRowNo-1;
+		
+		var $last = $('#branchDetails tr:last');
+		var last_row = $last.clone();
+		$(last_row).find(":input").each(function() {
+			var store = $(this).attr("id");
+			var new1 = store.replace(oldRowNo, newRowNo);
+			$(this).attr("id", new1);
+		});
+		last_row.appendTo($('#branchDetails'));
+		//$("#branchDetails tr:last").hide().fadeIn('slow');
+		addPartnerChangeEvent(newRowNo);
+		loadBranches(newRowNo);
+		deleteRow(newRowNo);
+	});
 
-function cloneBranchRow(){
-	var partnerOptions = '';
-	var branchOptions = '';
-	var row = "<tr>"
-	row = row+'<td><select id="partner'+rowCount+'" class="form-control" onchange="loadBranches(this);">';
-    <c:forEach items="${availablePartners}" var="partner">
-        row = row+'<option value="${partner.value}" ${fn:contains(branch.partner.id, partner.value) ? "selected" : ""}>${partner.label}</option>';
-    </c:forEach>
-	row = row+'</select></td>';
-	row= row + '<td><select id="branches'+rowCount+'" name="branches" class="form-control" multiple="true">';
-        <c:forEach items="${branches}" var="branch">
-           	row = row + '<option value="${branch.id}" ${fn:contains(category.branch.id, branch.id) ? "selected" : ""}>${branch.branchName}</option>';
-        </c:forEach>
-    row = row + '</select></td>';
-    row = row + '</tr>';
-	$('#branchDetails').append(row);
-}
+	function deleteRow(rowCount) {
+		$("#deleteRow"+rowCount).click(function(){
+		    $(this).closest('tr').remove();
+		});
+	}
+	$(document).ready(function() {
+		loadBranches(1);
+		addPartnerChangeEvent(1);
+		deleteRow(1);
+	});
+	
 </script>

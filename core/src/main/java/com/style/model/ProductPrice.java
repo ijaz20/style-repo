@@ -104,7 +104,8 @@ public class ProductPrice extends BaseObject implements Serializable {
 
     public String toString() {
         ToStringBuilder sb = new ToStringBuilder(this,
-                ToStringStyle.DEFAULT_STYLE).append("id", this.id);
+                ToStringStyle.DEFAULT_STYLE).append("branchName", this.branch.getBranchName())
+                .append("productName", this.product.getProductName());
         return sb.toString();
     }
 

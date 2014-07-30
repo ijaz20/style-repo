@@ -370,7 +370,7 @@
         </row>
     </table>
     
-    <table name="vsu_relation_product_category_product">
+    <!-- <table name="vsu_relation_product_category_product">
          <column>product_category_id</column>
          <column>product_id</column>
          <row>
@@ -458,7 +458,7 @@
              <value description="product_category_id">54725139-123a-11e4-8a85-e069959ac2ac</value>
              <value description="product_id">65088e0f-1266-11e4-8a85-e069959ac2ac</value>
          </row>  
-     </table>
+     </table> -->
 
     <table name="vsu_product_price">
         <column>id</column>

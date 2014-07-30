@@ -4,7 +4,6 @@
         <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
     </Displayers>
     <Menus>
-    	<Menu name="Style Home" title="Style Home" page="/style-home/home" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="Home" title="home.title" page="/home" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" page="/admin/users">
@@ -12,6 +11,12 @@
             <Item name="ActiveUsers" title="home.activeUsers" page="/admin/activeUsers"/>
             <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload"/>
             <Item name="FileUpload" title="menu.selectFile" page="/selectFile"/>
+        </Menu>
+        <Menu name="Product Management" title="Product Management" description="Product Management" roles="ROLE_ADMIN" page="/admin/showProduct">
+            <Item name="Partner" title="Partner" page="/admin/showPartner"/>
+            <Item name="Branch" title="Branch" page="/admin/showBranch"/>
+            <Item name="Category" title="Category" page="/admin/showCategory"/>
+            <Item name="Product" title="Product" page="/admin/showProduct"/>
         </Menu>
         <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER"/>
     </Menus>
