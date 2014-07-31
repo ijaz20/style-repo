@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -51,7 +52,7 @@ public class Product extends BaseObject implements Serializable {
     private String gender;
     private Set<ProductPrice> productPrices = new HashSet<ProductPrice>();
     private ProductPrice price = new ProductPrice();
-    private Set<ProductCategory> categories = new HashSet<ProductCategory>(); 
+    private ProductCategory category = new ProductCategory(); 
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -117,17 +118,16 @@ public class Product extends BaseObject implements Serializable {
         this.price = price;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JsonIgnore
-    @JSON(serialize=false)
-    @JoinTable(name = "vsu_relation_product_category_product", joinColumns = { @JoinColumn(name = "product_id") }, inverseJoinColumns = @JoinColumn(name = "product_category_id"))
-    public Set<ProductCategory> getCategories() {
-		return categories;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_category_id")
+    public ProductCategory getCategory() {
+		return category;
 	}
 
-	public void setCategories(Set<ProductCategory> categories) {
-		this.categories = categories;
+	public void setCategory(ProductCategory category) {
+		this.category = category;
 	}
+
 
 	/**
      * {@inheritDoc}

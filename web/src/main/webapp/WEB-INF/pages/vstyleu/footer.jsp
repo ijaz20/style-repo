@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
 
-<footer id="footer" class="hide">
+<!-- <footer id="footer" class="hide">
 	<div class="footer-top">
 		<div class="container">
 			<div class="row">
@@ -171,5 +171,5 @@
 		</div>
 	</div>
 
-</footer>
+</footer> -->
 <!--/Footer-->
