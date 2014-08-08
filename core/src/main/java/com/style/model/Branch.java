@@ -50,6 +50,7 @@ public class Branch extends BaseObject implements Serializable {
     private Address address = new Address();;
     private Partner partner;
     private Set<ProductPrice> productPrices = new HashSet<ProductPrice>();
+    private boolean isActive = true ;
     
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -101,6 +102,15 @@ public class Branch extends BaseObject implements Serializable {
         this.productPrices = productPrices;
     }
     
+    @Column(name = "is_active", columnDefinition = "boolean default true", nullable = false)
+    public boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	
     /**
      * {@inheritDoc}
      */

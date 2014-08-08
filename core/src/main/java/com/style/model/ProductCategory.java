@@ -45,7 +45,8 @@ public class ProductCategory extends BaseObject implements Serializable {
     private String id;
     private String categoryName;
     private Set<Branch> branches = new HashSet<Branch>(); 
-
+    private boolean isActive = true;
+    
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
@@ -66,7 +67,7 @@ public class ProductCategory extends BaseObject implements Serializable {
         this.categoryName = categoryName;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JsonIgnore
     @Fetch(value = FetchMode.SELECT)
     @JoinTable(name = "vsu_relation_branch_product_category", joinColumns = { @JoinColumn(name = "product_category_id") }, inverseJoinColumns = @JoinColumn(name = "branch_id"))
@@ -77,7 +78,16 @@ public class ProductCategory extends BaseObject implements Serializable {
 	public void setBranches(Set<Branch> branches) {
 		this.branches = branches;
 	}
+	
+	@Column(name = "is_active", columnDefinition = "boolean default true", nullable = false)
+    public boolean getIsActive() {
+		return isActive;
+	}
 
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	
 	/**
      * {@inheritDoc}
      */

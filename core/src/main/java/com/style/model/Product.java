@@ -1,7 +1,8 @@
 package com.style.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,8 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -22,8 +21,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.apache.struts2.json.annotations.JSON;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
@@ -50,9 +47,10 @@ public class Product extends BaseObject implements Serializable {
     private String productName;
     private boolean isComboProduct;
     private String gender;
-    private Set<ProductPrice> productPrices = new HashSet<ProductPrice>();
+    private List<ProductPrice> productPrices = new ArrayList<ProductPrice>();
     private ProductPrice price = new ProductPrice();
     private ProductCategory category = new ProductCategory(); 
+    private boolean isActive = true;
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -95,21 +93,18 @@ public class Product extends BaseObject implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, targetEntity = ProductPrice.class, mappedBy = "product", fetch = FetchType.EAGER, orphanRemoval = true)
     @OrderBy("id")
     @Fetch(value = FetchMode.SELECT)
-    public Set<ProductPrice> getProductPrices() {
+    public List<ProductPrice> getProductPrices() {
         return productPrices;
     }
 
-    public void setProductPrices(Set<ProductPrice> productPrices) {
+    public void setProductPrices(List<ProductPrice> productPrices) {
         this.productPrices = productPrices;
     }
 
     @Transient
     public ProductPrice getPrice() {
         if(!getProductPrices().isEmpty()){
-            for(ProductPrice productPrice : getProductPrices()){
-                price = productPrice;
-                break;
-            }
+            price = getProductPrices().get(0);
         }
         return price;
     }
@@ -128,7 +123,15 @@ public class Product extends BaseObject implements Serializable {
 		this.category = category;
 	}
 
+	@Column(name = "is_active", columnDefinition = "boolean default true", nullable = false)
+    public boolean getIsActive() {
+		return isActive;
+	}
 
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	
 	/**
      * {@inheritDoc}
      */

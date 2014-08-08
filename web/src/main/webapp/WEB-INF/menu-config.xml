@@ -13,10 +13,14 @@
             <Item name="FileUpload" title="menu.selectFile" page="/selectFile"/>
         </Menu>
         <Menu name="Product Management" title="Product Management" description="Product Management" roles="ROLE_ADMIN" page="/admin/showProduct">
-            <Item name="Partner" title="Partner" page="/admin/showPartner"/>
-            <Item name="Branch" title="Branch" page="/admin/showBranch"/>
-            <Item name="Category" title="Category" page="/admin/showCategory"/>
-            <Item name="Product" title="Product" page="/admin/showProduct"/>
+            <Item name="Partners" title="Partners" page="/admin/partners"/>
+            <Item name="Branches" title="Branches" page="/admin/branches"/>
+            <Item name="Categories" title="Categories" page="/admin/categories"/>
+            <Item name="Products" title="Products" page="/admin/products"/>
+            <Item name="New Partner" title="New Partner" page="/admin/showPartner"/>
+            <Item name="New Branch" title="New Branch" page="/admin/showBranch"/>
+            <Item name="New Category" title="New Category" page="/admin/showCategory"/>
+            <Item name="New Product" title="New Product" page="/admin/showProduct"/>
         </Menu>
         <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER"/>
     </Menus>

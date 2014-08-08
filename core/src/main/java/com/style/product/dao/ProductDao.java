@@ -2,7 +2,11 @@ package com.style.product.dao;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.criterion.Restrictions;
+
 import com.style.dao.GenericDao;
+import com.style.exception.AppException;
 import com.style.model.Branch;
 import com.style.model.Partner;
 import com.style.model.Product;
@@ -90,4 +94,36 @@ public interface ProductDao extends GenericDao<Product, String> {
 	 * @return
 	 */
 	List<Branch> getBranches();
+	
+	/**
+	 * get partner by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Partner getPartner(String id);
+
+	/**
+	 * get branch by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Branch getBranch(String id);
+
+	/**
+	 * get category by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProductCategory getProductCategory(String id);
+
+	/**
+	 * get product by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Product getProduct(String id);
 }

@@ -150,4 +150,32 @@ public class ProductManagerImpl extends GenericManagerImpl<Product, String>
 	public List<Branch> getBranches() throws AppException {
 		return productDao.getBranches();
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public Partner getPartner(String id) throws AppException{
+		return productDao.getPartner(id);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public Branch getBranch(String id) throws AppException{
+		return productDao.getBranch(id);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public ProductCategory getProductCategory(String id) throws AppException{
+		return productDao.getProductCategory(id);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public Product getProduct(String id) throws AppException{
+		return productDao.getProduct(id);
+	}
 }

@@ -34,9 +34,18 @@
         <property name="mailMessage" ref="mailMessage"/>
     </bean>
 
-    <bean id="productAction" class="com.style.webapp.action.ProductAction" scope="prototype"
+    <bean id="partnerAction" class="com.style.webapp.action.PartnerAction" scope="prototype"
           parent="baseAction"/>
 
+	<bean id="branchAction" class="com.style.webapp.action.BranchAction" scope="prototype"
+          parent="baseAction"/>
+          
+    <bean id="categoryAction" class="com.style.webapp.action.ProductCategoryAction" scope="prototype"
+          parent="baseAction"/>
+     
+    <bean id="productAction" class="com.style.webapp.action.ProductAction" scope="prototype"
+          parent="baseAction"/>
+          
     <bean id="reloadAction" class="com.style.webapp.action.ReloadAction" scope="prototype"
           parent="baseAction"/>
 

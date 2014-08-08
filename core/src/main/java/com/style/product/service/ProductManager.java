@@ -116,4 +116,36 @@ public interface ProductManager extends GenericManager<Product, String> {
 	 */
 	List<Branch> getBranches() throws AppException;
 
+	/**
+	 * get partner by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Partner getPartner(String id) throws AppException;
+
+	/**
+	 * get branch by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Branch getBranch(String id) throws AppException;
+
+	/**
+	 * get category by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProductCategory getProductCategory(String id) throws AppException;
+
+	/**
+	 * get product by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Product getProduct(String id) throws AppException;
+
 }
