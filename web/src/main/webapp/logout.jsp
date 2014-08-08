@@ -13,4 +13,4 @@ terminate.setMaxAge(0);
 response.addCookie(terminate);
 %>
 
-<c:redirect url="/home"/>
+<c:redirect url="/vstyleu/products"/>

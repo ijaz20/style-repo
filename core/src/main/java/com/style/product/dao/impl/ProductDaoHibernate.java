@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.style.dao.hibernate.GenericDaoHibernate;
@@ -210,6 +211,83 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 		try {
 			log.debug("Retrieving all branch names...");
 			return getSession().createCriteria(Branch.class).list();
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public Partner getPartner(String id) {
+		try {
+			List<Partner> partners = getSession().createCriteria(Partner.class)
+					.add(Restrictions.eq("id", id)).list();
+			if (partners.isEmpty()) {
+				return null;
+			} else {
+				return partners.get(0);
+			}
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public Branch getBranch(String id) {
+		try {
+			List<Branch> branches = getSession().createCriteria(Branch.class)
+					.add(Restrictions.eq("id", id)).list();
+			if (branches.isEmpty()) {
+				return null;
+			} else {
+				return branches.get(0);
+			}
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public ProductCategory getProductCategory(String id) {
+		try {
+			List<ProductCategory> categories = getSession()
+					.createCriteria(ProductCategory.class)
+					.add(Restrictions.eq("id", id)).list();
+			if (categories.isEmpty()) {
+				return null;
+			} else {
+				return categories.get(0);
+			}
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public Product getProduct(String id) {
+		try {
+			List<Product> products = getSession().createCriteria(Product.class)
+					.add(Restrictions.eq("id", id)).list();
+			if (products.isEmpty()) {
+				return null;
+			} else {
+				return products.get(0);
+			}
 		} catch (HibernateException e) {
 			log.error(e.getMessage(), e);
 			throw new AppException(e.getMessage(), e);

@@ -40,6 +40,7 @@ public class Partner extends BaseObject implements Serializable {
     private String id;
     private String partnerName;
     private Set<Branch> branches = new HashSet<Branch>();
+    private boolean isActive = true;
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -72,7 +73,16 @@ public class Partner extends BaseObject implements Serializable {
         this.branches = branches;
     }
 
-    /**
+    @Column(name = "is_active", columnDefinition = "boolean default true", nullable = false)
+    public boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	/**
      * {@inheritDoc}
      */
     public String toString() {

@@ -1,51 +1,81 @@
 <%@ include file="/common/taglibs.jsp"%>
 
 <head>
-<title><fmt:message key="category.form.title" /></title>
-<meta name="menu" content="Category" />
+<title><fmt:message key="product.form.title" /></title>
+<meta name="menu" content="Product" />
 </head>
 
-<div class="col-sm-2">
+<div class="col-sm-12">
 	<h2>
-		<fmt:message key="category.form.heading" />
+		<fmt:message key="product.form.heading" />
 	</h2>
 	<p>
-		<fmt:message key="category.form.message" />
+		<fmt:message key="product.form.message" />
 	</p>
 </div>
-<div class="col-sm-7">
-	<s:form action="saveCategory" enctype="multipart/form-data"
+<div class="col-sm-12">
+	<s:form action="saveProduct" enctype="multipart/form-data"
 		method="post" validate="true" id="partnerForm" cssClass="well">
-		<s:hidden key="category.id" />
+		<s:hidden key="product.id" />
 
 		<div class="row">
-			<s:textfield key="category.categoryName" required="true"
+			<s:textfield key="product.productName" required="true"
 				autofocus="true" cssClass="form-control" />
 		</div>
 
 		<div class="row">
-			<table id="branchDetails" tabindex="5" cellpadding=20>
+			<label for="category" class="control-label"><fmt:message
+					key="product.form.category" /></label> <select id="category"
+				name="product.category.id" class="form-control">
+				<c:forEach items="${availableCategories}" var="cat">
+					<option value="${cat.value}"
+						${fn:contains(product.category.id, cat.value) ? 'selected' : ''}>${cat.label}</option>
+				</c:forEach>
+			</select>
+		</div>
+
+		<div class="row">
+			<label for="gender" class="control-label"><fmt:message
+					key="product.form.gender" /></label> <select id="gender"
+				name="product.gender" class="form-control">
+				<option value="male"
+					${fn:contains(product.gender, 'male') ? 'selected' : ''}>Male</option>
+				<option value="female"
+					${fn:contains(product.gender, 'female') ? 'selected' : ''}>Female</option>
+				<option value="all"
+					${fn:contains(product.gender, 'all') ? 'selected' : ''}>All</option>
+			</select>
+		</div>
+
+		<div class="row table-responsive">
+			<table id="branchDetails" class="table table-striped">
 				<tr>
-					<th>Partner</th>
-					<th>Branch</th>
-					<th><input type="button" id="addRow" name="addRow"
-						value="Add Row" /></th>
+					<th class="text-center">Partner</th>
+					<th class="text-center">Branch</th>
+					<th class="text-center">Price</th>
+					<th class="text-center"><input type="button" id="addRow"
+						name="addRow" value="Add Row" class="btn btn-default col-sm-5" /></th>
 				</tr>
 				<tr>
-					<td><select id="partner1" class="form-control">
+					<td class="text-center"><select id="partner1"
+						class="form-control">
 							<c:forEach items="${availablePartners}" var="partner">
 								<option value="${partner.value}">${partner.label}</option>
 							</c:forEach>
 					</select></td>
-					<td><select id="branches1" name="branches"
-						class="form-control" multiple="true">
+					<td class="text-center"><select id="branches1"
+						name="prices[0].branch.id" class="form-control">
 							<c:forEach items="${branches}" var="branch">
-								<%-- <option value="${branch.id}" ${fn:contains(category.branch.id, branch.id) ? 'selected' : ''}>${branch.branchName}</option> --%>
+								<option value="${branch.id}">${branch.branchName}</option>
 							</c:forEach>
 					</select></td>
 
-					<td><input id="deleteRow1" name="deleteRow" tabindex="3"
-						type="button" value="Remove Row" class="remove" /></td>
+					<td class="text-center"><input type="text" id="price1"
+						name="prices[0].price" class="form-control" /></td>
+
+					<td class="text-center"><input id="deleteRow1"
+						name="deleteRow" tabindex="3" type="button" value="Remove Row"
+						class="btn btn-default col-sm-5" /></td>
 				</tr>
 			</table>
 		</div>
@@ -86,7 +116,6 @@
 	</table> -->
 
 <script type="text/javascript">
-	
 	function loadBranches(rowCount) {
 		var branchOptions = '';
 		<c:forEach items="${branches}" var="branch">
@@ -104,17 +133,19 @@
 					loadBranches(rowCount);
 				});
 	}
-	
+
 	$('#addRow').click(function() {
 		var newRowNo = $('#branchDetails tr').length;
-		var oldRowNo = newRowNo-1;
-		
+		var oldRowNo = newRowNo - 1;
 		var $last = $('#branchDetails tr:last');
 		var last_row = $last.clone();
 		$(last_row).find(":input").each(function() {
-			var store = $(this).attr("id");
-			var new1 = store.replace(oldRowNo, newRowNo);
-			$(this).attr("id", new1);
+			var oldId = $(this).attr("id");
+			var oldName = $(this).prop('name');
+			var newId = oldId.replace(oldRowNo, newRowNo);
+			var newName = oldName.replace(oldRowNo - 1, newRowNo - 1);
+			$(this).attr("id", newId);
+			$(this).attr("name", newName);
 		});
 		last_row.appendTo($('#branchDetails'));
 		//$("#branchDetails tr:last").hide().fadeIn('slow');
@@ -124,8 +155,8 @@
 	});
 
 	function deleteRow(rowCount) {
-		$("#deleteRow"+rowCount).click(function(){
-		    $(this).closest('tr').remove();
+		$("#deleteRow" + rowCount).click(function() {
+			$(this).closest('tr').remove();
 		});
 	}
 	$(document).ready(function() {
@@ -133,5 +164,4 @@
 		addPartnerChangeEvent(1);
 		deleteRow(1);
 	});
-	
 </script>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>VstyleU | E-Shopper</title>
+<title>VstyleU</title>
 <link href="/themes/css/bootstrap.min.css" rel="stylesheet">
 <link href="/themes/css/font-awesome.min.css" rel="stylesheet">
 <link href="/themes/css/prettyPhoto.css" rel="stylesheet">

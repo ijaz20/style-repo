@@ -12,7 +12,7 @@
 
     <artifactId>style-web</artifactId>
     <packaging>war</packaging>
-    <name>AppFuse Modular Application - Web (Struts 2)</name>
+    <name>VstyleU Modular Application - Web (Struts 2)</name>
 
     <build>
         <plugins>

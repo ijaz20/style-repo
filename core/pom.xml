@@ -12,7 +12,7 @@
     
     <artifactId>style-core</artifactId>
     <packaging>jar</packaging>
-    <name>AppFuse Modular Application - Core</name>
+    <name>VstyleU Modular Application - Core</name>
     
     <build>
         <plugins>
@@ -93,8 +93,8 @@
         </testResources>
     </build>
 
-    <!-- Dependencies calculated by AppFuse when running full-source plugin -->
-    <!-- Dependencies calculated by AppFuse when running full-source plugin -->
+    <!-- Dependencies calculated by VstyleU when running full-source plugin -->
+    <!-- Dependencies calculated by VstyleU when running full-source plugin -->
     <dependencies>
         <dependency>
             <groupId>${jdbc.groupId}</groupId>
