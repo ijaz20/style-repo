@@ -217,6 +217,13 @@
                 </param>
             </result>
         </action>
+        <action name="get-product" class="productAction" method="getProductById">
+        	<result type="json" >
+                <param name="root">
+                    product
+                </param>
+            </result>
+        </action>        
 		<action name="product-details" class="productAction" method="getProductDetails">
             <result name="success">/WEB-INF/pages/vstyleu/product-details.jsp</result>
         </action> 

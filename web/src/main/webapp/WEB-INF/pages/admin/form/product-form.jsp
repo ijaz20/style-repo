@@ -24,6 +24,17 @@
 		</div>
 
 		<div class="row">
+			<s:textarea key="product.description" required="false"
+				autofocus="true" cssClass="form-control" />
+		</div>
+				
+		<div class="row">
+            <div class="col-sm-6">
+                <s:file name="file" id="file" label="Image"/>
+            </div>
+        </div>
+        
+		<div class="row">
 			<label for="category" class="control-label"><fmt:message
 					key="product.form.category" /></label> <select id="category"
 				name="product.category.id" class="form-control">

@@ -21,61 +21,6 @@ function scrollSideMenu() {
 	}
 }
 
-function loadMoreProducts(scrollTop, moreProductsTop, renderId) {
-	if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-		$
-				.ajax({
-					url : "/vstyleu/filter-products",
-					type : "POST",
-					data : {
-						name : "test"
-					},
-					dataType : "json",
-					success : function(response) {
-						if (response != null
-								&& response != '') {
-							var productsHtml = "";
-							for ( var i in response) {
-								// alert(response.products[i].name);
-								productsHtml = productsHtml
-										+ '<div class="col-sm-4" id="'
-										+ response[i].id
-										+ '">'
-										+ '<div class="product-image-wrapper">'
-										+ '<div class="single-products">'
-										+ '<div class="productinfo text-center">'
-										+ '<a href="/vstyleu/product-details?productName='+response[i].productName+'&productId='+response[i].id+'">'
-										+ '<img src="/images/products/'
-										+ response[i].productName
-										+ '.jp" alt="" />'
-										+'</a>'
-										+ '<h2>'
-										+ response[i].price.currencyCode
-										+ '' + response[i].price.price
-										+'</h2>'
-										+ '<p>'
-										+ response[i].productName
-										+ '</p>'
-										+ '<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>'
-										+ '</div>'
-										+ '</div>'
-										+ '<div class="choose">'
-										+ '<ul class="nav nav-pills nav-justified">'
-										+ '<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>'
-										+ '<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>'
-										+ '</ul>' + '</div>' + '</div>'
-										+ '</div>'
-							}
-							$("#" + renderId).append(productsHtml);
-						} else {
-							// need to add no product found
-							$("#" + renderId).append("No Results Found");
-						}
-					}
-				});
-	}
-}
-
 $("#category-filters a").click(function(e){
     var href = $(this).attr("href");//get the href so we can navigate later
     if($(this).find("input:checkbox").is(':checked')){
@@ -94,6 +39,45 @@ $("#brand-filters a").click(function(e){
     	$(this).find("input:checkbox").prop('checked', true);
     }
     filterProducts(true, "features_products", 0);
+});
+
+$('div[id^="product_"]').on('click', function(){
+	var elementId = $(this).attr("id");	
+	var productId = elementId.split('_')[1];
+	$.ajax({
+		url : "/vstyleu/get-product",
+		type : "GET",
+		asyn : false,
+		data : {
+			id:productId
+		},
+		dataType : "json",
+		success : function(response) {
+			var priceDetails = '<div class="row table-responsive">'
+				+'<table id="branchDetails" class="table table-striped">'
+				+'<tr>'
+					+'<th class="text-center">Branch Name</th>'
+					+'<th class="text-center">Price</th>'
+					+'<th class="text-center">Add</th>'
+					+'<th class="text-center">Proceed To Pay</th>'
+				+'</tr>';
+				for ( var i in response.productPrices) {
+					priceDetails = priceDetails+'<tr>'
+					+'<td class="text-center">'+response.productPrices[i].branch.branchName+'</td>'
+					+'<td class="text-center">'+response.productPrices[i].price+'</td>'
+					+'<td class="text-center"><input type="button" id="addRow" value="Add List" class="btn btn-primary col-sm-8" /></td>'
+					+'<td class="text-center"><input type="button" id="addRow" value="Proceed" class="btn btn-primary col-sm-8" /></td>'
+					+'</tr>';
+				}
+				priceDetails = priceDetails+'</table></div>';
+			$("#"+elementId+"_price").html(priceDetails);
+			$("#"+elementId+"_details").html(response.description);
+		}
+	});
+	 
+	 $("#"+elementId).toggleClass("col-sm-4","col-sm-12");
+	 $("#"+elementId+"_image").toggleClass("col-sm-12","col-sm-4");
+	 $("#"+elementId+"_price").addClass("col-sm-8");
 });
 
 function filterProducts(isFilter, renderId, productCount){
@@ -140,15 +124,10 @@ function filterProducts(isFilter, renderId, productCount){
 							+'</h2>'
 							+ '<p class="text-capitalize">'
 							+ response[i].productName
-							+ '</p>'
-							+ '<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>'
+							+ '</p>'							
 							+ '</div>'
 							+ '</div>'
-							+ '<div class="choose">'
-							+ '<ul class="nav nav-pills nav-justified">'
-							+ '<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>'
-							+ '<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>'
-							+ '</ul>' + '</div>' + '</div>'
+							+ '</div>'
 							+ '</div>'
 				}
 				if(isFilter){
@@ -167,14 +146,6 @@ function filterProducts(isFilter, renderId, productCount){
 		}
 	});
 }
-
-/*
- * function scrollSideMenu() { if ($(window).scrollTop() >= ($(window).height() -
- * $('#footer') .height())) { if ($("#left-sidebar").css("position") == "fixed") {
- * $("#left-sidebar").css("position", "relative"); } } else { if
- * ($("#left-sidebar").css("position") == "relative") {
- * $("#left-sidebar").css("position", "fixed"); } } }
- */
 
 /* scroll to top */
 
@@ -223,11 +194,17 @@ $(document).ready(function() {
 	});
 });
 
+/**
+ * TODO: Not implemented now. To be done in future by Ijaz
+ */
 function hideFilters() {
 	$("#withFilterContent").addClass("hide");
 	$("#withoutFilterContent").removeClass("hide");
 }
 
+/**
+ * TODO: Not implemented now. To be done in future by Ijaz
+ */
 function showFilters() {
 	$("#withoutFilterContent").addClass("hide");
 	$("#withFilterContent").removeClass("hide");

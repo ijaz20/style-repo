@@ -45,6 +45,8 @@ public class Product extends BaseObject implements Serializable {
     private static final long serialVersionUID = 1L;
     private String id;
     private String productName;
+    private String description;
+    private String imagePath;
     private boolean isComboProduct;
     private String gender;
     private List<ProductPrice> productPrices = new ArrayList<ProductPrice>();
@@ -70,6 +72,24 @@ public class Product extends BaseObject implements Serializable {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+	@Column(name="description")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+    @Column(name="image_path")
+    public String getImagePath(){
+    	return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @Column(name="is_combo_product")
@@ -131,7 +151,7 @@ public class Product extends BaseObject implements Serializable {
 	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	
+
 	/**
      * {@inheritDoc}
      */

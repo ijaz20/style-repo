@@ -120,7 +120,7 @@
         </row>
     </table>
     
-     <table name="vsu_partner">
+<!--     <table name="vsu_partner">
         <column>id</column>
         <column>partner_name</column>
         <row>
@@ -370,7 +370,7 @@
         </row>
     </table>
     
-    <!-- <table name="vsu_relation_product_category_product">
+    <table name="vsu_relation_product_category_product">
          <column>product_category_id</column>
          <column>product_id</column>
          <row>
@@ -458,7 +458,7 @@
              <value description="product_category_id">54725139-123a-11e4-8a85-e069959ac2ac</value>
              <value description="product_id">65088e0f-1266-11e4-8a85-e069959ac2ac</value>
          </row>  
-     </table> -->
+     </table>
 
     <table name="vsu_product_price">
         <column>id</column>
@@ -548,14 +548,14 @@
             <value description="currency_symbol"></value>
         </row>
         
-        <!-- <row>
+        <row>
             <value description="id">dd421f53-10cd-11e4-ad71-e069959ac2ac</value>
             <value description="branch_id">a90c1b57-10cc-11e4-ad71-e069959ac2ac</value>
             <value description="product_id">b2f0678a-0e98-11e4-ad3f-e069959ac2ac</value>
             <value description="price">100</value>
             <value description="currency_code">Rs.</value>
             <value description="currency_symbol"></value>
-        </row> -->
+        </row>
         
         <row>
             <value description="id">d7b8c997-10cd-11e4-ad71-e069959ac2ac</value>
@@ -638,14 +638,14 @@
             <value description="currency_code">Rs.</value>
             <value description="currency_symbol"></value>
         </row>
-        <!-- <row>
+        <row>
             <value description="id">4b8b35c2-124b-11e4-8a85-e069959ac2ac</value>
             <value description="branch_id">e7c50484-10cc-11e4-ad71-e069959ac2ac</value>
             <value description="product_id">b2f0678a-0e98-11e4-ad3f-e069959ac2ac</value>
             <value description="price">100</value>
             <value description="currency_code">Rs.</value>
             <value description="currency_symbol"></value>
-        </row> -->
+        </row>
         <row>
             <value description="id">520ea6f7-124b-11e4-8a85-e069959ac2ac</value>
             <value description="branch_id">e7c50484-10cc-11e4-ad71-e069959ac2ac</value>
@@ -665,14 +665,14 @@
             <value description="currency_code">Rs.</value>
             <value description="currency_symbol"></value>
         </row>
-        <!-- <row>
+        <row>
             <value description="id">3d7a2e66-126d-11e4-8a85-e069959ac2ac</value>
             <value description="branch_id">a90c1b57-10cc-11e4-ad71-e069959ac2ac</value>
             <value description="product_id">34040a61-1265-11e4-8a85-e069959ac2ac</value>
             <value description="price">100</value>
             <value description="currency_code">Rs.</value>
             <value description="currency_symbol"></value>
-        </row> -->
+        </row>
         <row>
             <value description="id">43c58dcb-126d-11e4-8a85-e069959ac2ac</value>
             <value description="branch_id">a90c1b57-10cc-11e4-ad71-e069959ac2ac</value>
@@ -759,4 +759,4 @@
         </row>
         
     </table>      
-</dataset>
+ --></dataset>

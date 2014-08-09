@@ -39,6 +39,8 @@ public class Partner extends BaseObject implements Serializable {
 
     private String id;
     private String partnerName;
+    private String description;
+    private String imagePath;
     private Set<Branch> branches = new HashSet<Branch>();
     private boolean isActive = true;
 
@@ -62,6 +64,24 @@ public class Partner extends BaseObject implements Serializable {
         this.partnerName = partnerName;
     }
 
+	@Column(name="description")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+    @Column(name="image_path")
+    public String getImagePath(){
+    	return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+    
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL)
     @JsonIgnore
     @JSON(serialize=false)

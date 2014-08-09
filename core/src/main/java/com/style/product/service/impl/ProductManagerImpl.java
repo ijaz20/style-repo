@@ -1,11 +1,14 @@
 package com.style.product.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.style.Constants;
 import com.style.exception.AppException;
 import com.style.model.Branch;
 import com.style.model.LabelValue;
@@ -15,6 +18,7 @@ import com.style.model.ProductCategory;
 import com.style.product.dao.ProductDao;
 import com.style.product.service.ProductManager;
 import com.style.service.impl.GenericManagerImpl;
+import com.style.util.FileUtil;
 
 /**
  * Implementation of ProductManager interface.
@@ -79,7 +83,16 @@ public class ProductManagerImpl extends GenericManagerImpl<Product, String>
 	/**
 	 * {@inheritDoc}
 	 */
-	public Product saveProduct(Product product) throws AppException {
+	public Product saveProduct(Product product, File file, String filePath) throws AppException {
+		if(null != file){
+			try {
+				FileUtil.saveFile(file, filePath, product.getProductName());
+			} catch (IOException e) {
+				log.error(e.getMessage(), e);
+				throw new AppException("Problem in saving product, Please check the product image file");
+			}
+			product.setImagePath(Constants.PRODUCT_IMAGE_PATH+product.getProductName().replaceAll(" ","_")+Constants.IMAGE_FORMAT);
+		}
 		return productDao.saveProduct(product);
 	}
 

@@ -44,6 +44,7 @@ public class ProductCategory extends BaseObject implements Serializable {
 
     private String id;
     private String categoryName;
+    private String description;    
     private Set<Branch> branches = new HashSet<Branch>(); 
     private boolean isActive = true;
     
@@ -58,6 +59,15 @@ public class ProductCategory extends BaseObject implements Serializable {
         this.id = id;
     }
 
+	@Column(name="description")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+    
     @Column(name="category_name")
     public String getCategoryName() {
         return categoryName;
