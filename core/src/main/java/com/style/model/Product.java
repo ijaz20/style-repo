@@ -111,7 +111,7 @@ public class Product extends BaseObject implements Serializable {
     }
 
     @OneToMany(cascade = CascadeType.ALL, targetEntity = ProductPrice.class, mappedBy = "product", fetch = FetchType.EAGER, orphanRemoval = true)
-    @OrderBy("id")
+    @OrderBy("priceId")
     @Fetch(value = FetchMode.SELECT)
     public List<ProductPrice> getProductPrices() {
         return productPrices;

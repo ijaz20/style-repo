@@ -79,18 +79,23 @@ public class ProductCategoryAction extends BaseAction implements Preparable {
 			if (null != branchIds && branchIds.length > 0) {
 				branches = branchManager.getBranches(branchIds);
 				getCategory().setBranches(new HashSet<Branch>(branches));
-				category = categoryManager.saveCategory(getCategory());
-				saveMessage("category saved successfully");
-				getRequest()
-						.getSession()
-						.getServletContext()
-						.setAttribute(Constants.CATEGORIES,
-								categoryManager.getProductCategories());
-				return showCategories();
 			} else {
 				saveMessage("select atleast one branch");
 				return "error";
 			}
+			category = categoryManager.saveCategory(getCategory());
+			saveMessage("category saved successfully");
+			getRequest()
+					.getSession()
+					.getServletContext()
+					.setAttribute(Constants.CATEGORIES,
+							categoryManager.getProductCategories());
+			getRequest()
+					.getSession()
+					.getServletContext()
+					.setAttribute(Constants.AVAILABLE_CATEGORIES,
+							categoryManager.getAllProductCategories());
+			return showCategories();
 		} catch (AppException e) {
 			saveMessage(e.getMessage());
 			log.error(e.getMessage(), e);
