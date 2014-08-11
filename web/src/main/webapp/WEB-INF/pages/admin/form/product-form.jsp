@@ -80,7 +80,9 @@
 								<option value="${branch.id}">${branch.branchName}</option>
 							</c:forEach>
 					</select></td>
-
+					<td class="hide"><input type="text" id="priceId1"
+						name="prices[0].priceId" class="form-control"/>
+					</td>
 					<td class="text-center"><input type="text" id="price1"
 						name="prices[0].price" class="form-control" /></td>
 
@@ -146,6 +148,10 @@
 	}
 
 	$('#addRow').click(function() {
+		addPriceRow();
+	});
+
+	function addPriceRow(){
 		var newRowNo = $('#branchDetails tr').length;
 		var oldRowNo = newRowNo - 1;
 		var $last = $('#branchDetails tr:last');
@@ -153,6 +159,9 @@
 		$(last_row).find(":input").each(function() {
 			var oldId = $(this).attr("id");
 			var oldName = $(this).prop('name');
+			if(oldName == "prices["+(oldRowNo-1)+"].priceId") {
+				$(this).val('');
+			}
 			var newId = oldId.replace(oldRowNo, newRowNo);
 			var newName = oldName.replace(oldRowNo - 1, newRowNo - 1);
 			$(this).attr("id", newId);
@@ -163,16 +172,52 @@
 		addPartnerChangeEvent(newRowNo);
 		loadBranches(newRowNo);
 		deleteRow(newRowNo);
-	});
-
+	}
+	
 	function deleteRow(rowCount) {
 		$("#deleteRow" + rowCount).click(function() {
 			$(this).closest('tr').remove();
 		});
 	}
-	$(document).ready(function() {
-		loadBranches(1);
-		addPartnerChangeEvent(1);
-		deleteRow(1);
-	});
+	
+	function showPricesOnEdit(){
+		var tableRowCount = 0;
+		<c:forEach items="${product.productPrices}" var="price">
+			var newRowNo = $('#branchDetails tr').length;
+			var oldRowNo = newRowNo - 1;
+			/* if(tableRowCount == 1){
+				oldRowNo = newRowNo;
+			} */
+			var $last = $('#branchDetails tr:last');
+			var last_row = $last;
+			if(tableRowCount > 0){
+				last_row = $last.clone();
+			}
+			$(last_row).find(":input").each(function() {
+				if(tableRowCount > 0){
+					var oldId = $(this).attr("id");
+					var oldName = $(this).prop('name');
+					var newId = oldId.replace(oldRowNo, newRowNo);
+					var newName = oldName.replace(oldRowNo - 1, newRowNo - 1);
+					$(this).attr("id", newId);
+					$(this).attr("name", newName);
+				}
+			});
+			last_row.appendTo($('#branchDetails'));
+			//$("#branchDetails tr:last").hide().fadeIn('slow');
+			addPartnerChangeEvent(newRowNo);
+			$("#partner"+oldRowNo).val("${price.branch.partner.id}").change();
+			$("#branches"+oldRowNo).val("${price.branch.id}").change();
+			$("#priceId"+oldRowNo).val("${price.priceId}");
+			$("#price"+oldRowNo).val("${price.price}");
+			loadBranches(newRowNo);
+			deleteRow(newRowNo);
+			tableRowCount++;
+		</c:forEach>
+	}
+	
+	addPartnerChangeEvent(1);
+	loadBranches(1);
+	deleteRow(1);
+	showPricesOnEdit();
 </script>

@@ -35,7 +35,7 @@ public class ProductPrice extends BaseObject implements Serializable {
 	 * 
 	 */
     private static final long serialVersionUID = 1L;
-    private String id;
+    private String priceId;
     private Product product;
     private Branch branch;
     private String price;
@@ -45,12 +45,12 @@ public class ProductPrice extends BaseObject implements Serializable {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    public String getId() {
-        return id;
+    public String getPriceId() {
+        return priceId;
     } 
 
-    public void setId(String id) {
-        this.id = id;
+    public void setPriceId(String priceId) {
+        this.priceId = priceId;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -122,8 +122,8 @@ public class ProductPrice extends BaseObject implements Serializable {
 
         final ProductPrice productPrice = (ProductPrice) o;
 
-        return !(id != null ? !id.equals(productPrice.getId()) : productPrice
-                .getId() != null);
+        return !(priceId != null ? !priceId.equals(productPrice.getPriceId()) : productPrice
+                .getPriceId() != null);
 
     }
 
@@ -131,7 +131,7 @@ public class ProductPrice extends BaseObject implements Serializable {
      * {@inheritDoc}
      */
     public int hashCode() {
-        return (id != null ? id.hashCode() : 0);
+        return (priceId != null ? priceId.hashCode() : 0);
     }
 
 }
