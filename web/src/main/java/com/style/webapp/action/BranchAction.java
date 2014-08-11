@@ -1,5 +1,7 @@
 package com.style.webapp.action;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +67,14 @@ public class BranchAction extends BaseAction implements Preparable {
 	public String saveBranch() {
 		log.info("branch saving");
 		try {
-			branch = branchManager.saveBranch(branch);
+			Calendar currentTime = new GregorianCalendar();
+			getBranch().setModifiedTime(currentTime);
+			getBranch().setModifiedBy(getRequest().getRemoteUser());
+			if(StringUtil.isEmptyString(getBranch().getId())){
+				getBranch().setCreatedTime(currentTime);
+				getBranch().setCreatedBy(getRequest().getRemoteUser());
+			}
+			branch = branchManager.saveBranch(getBranch());
 			saveMessage("branch saved successfully");
 			getRequest()
 					.getSession()

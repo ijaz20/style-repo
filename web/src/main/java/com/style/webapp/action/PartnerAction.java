@@ -1,6 +1,8 @@
 package com.style.webapp.action;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
@@ -70,6 +72,13 @@ public class PartnerAction extends BaseAction implements Preparable {
 		log.info("partner saving");
 		try {
 			filePath = ServletActionContext.getServletContext().getRealPath(Constants.PARTNER_IMAGE_PATH);
+			Calendar currentTime = new GregorianCalendar();
+			getPartner().setModifiedTime(currentTime);
+			getPartner().setModifiedBy(getRequest().getRemoteUser());
+			if(StringUtil.isEmptyString(getPartner().getId())){
+				getPartner().setCreatedTime(currentTime);
+				getPartner().setCreatedBy(getRequest().getRemoteUser());
+			}
 			partner = partnerManager.savePartner(getPartner(), file, filePath+"/");
 			saveMessage("partner saved successfully");
 			getRequest()

@@ -2,6 +2,8 @@ package com.style.webapp.action;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 
@@ -155,6 +157,13 @@ public class ProductAction extends BaseAction implements Preparable {
 						getProduct().getProductPrices().add(productPrice);
 					}
 				}
+			}
+			Calendar currentTime = new GregorianCalendar();
+			getProduct().setModifiedTime(currentTime);
+			getProduct().setModifiedBy(getRequest().getRemoteUser());
+			if(StringUtil.isEmptyString(getProduct().getId())){
+				getProduct().setCreatedTime(currentTime);
+				getProduct().setCreatedBy(getRequest().getRemoteUser());
 			}
 			product = productManager.saveProduct(getProduct(), file, filePath+"/");
 			saveMessage("product saved successfully");
