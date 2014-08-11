@@ -185,31 +185,31 @@
 		<c:forEach items="${product.productPrices}" var="price">
 			var newRowNo = $('#branchDetails tr').length;
 			var oldRowNo = newRowNo - 1;
-			/* if(tableRowCount == 1){
-				oldRowNo = newRowNo;
-			} */
 			var $last = $('#branchDetails tr:last');
 			var last_row = $last;
 			if(tableRowCount > 0){
 				last_row = $last.clone();
 			}
-			$(last_row).find(":input").each(function() {
-				if(tableRowCount > 0){
-					var oldId = $(this).attr("id");
-					var oldName = $(this).prop('name');
-					var newId = oldId.replace(oldRowNo, newRowNo);
-					var newName = oldName.replace(oldRowNo - 1, newRowNo - 1);
-					$(this).attr("id", newId);
-					$(this).attr("name", newName);
-				}
-			});
+			
+			if(tableRowCount > 0){
+				$(last_row).find(":input").each(function() {
+						var oldId = $(this).attr("id");
+						var oldName = $(this).prop('name');
+						var newId = oldId.replace(oldRowNo, newRowNo);
+						var newName = oldName.replace(oldRowNo - 1, newRowNo - 1);
+						$(this).attr("id", newId);
+						$(this).attr("name", newName);
+				});
+			}
+			
 			last_row.appendTo($('#branchDetails'));
-			//$("#branchDetails tr:last").hide().fadeIn('slow');
 			addPartnerChangeEvent(newRowNo);
+
 			$("#partner"+oldRowNo).val("${price.branch.partner.id}").change();
 			$("#branches"+oldRowNo).val("${price.branch.id}").change();
 			$("#priceId"+oldRowNo).val("${price.priceId}");
 			$("#price"+oldRowNo).val("${price.price}");
+			
 			loadBranches(newRowNo);
 			deleteRow(newRowNo);
 			tableRowCount++;

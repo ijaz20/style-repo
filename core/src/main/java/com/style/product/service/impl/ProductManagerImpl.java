@@ -86,7 +86,7 @@ public class ProductManagerImpl extends GenericManagerImpl<Product, String>
 	public Product saveProduct(Product product, File file, String filePath) throws AppException {
 		if(null != file){
 			try {
-				FileUtil.saveFile(file, filePath, product.getProductName());
+				FileUtil.saveFile(file, filePath, product.getProductName().replaceAll(" ","_")+Constants.IMAGE_FORMAT);
 			} catch (IOException e) {
 				log.error(e.getMessage(), e);
 				throw new AppException("Problem in saving product, Please check the product image file");

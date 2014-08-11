@@ -2,6 +2,7 @@ package com.style.webapp.action;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -78,6 +79,7 @@ public class ProductCategoryAction extends BaseAction implements Preparable {
 			String[] branchIds = getRequest().getParameterValues("branchIds");
 			if (null != branchIds && branchIds.length > 0) {
 				branches = branchManager.getBranches(branchIds);
+				//getCategory().getBranches().removeAll(getCategory().getBranches());
 				getCategory().setBranches(new HashSet<Branch>(branches));
 			} else {
 				saveMessage("select atleast one branch");

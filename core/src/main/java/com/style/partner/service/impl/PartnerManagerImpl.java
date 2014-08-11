@@ -47,7 +47,7 @@ public class PartnerManagerImpl extends GenericManagerImpl<Partner, String>
 			throws AppException {
 		if(null != file){
 			try {
-				FileUtil.saveFile(file, filePath, partner.getPartnerName());
+				FileUtil.saveFile(file, filePath, partner.getPartnerName().replaceAll(" ","_")+Constants.IMAGE_FORMAT);
 			} catch (IOException e) {
 				log.error(e.getMessage(), e);
 				throw new AppException("Problem in saving partner, Please check the logo file");
