@@ -142,19 +142,21 @@ public class ProductAction extends BaseAction implements Preparable {
 	public String saveProduct() {
 		log.info("product saving");
 		try {
-			filePath = ServletActionContext.getServletContext().getRealPath("images");
+			filePath = ServletActionContext.getServletContext().getRealPath(Constants.PRODUCT_IMAGE_PATH);
 			if (null != getPrices() && !getPrices().isEmpty()) {
 				for (ProductPrice productPrice : getPrices()) {
-					log.info("product price branch id is "
-							+ productPrice.getBranch().getId() + " & price is "
-							+ productPrice.getPrice());
-					productPrice.setProduct(product);
-					productPrice
-							.setCurrencyCode(Constants.INDIAN_CURRENCY_CODE);
-					getProduct().getProductPrices().add(productPrice);
+					if(null != productPrice){
+						log.info("product price branch id is "
+								+ productPrice.getBranch().getId() + " & price is "
+								+ productPrice.getPrice());
+						productPrice.setProduct(product);
+						productPrice
+								.setCurrencyCode(Constants.INDIAN_CURRENCY_CODE);
+						getProduct().getProductPrices().add(productPrice);
+					}
 				}
 			}
-			product = productManager.saveProduct(getProduct(), file, filePath+"/product/");
+			product = productManager.saveProduct(getProduct(), file, filePath+"/");
 			saveMessage("product saved successfully");
 			return showProducts();
 		} catch (AppException e) {

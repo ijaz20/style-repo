@@ -106,6 +106,10 @@
 	}
 
 	$('#addRow').click(function() {
+		addPriceRow();
+	});
+
+	function addPriceRow() {
 		var newRowNo = $('#branchDetails tr').length;
 		var oldRowNo = newRowNo - 1;
 
@@ -121,16 +125,75 @@
 		addPartnerChangeEvent(newRowNo);
 		loadBranches(newRowNo);
 		deleteRow(newRowNo);
-	});
+	}
 
 	function deleteRow(rowCount) {
 		$("#deleteRow" + rowCount).click(function() {
 			$(this).closest('tr').remove();
 		});
 	}
-	$(document).ready(function() {
-		loadBranches(1);
-		addPartnerChangeEvent(1);
-		deleteRow(1);
-	});
+
+	function showBrancesOnEdit() {
+		var tableRowCount = 0;
+		var addedPartner = [];
+		<c:forEach items="${category.branches}" var="branch">
+			if (jQuery.inArray("${branch.partner.id}", addedPartner) == -1) {
+				var newRowNo = $('#branchDetails tr').length;
+				var oldRowNo = newRowNo - 1;
+				var $last = $('#branchDetails tr:last');
+				var last_row = $last;
+				if (tableRowCount > 0) {
+					last_row = $last.clone();
+				}
+	
+				if (tableRowCount > 0) {
+					$(last_row).find(":input").each(function() {
+						var oldId = $(this).attr("id");
+						var oldName = $(this).prop('name');
+						var newId = oldId.replace(oldRowNo, newRowNo);
+						var newName = oldName.replace(oldRowNo - 1, newRowNo - 1);
+						$(this).attr("id", newId);
+						$(this).attr("name", newName);
+					});
+				}
+	
+				$('#branchDetails').append(last_row);
+				addPartnerChangeEvent(newRowNo);
+				if (tableRowCount > 0) {
+					$("#partner" + newRowNo).val("${branch.partner.id}").change();
+					loadBranches(newRowNo);
+					deleteRow(newRowNo);
+				} else {
+					$("#partner" + oldRowNo).val("${branch.partner.id}").change();
+					loadBranches(oldRowNo);
+					deleteRow(oldRowNo);
+				}
+				addedPartner.push("${branch.partner.id}");
+				++tableRowCount;
+			}
+		</c:forEach>
+	}
+
+	function selectBranches() {
+		for (var i = 1; i < $('#branchDetails tr').length; i++) {
+			$("#branches" + i + " option")
+					.each(
+							function() {
+								<c:forEach items="${category.branches}" var="selectedBranch">
+								var idd = "${selectedBranch.id}";
+								var pid = "${branch.partner.partnerName}";
+								if (this.value == "${selectedBranch.id}"
+										&& $("#partner" + i).val() == "${selectedBranch.partner.id}") {
+									$(this).attr("selected", true);
+								}
+								</c:forEach>
+							});
+		}
+	}
+
+	loadBranches(1);
+	addPartnerChangeEvent(1);
+	deleteRow(1);
+	showBrancesOnEdit();
+	selectBranches();
 </script>

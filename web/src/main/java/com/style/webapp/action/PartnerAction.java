@@ -69,8 +69,8 @@ public class PartnerAction extends BaseAction implements Preparable {
 	public String savePartner() {
 		log.info("partner saving");
 		try {
-			filePath = ServletActionContext.getServletContext().getRealPath("images");
-			partner = partnerManager.savePartner(getPartner(), file, filePath+"/partner/");
+			filePath = ServletActionContext.getServletContext().getRealPath(Constants.PARTNER_IMAGE_PATH);
+			partner = partnerManager.savePartner(getPartner(), file, filePath+"/");
 			saveMessage("partner saved successfully");
 			getRequest()
 					.getSession()
