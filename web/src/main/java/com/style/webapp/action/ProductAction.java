@@ -1,9 +1,11 @@
 package com.style.webapp.action;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Preparable;
@@ -28,6 +30,9 @@ public class ProductAction extends BaseAction implements Preparable {
 	private String id;
 	private String productCount;
 	private List<ProductPrice> prices;
+	private File file;
+	private String filePath;
+
 
 	@Autowired
 	public void setProductManager(ProductManager productManager) {
@@ -137,6 +142,7 @@ public class ProductAction extends BaseAction implements Preparable {
 	public String saveProduct() {
 		log.info("product saving");
 		try {
+			filePath = ServletActionContext.getServletContext().getRealPath("images");
 			if (null != getPrices() && !getPrices().isEmpty()) {
 				for (ProductPrice productPrice : getPrices()) {
 					log.info("product price branch id is "
@@ -148,7 +154,7 @@ public class ProductAction extends BaseAction implements Preparable {
 					getProduct().getProductPrices().add(productPrice);
 				}
 			}
-			product = productManager.saveProduct(getProduct());
+			product = productManager.saveProduct(getProduct(), file, filePath+"/product/");
 			saveMessage("product saved successfully");
 			return showProducts();
 		} catch (AppException e) {
@@ -158,6 +164,22 @@ public class ProductAction extends BaseAction implements Preparable {
 		}
 	}
 
+	public String getProductById(){
+		log.info("getting product details");
+		if(!StringUtil.isEmptyString(getId())){
+			try {
+				product = productManager.get(getId());
+			} catch (AppException e){
+				log.error(e.getMessage(), e);
+				saveMessage("Problem in getting product");
+			}
+		} else {
+			saveMessage("product id is empty");
+			return "error";
+		}
+		return "success";
+	}
+	
 	public List<Product> getProducts() {
 		return products;
 	}
@@ -198,4 +220,19 @@ public class ProductAction extends BaseAction implements Preparable {
 		this.prices = prices;
 	}
 
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 }

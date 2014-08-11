@@ -49,6 +49,7 @@ public class Branch extends BaseObject implements Serializable {
     private String branchName;
     private Address address = new Address();;
     private Partner partner;
+    private String description;    
     private Set<ProductPrice> productPrices = new HashSet<ProductPrice>();
     private boolean isActive = true ;
     
@@ -72,6 +73,15 @@ public class Branch extends BaseObject implements Serializable {
         this.branchName = branchName;
     }
 
+	@Column(name="description")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
     public Address getAddress() {
         return address;
     }

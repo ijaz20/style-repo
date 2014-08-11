@@ -1,5 +1,6 @@
 package com.style.product.service;
 
+import java.io.File;
 import java.util.List;
 
 import com.style.exception.AppException;
@@ -65,7 +66,7 @@ public interface ProductManager extends GenericManager<Product, String> {
 	 * @param product
 	 * @return
 	 */
-	Product saveProduct(Product product) throws AppException;
+	Product saveProduct(Product product, File file, String filePath) throws AppException;
 
 	/**
 	 * 

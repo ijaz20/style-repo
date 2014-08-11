@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.style.Constants;
 import com.style.exception.AppException;
 import com.style.model.LabelValue;
 import com.style.model.Partner;
@@ -51,6 +52,7 @@ public class PartnerManagerImpl extends GenericManagerImpl<Partner, String>
 				log.error(e.getMessage(), e);
 				throw new AppException("Problem in saving partner, Please check the logo file");
 			}
+			partner.setImagePath(Constants.PARTNER_IMAGE_PATH+partner.getPartnerName().replaceAll(" ","_")+Constants.IMAGE_FORMAT);
 		}
 		return partnerDao.savePartner(partner);
 	}

@@ -123,4 +123,12 @@ public final class Constants {
      * Default currency code
      */
     public static final String INDIAN_CURRENCY_CODE = "Rs.";
+    
+    public static final String PRODUCT_IMAGE_PATH = "/images/products/";
+    
+    public static final String PARTNER_IMAGE_PATH = "/images/partners/";
+    
+    public static final String IMAGE_FORMAT = ".jpg";
+    
+    
 }
