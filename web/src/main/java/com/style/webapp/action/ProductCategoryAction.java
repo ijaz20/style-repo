@@ -1,5 +1,7 @@
 package com.style.webapp.action;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -85,6 +87,14 @@ public class ProductCategoryAction extends BaseAction implements Preparable {
 				saveMessage("select atleast one branch");
 				return "error";
 			}
+			Calendar currentTime = new GregorianCalendar();
+			getCategory().setModifiedTime(currentTime);
+			getCategory().setModifiedBy(getRequest().getRemoteUser());
+			if(StringUtil.isEmptyString(getCategory().getId())){
+				getCategory().setCreatedTime(currentTime);
+				getCategory().setCreatedBy(getRequest().getRemoteUser());
+			}
+			
 			category = categoryManager.saveCategory(getCategory());
 			saveMessage("category saved successfully");
 			getRequest()

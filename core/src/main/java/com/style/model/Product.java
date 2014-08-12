@@ -2,6 +2,7 @@ package com.style.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
@@ -53,6 +54,10 @@ public class Product extends BaseObject implements Serializable {
     private ProductPrice price = new ProductPrice();
     private ProductCategory category = new ProductCategory(); 
     private boolean isActive = true;
+    private Calendar createdTime;
+    private Calendar modifiedTime;
+    private String createdBy;
+    private String modifiedBy;
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -150,6 +155,42 @@ public class Product extends BaseObject implements Serializable {
 
 	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	@Column(name = "created_time")
+	public Calendar getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Calendar createdTime) {
+		this.createdTime = createdTime;
+	}
+
+	@Column(name = "modified_time")
+	public Calendar getModifiedTime() {
+		return modifiedTime;
+	}
+
+	public void setModifiedTime(Calendar modifiedTime) {
+		this.modifiedTime = modifiedTime;
+	}
+
+	@Column(name = "created_by")
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Column(name = "modified_by")
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
 
 	/**
