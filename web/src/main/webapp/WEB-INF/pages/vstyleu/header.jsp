@@ -75,8 +75,8 @@
 	</div>
 	<!--/header-middle-->
 
-	<div class="header-bottom">
-		<!--header-bottom-->
+	<!-- <div class="header-bottom">
+		header-bottom
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-3 pull-right">
@@ -103,5 +103,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </header>

@@ -59,14 +59,14 @@ $('div[id^="product_"]').on('click', function(){
 					+'<th class="text-center">Branch Name</th>'
 					+'<th class="text-center">Price</th>'
 					+'<th class="text-center">Add</th>'
-					+'<th class="text-center">Proceed To Pay</th>'
+					/*+'<th class="text-center">Proceed To Pay</th>'*/
 				+'</tr>';
 				for ( var i in response.productPrices) {
 					priceDetails = priceDetails+'<tr>'
 					+'<td class="text-center">'+response.productPrices[i].branch.branchName+'</td>'
 					+'<td class="text-center">'+response.productPrices[i].price+'</td>'
-					+'<td class="text-center"><input type="button" id="addRow" value="Add List" class="btn btn-primary col-sm-8" /></td>'
-					+'<td class="text-center"><input type="button" id="addRow" value="Proceed" class="btn btn-primary col-sm-8" /></td>'
+					+'<td class="text-center"><input type="button" id="addRow" value="Add List" class="btn-primary col-sm-8" /></td>'
+					/*+'<td class="text-center"><input type="button" id="addRow" value="Proceed" class="btn btn-primary col-sm-8" /></td>'*/
 					+'</tr>';
 				}
 				priceDetails = priceDetails+'</table></div>';
@@ -77,7 +77,7 @@ $('div[id^="product_"]').on('click', function(){
 	 
 	 $("#"+elementId).toggleClass("col-sm-4","col-sm-12");
 	 $("#"+elementId+"_image").toggleClass("col-sm-12","col-sm-4");
-	 $("#"+elementId+"_price").addClass("col-sm-8");
+	 $("#"+elementId+"_price").addClass("col-sm-6");
 });
 
 function filterProducts(isFilter, renderId, productCount){
