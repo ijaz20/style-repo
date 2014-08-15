@@ -235,11 +235,4 @@
         </action>               
     </package>
     
-    <!-- Actions in this package will be prefixed with /product/ -->
-    <!-- <package name="vstyleu" extends="default, json-default" namespace="vstyleu">
-        <action name="login">
-            <result>/WEB-INF/pages/vstyleu/login.jsp</result>
-        </action>
-    </package> -->
-    
 </struts>

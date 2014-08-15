@@ -55,11 +55,11 @@ public class ProductAction extends BaseAction implements Preparable {
 		log.info("getting all products");
 		try {
 			products = productManager.getAllProducts(0, null, null);
-			return "success";
+			return SUCCESS;
 		} catch (AppException e) {
 			saveMessage(e.getMessage());
 			log.error(e.getMessage(), e);
-			return "error";
+			return ERROR;
 		}
 	}
 
@@ -76,11 +76,11 @@ public class ProductAction extends BaseAction implements Preparable {
 					.getParameterValues("brands[]"), getRequest()
 					.getParameterValues("categories[]"));
 			removeDuplicates();
-			return "success";
+			return SUCCESS;
 		} catch (AppException e) {
 			saveMessage(e.getMessage());
 			log.error(e.getMessage(), e);
-			return "error";
+			return ERROR;
 		}
 	}
 
@@ -105,11 +105,11 @@ public class ProductAction extends BaseAction implements Preparable {
 			if (null != getId()) {
 				product = productManager.get(getId());
 			}
-			return "success";
+			return SUCCESS;
 		} catch (AppException e) {
 			saveMessage(e.getMessage());
 			log.error(e.getMessage(), e);
-			return "error";
+			return ERROR;
 		}
 	}
 
@@ -123,7 +123,7 @@ public class ProductAction extends BaseAction implements Preparable {
 		if (!StringUtil.isEmptyString(getId())) {
 			product = productManager.getProduct(getId());
 		}
-		return "success";
+		return SUCCESS;
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class ProductAction extends BaseAction implements Preparable {
 	 */
 	public String showProducts() {
 		products = productManager.getAll();
-		return "success";
+		return SUCCESS;
 	}
 
 	/**
@@ -171,7 +171,7 @@ public class ProductAction extends BaseAction implements Preparable {
 		} catch (AppException e) {
 			saveMessage(e.getMessage());
 			log.error(e.getMessage(), e);
-			return "error";
+			return ERROR;
 		}
 	}
 
@@ -188,7 +188,7 @@ public class ProductAction extends BaseAction implements Preparable {
 			saveMessage("product id is empty");
 			return "error";
 		}
-		return "success";
+		return SUCCESS;
 	}
 	
 	public List<Product> getProducts() {

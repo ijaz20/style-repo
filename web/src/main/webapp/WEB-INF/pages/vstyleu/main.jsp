@@ -11,11 +11,13 @@
 					<jsp:include page="/WEB-INF/pages/vstyleu/product-filters.jsp" />
 				</div>
 
-				<div class="col-sm-7 padding-right">
+				<div class="col-sm-6 padding-right">
 					<decorator:body />
 				</div>
-				<div class="col-sm-2 padding-right">
-					<div id="cart"></div>
+				<div class="col-sm-3 padding-right">
+					<div id="cart">
+                        <jsp:include page="/WEB-INF/pages/vstyleu/cart-detail.jsp" />
+					</div>
 				</div>
 			</div>
 			<div id="withoutFilterContent" class="hide">

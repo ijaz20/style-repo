@@ -108,26 +108,6 @@
 	</s:form>
 </div>
 
-<!-- <table id="invoice">
-		<tr>
-			<th>Quantity</th>
-			<th>Item</th>
-			<th><input type="button" id="addnew" name="addnew"
-				value="Add Row" /></th>
-		</tr>
-		<tr id="id1">
-			<td><input id="quantity1" name="quantity[]" tabindex="1"
-				type="text" value="" /></td>
-			<td><select id="rate1" name="rate[]" tabindex="2" value="">
-					<option value="">SELECT</option>
-					<option value="1">ONE</option>
-					<option value="2">TWO</option>
-			</select></td>
-			<td><input id="remove1" name="remove[]" tabindex="3"
-				type="button" value="Remove Row" class="remove" /></td>
-		</tr>
-	</table> -->
-
 <script type="text/javascript">
 	function loadBranches(rowCount) {
 		var branchOptions = '';

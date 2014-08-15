@@ -21,6 +21,16 @@ function scrollSideMenu() {
 	}
 }
 
+function initializeCartWindow(){
+    $(".cart-line-noOrder").addClass('active').siblings().addClass('hide');
+}
+
+function bindCartDetailEvent(){
+    $("#addRow").on("click", function(){
+
+    });
+}
+
 $("#category-filters a").click(function(e){
     var href = $(this).attr("href");//get the href so we can navigate later
     if($(this).find("input:checkbox").is(':checked')){
@@ -41,44 +51,73 @@ $("#brand-filters a").click(function(e){
     filterProducts(true, "features_products", 0);
 });
 
-$('div[id^="product_"]').on('click', function(){
-	var elementId = $(this).attr("id");	
-	var productId = elementId.split('_')[1];
-	$.ajax({
-		url : "/vstyleu/get-product",
-		type : "GET",
-		asyn : false,
-		data : {
-			id:productId
-		},
-		dataType : "json",
-		success : function(response) {
-			var priceDetails = '<div class="row table-responsive">'
-				+'<table id="branchDetails" class="table table-striped">'
-				+'<tr>'
-					+'<th class="text-center">Branch Name</th>'
-					+'<th class="text-center">Price</th>'
-					+'<th class="text-center">Add</th>'
-					/*+'<th class="text-center">Proceed To Pay</th>'*/
-				+'</tr>';
-				for ( var i in response.productPrices) {
-					priceDetails = priceDetails+'<tr>'
-					+'<td class="text-center">'+response.productPrices[i].branch.branchName+'</td>'
-					+'<td class="text-center">'+response.productPrices[i].price+'</td>'
-					+'<td class="text-center"><input type="button" id="addRow" value="Add List" class="btn-primary col-sm-8" /></td>'
-					/*+'<td class="text-center"><input type="button" id="addRow" value="Proceed" class="btn btn-primary col-sm-8" /></td>'*/
-					+'</tr>';
-				}
-				priceDetails = priceDetails+'</table></div>';
-			$("#"+elementId+"_price").html(priceDetails);
-			$("#"+elementId+"_details").html(response.description);
-		}
-	});
-	 
-	 $("#"+elementId).toggleClass("col-sm-4","col-sm-12");
-	 $("#"+elementId+"_image").toggleClass("col-sm-12","col-sm-4");
-	 $("#"+elementId+"_price").addClass("col-sm-6");
-});
+function populateOfferFromProduct(elem) {
+        var elementId = elem.attr("id");
+        var productId = elementId.split('_')[1];
+        if($("#" + elementId).hasClass("col-sm-4")) {
+            if($("#displayOffer_"+productId).val() != "true") {
+                $.ajax({
+                    url: "/vstyleu/get-product",
+                    type: "GET",
+                    asyn: false,
+                    data: {
+                        id: productId
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        var priceDetails = '<div class="row table-responsive">'
+                            + '<table id="branchDetails" class="table table-striped">'
+                            + '<tr>'
+                            + '<th class="text-center">Branch Name</th>'
+                            + '<th class="text-center">Price</th>'
+                            + '<th class="text-center">Add</th>'
+                            + '</tr>';
+                        for (var i in response.productPrices) {
+                            priceDetails = priceDetails + '<tr>'
+                                + '<td class="text-center" id=branchName_' + response.productPrices[i].branch.branchName.replace(' ', '_') + '>' + response.productPrices[i].branch.branchName + '</td>'
+                                + '<td class="text-center" id=branchPrice_' + response.productPrices[i].price + '>' + response.productPrices[i].price + '</td>'
+                                + '<td class="text-center"><input type="button" onclick="addCartFromOfferList($(this))" id=addCart_' + response.productPrices[i].id + ' value="Add List" class="btn-primary col-sm-8" /></td>'
+                                + '</tr>';
+                        }
+                        priceDetails = priceDetails + '</table></div>';
+                        $('<div/>', {
+                            id: elementId + "_price",
+                            class: "col-sm-6",
+                            html: priceDetails
+                        }).insertAfter($("#" + elementId + "_image"));
+                        $("#displayOffer_" + productId).val("true")
+                        //Don't delete this comment we need to show descripton later.
+                        //$("#" + elementId + "_details").html(response.description);
+                    }
+                });
+            }
+
+            $("#" + elementId + "_price").removeClass("hide");
+            $("#" + elementId).toggleClass("col-sm-4 col-sm-12");
+            $("#" + elementId + "_image").toggleClass("col-sm-12 col-sm-4");
+            $("#close_"+ productId).removeClass("hide");
+        }
+        else{
+            $("#" + elementId).toggleClass("col-sm-12 col-sm-4");
+            $("#" + elementId + "_image").toggleClass("col-sm-4 col-sm-12");
+            $("#" + elementId + "_price").addClass("hide");
+            $("#close_"+ productId).addClass("hide");
+            elem.unbind("click");
+        }
+}
+
+function addCartFromOfferList(elem){
+
+}
+
+function closeOfferDisplay(elem){
+    var elementId = elem.attr("id");
+    var productId = elementId.split('_')[1];
+    $("#product_" + productId).toggleClass("col-sm-12 col-sm-4");
+    $("#product_" + productId + "_image").toggleClass("col-sm-4 col-sm-12");
+    $("#product_" + productId + "_price").addClass("hide");
+    elem.addClass("hide");
+}
 
 function filterProducts(isFilter, renderId, productCount){
 	var categories = [];
@@ -190,8 +229,10 @@ $(document).ready(function() {
 			zIndex : 2147483647
 		// Z-Index for the overlay
 		});
-
 	});
+    initializeCartWindow();
+    bindCartDetailEvent();
+    addCartFromOfferList()
 });
 
 /**
