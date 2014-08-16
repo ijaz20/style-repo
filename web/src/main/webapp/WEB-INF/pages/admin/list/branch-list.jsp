@@ -36,7 +36,7 @@
                         url="/admin/showBranch?from=list" paramId="id" paramProperty="id"/>
         <display:column property="branchName" escapeXml="true" sortable="true" titleKey="branch.branchName" style="width: 25%"/>
         <display:column property="partner.partnerName" escapeXml="true" sortable="true" titleKey="branch.form.partner" style="width: 25%"/>
-        <display:column property="address.city" escapeXml="true" sortable="true" titleKey="branch.address.city" style="width: 25%"/>
+        <display:column property="area.city.cityName" escapeXml="true" sortable="true" titleKey="branch.address.city" style="width: 25%"/>
         <display:column sortProperty="isActive" sortable="true" titleKey="branch.active"
                         style="width: 16%; padding-left: 15px" media="html">
             <input type="checkbox" <c:if test="${branches.isActive}">checked="checked"</c:if>/>

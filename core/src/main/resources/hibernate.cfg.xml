@@ -18,5 +18,9 @@
         <mapping class="com.style.model.Product"/>
         <mapping class="com.style.model.ProductPrice"/>
         <mapping class="com.style.model.Booking"/>
+        <mapping class="com.style.model.BookingDetail"/>
+        <mapping class="com.style.model.Payment"/>
+        <mapping class="com.style.model.Area"/>
+        <mapping class="com.style.model.City"/>
     </session-factory>
 </hibernate-configuration>

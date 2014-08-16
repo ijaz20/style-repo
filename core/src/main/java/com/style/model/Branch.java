@@ -12,19 +12,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.struts2.json.annotations.JSON;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Indexed;
 
@@ -41,44 +38,54 @@ import org.hibernate.search.annotations.Indexed;
 @Indexed
 public class Branch extends BaseObject implements Serializable {
 
-    /**
+	/**
 	 * 
 	 */
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private String id;
-    private String branchName;
-    private Address address = new Address();;
-    private Partner partner;
-    private String description;    
-    private Set<ProductPrice> productPrices = new HashSet<ProductPrice>();
-    private boolean isActive = true ;
-    private Calendar createdTime;
-    private Calendar modifiedTime;
-    private String createdBy;
-    private String modifiedBy;
-    
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    public String getId() {
-        return id;
-    }
+	private String id;
+	private String branchName;
+	private String address1;
+	private String address2;
+	private Area area;
+	private String landmark;
+	private Partner partner;
+	private String description;
+	private Set<ProductPrice> productPrices = new HashSet<ProductPrice>();
+	private boolean isActive = true;
+	private Calendar createdTime;
+	private Calendar modifiedTime;
+	private String createdBy;
+	private String modifiedBy;
+	private boolean isHomeServiceAvailable = false;
+	private boolean isCashOnDeliveryAvailable = false;
+	private boolean isFreeDeliveryAvailable = false;
+	private int minimumDeliveryAmount;
+	private int serviceCharge;
+	private String openTime;
+	private String endTime;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	@Id
+	@GeneratedValue(generator = "system-uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid")
+	public String getId() {
+		return id;
+	}
 
-    @Column(name="branch_name")
-    public String getBranchName() {
-        return branchName;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setBranchName(String branchName) {
-        this.branchName = branchName;
-    }
+	@Column(name = "branch_name")
+	public String getBranchName() {
+		return branchName;
+	}
 
-	@Column(name="description")
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+
+	@Column(name = "description")
 	public String getDescription() {
 		return description;
 	}
@@ -86,46 +93,38 @@ public class Branch extends BaseObject implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-    public Address getAddress() {
-        return address;
-    }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "partner_id")
+	public Partner getPartner() {
+		return partner;
+	}
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "partner_id")
-    public Partner getPartner() {
-        return partner;
-    }
+	public void setPartner(Partner partner) {
+		this.partner = partner;
+	}
 
-    public void setPartner(Partner partner) {
-        this.partner = partner;
-    }
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = ProductPrice.class, mappedBy = "branch", fetch = FetchType.LAZY, orphanRemoval = true)
+	@JsonIgnore
+	@JSON(serialize = false)
+	// @Fetch(value = FetchMode.SELECT)
+	public Set<ProductPrice> getProductPrices() {
+		return productPrices;
+	}
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity=ProductPrice.class, mappedBy="branch", fetch=FetchType.LAZY, orphanRemoval = true)
-    @JsonIgnore
-    @JSON(serialize=false)
-    //@Fetch(value = FetchMode.SELECT)
-    public Set<ProductPrice> getProductPrices() {
-        return productPrices;
-    }
+	public void setProductPrices(Set<ProductPrice> productPrices) {
+		this.productPrices = productPrices;
+	}
 
-    public void setProductPrices(Set<ProductPrice> productPrices) {
-        this.productPrices = productPrices;
-    }
-    
-    @Column(name = "is_active", columnDefinition = "boolean default true", nullable = false)
-    public boolean getIsActive() {
+	@Column(name = "is_active", columnDefinition = "boolean default true", nullable = false)
+	public boolean getIsActive() {
 		return isActive;
 	}
 
 	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	
+
 	@Column(name = "created_time")
 	public Calendar getCreatedTime() {
 		return createdTime;
@@ -161,40 +160,140 @@ public class Branch extends BaseObject implements Serializable {
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
-	
-    /**
-     * {@inheritDoc}
-     */
-    public String toString() {
-        ToStringBuilder sb = new ToStringBuilder(this,
-                ToStringStyle.DEFAULT_STYLE).append("branchName",
-                this.branchName);
-        return sb.toString();
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Branch)) {
-            return false;
-        }
+	@Column(name = "is_home_service_available")
+	public boolean getIsHomeServiceAvailable() {
+		return isHomeServiceAvailable;
+	}
 
-        final Branch branch = (Branch) o;
+	public void setIsHomeServiceAvailable(boolean isHomeServiceAvailable) {
+		this.isHomeServiceAvailable = isHomeServiceAvailable;
+	}
 
-        return !(id != null ? !id.equals(branch.getId())
-                : branch.getId() != null);
+	@Column(name = "minimum_delivery_amount")
+	public int getMinimumDeliveryAmount() {
+		return minimumDeliveryAmount;
+	}
 
-    }
+	public void setMinimumDeliveryAmount(int minimumDeliveryAmount) {
+		this.minimumDeliveryAmount = minimumDeliveryAmount;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public int hashCode() {
-        return (id != null ? id.hashCode() : 0);
-    }
+	@Column(name = "service_charge")
+	public int getServiceCharge() {
+		return serviceCharge;
+	}
+
+	public void setServiceCharge(int serviceCharge) {
+		this.serviceCharge = serviceCharge;
+	}
+
+	@Column(name = "is_cash_on_delivery_available")
+	public boolean getIsCashOnDeliveryAvailable() {
+		return isCashOnDeliveryAvailable;
+	}
+
+	public void setIsCashOnDeliveryAvailable(boolean isCashOnDeliveryAvailable) {
+		this.isCashOnDeliveryAvailable = isCashOnDeliveryAvailable;
+	}
+
+	@Column(name = "is_free_delivery_available")
+	public boolean getIsFreeDeliveryAvailable() {
+		return isFreeDeliveryAvailable;
+	}
+
+	public void setIsFreeDeliveryAvailable(boolean isFreeDeliveryAvailable) {
+		this.isFreeDeliveryAvailable = isFreeDeliveryAvailable;
+	}
+
+	@Column(name = "open_time")
+	public String getOpenTime() {
+		return openTime;
+	}
+
+	public void setOpenTime(String openTime) {
+		this.openTime = openTime;
+	}
+
+	@Column(name = "end_time")
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	@Column(name = "address1")
+	public String getAddress1() {
+		return address1;
+	}
+
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+
+	@Column(name = "address2")
+	public String getAddress2() {
+		return address2;
+	}
+
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+
+	@Column(name = "area")
+	@Lob
+	public Area getArea() {
+		return area;
+	}
+
+	public void setArea(Area area) {
+		this.area = area;
+	}
+
+	@Column(name = "landmark")
+	public String getLandmark() {
+		return landmark;
+	}
+
+	public void setLandmark(String landmark) {
+		this.landmark = landmark;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public String toString() {
+		ToStringBuilder sb = new ToStringBuilder(this,
+				ToStringStyle.DEFAULT_STYLE).append("branchName",
+				this.branchName);
+		return sb.toString();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof Branch)) {
+			return false;
+		}
+
+		final Branch branch = (Branch) o;
+
+		return !(id != null ? !id.equals(branch.getId())
+				: branch.getId() != null);
+
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public int hashCode() {
+		return (id != null ? id.hashCode() : 0);
+	}
 
 }

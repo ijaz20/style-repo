@@ -49,3 +49,116 @@ function confirmMessage(obj) {
     ans = confirm(msg);
     return ans;
 }
+
+
+var substringMatcher = function(URL) {
+	return function findMatches(q, cb) {
+		var matches, substrRegex;
+
+		// an array that will be populated with substring matches
+		matches = [];
+
+		// regex used to determine if a string contains the substring `q`
+		substrRegex = new RegExp(q, 'i');
+
+		$.ajax({
+			url : URL,
+			type : "GET",
+			data : {
+				query : q
+			},
+			dataType : "json",
+			success : function(response) {
+				// iterate through the pool of strings and for any string that
+				// contains the substring `q`, add it to the `matches` array
+				$.each(response, function(i, str) {
+					if (substrRegex.test(str.label)) {
+						// the typeahead jQuery plugin expects suggestions to a
+						// JavaScript object, refer to typeahead docs for more info
+						matches.push({
+							value : str.label,
+							id : str.value
+						});
+						cb(matches);
+					}
+				});
+			}
+		});
+	};
+};
+
+var substringAreaMatcher = function(URL) {
+	return function findMatches(q, cb) {
+		var matches, substrRegex;
+
+		// an array that will be populated with substring matches
+		matches = [];
+
+		// regex used to determine if a string contains the substring `q`
+		substrRegex = new RegExp(q, 'i');
+
+		$.ajax({
+			url : URL,
+			type : "GET",
+			data : {
+				query : q,
+				cityId:$('#cityId').val(),
+			},
+			dataType : "json",
+			success : function(response) {
+				// iterate through the pool of strings and for any string that
+				// contains the substring `q`, add it to the `matches` array
+				$.each(response, function(i, str) {
+					if (substrRegex.test(str.label)) {
+						// the typeahead jQuery plugin expects suggestions to a
+						// JavaScript object, refer to typeahead docs for more info
+						matches.push({
+							value : str.label,
+							id : str.value
+						});
+						cb(matches);
+					}
+				});
+			}
+		});
+	};
+};
+
+
+function initializeTypeahead(fieldId, URL) {
+	$('#' + fieldId).typeahead({
+		hint : false,
+		highlight : false,
+		minLength : 1
+	}, {
+		name : fieldId,
+		displayKey : 'value',
+		source : substringMatcher(URL),
+	}).bind(
+			'typeahead:selected',
+			function(obj, data, name) {
+				if ($('#' + fieldId + 'Id') != undefined
+						&& $('#' + fieldId + 'Id').length > 0) {
+					$('#' + fieldId + 'Id').val(data.id);
+				}
+			});
+}
+
+function initializeAreaTypeahead(fieldId, URL) {
+	$('#' + fieldId).typeahead({
+		hint : false,
+		highlight : false,
+		minLength : 1
+	}, {
+		name : fieldId,
+		displayKey : 'value',
+		source : substringAreaMatcher(URL),
+	}).bind(
+			'typeahead:selected',
+			function(obj, data, name) {
+				if ($('#' + fieldId + 'Id') != undefined
+						&& $('#' + fieldId + 'Id').length > 0) {
+					$('#' + fieldId + 'Id').val(data.id);
+				}
+			});
+}

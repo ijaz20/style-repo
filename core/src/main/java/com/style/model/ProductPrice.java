@@ -38,7 +38,7 @@ public class ProductPrice extends BaseObject implements Serializable {
     private String priceId;
     private Product product;
     private Branch branch;
-    private String price;
+    private int price;
     private String currencyCode;
     private String currencySymbol;
 
@@ -76,11 +76,11 @@ public class ProductPrice extends BaseObject implements Serializable {
     }
 
     @Column(name = "price", nullable = false)
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

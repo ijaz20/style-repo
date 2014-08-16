@@ -120,6 +120,20 @@
         </row>
     </table>
     
+    <table name="vsu_meta_city">
+    	<column>id</column>
+    	<column>city_name</column>
+    	<column>state</column>
+    	<column>country</column>
+    	<column>country_code</column>
+    	<row>
+            <value description="id">178289e8-133c-11e4-a849-e069959ac2ac</value>
+            <value description="city_name">Chennai</value>
+            <value description="state">Tamil Nadu</value>
+            <value description="country">India</value>
+            <value description="country_code">IN</value>
+        </row>
+    </table>
 <!--     <table name="vsu_partner">
         <column>id</column>
         <column>partner_name</column>
