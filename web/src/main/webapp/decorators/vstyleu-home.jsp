@@ -44,6 +44,7 @@
 	<script src="/themes/js/jquery.prettyPhoto.js"></script>
 	<script src="/themes/js/typeahead.js"></script>
 	<script src="/themes/js/main.js"></script>
+    <script src="/themes/js/util.js"></script>
 </body>
 
 </html>

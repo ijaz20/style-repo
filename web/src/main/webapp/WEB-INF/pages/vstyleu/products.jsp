@@ -8,7 +8,7 @@
     <h2 class="title text-center">Features Items</h2>
     <div id="features_products">
         <s:iterator var="product" value="%{products}" status="rowstatus">
-            <div class="col-sm-4" onclick="populateOfferFromProduct($(this))" id="product_<s:property value="id"/>">
+            <div class="col-sm-4 product-details-div">
             	<div class="row">
                     <img src="/images/products/close-red.png" style="cursor: pointer" onclick="closeOfferDisplay($(this))" id="close_<s:property value='id'/>" class="hide"/>
 	                <div class="product-image-wrapper col-sm-12" id="product_<s:property value="id"/>_image">
@@ -21,12 +21,13 @@
 	                            </a>
 	                            <div class="">
 		                            <p class="text-capitalize">
-		                                <s:property value="productName" />
+		                                <span id="productName_<s:property value="id"/>"><s:property value="productName"/></span>
 		                            </p> 
 	                            </div>                           
 	                        </div>
 	                    </div>
 	                </div>
+                    <input type="button" onclick="populateOfferFromProduct($(this))" id="product_<s:property value="id"/>" value="Check Offer" class="btn-primary" />
                 </div>
                 <input type="hidden" value="false" id="displayOffer_<s:property value='id'/>"/>
             </div>
