@@ -54,7 +54,6 @@ $("#brand-filters a").click(function(e){
 function populateOfferFromProduct(elem) {
         var elementId = elem.attr("id");
         var productId = elementId.split('_')[1];
-        if($("#" + elementId).hasClass("col-sm-4")) {
             if($("#displayOffer_"+productId).val() != "true") {
                 $.ajax({
                     url: "/vstyleu/get-product",
@@ -74,9 +73,9 @@ function populateOfferFromProduct(elem) {
                             + '</tr>';
                         for (var i in response.productPrices) {
                             priceDetails = priceDetails + '<tr>'
-                                + '<td class="text-center" id=branchName_' + response.productPrices[i].branch.branchName.replace(' ', '_') + '>' + response.productPrices[i].branch.branchName + '</td>'
-                                + '<td class="text-center" id=branchPrice_' + response.productPrices[i].price + '>' + response.productPrices[i].price + '</td>'
-                                + '<td class="text-center"><input type="button" onclick="addCartFromOfferList($(this))" id=addCart_' + response.productPrices[i].id + ' value="Add List" class="btn-primary col-sm-8" /></td>'
+                                + '<td class="text-center" id=branchName_' + response.productPrices[i].priceId + '>' + response.productPrices[i].branch.branchName + '</td>'
+                                + '<td class="text-center" id=branchPrice_' + response.productPrices[i].priceId + '>' + response.productPrices[i].price + '</td>'
+                                + '<td class="text-center"><input type="button" data-select-product-id="'+productId+'" onclick="addCartFromOfferList($(this))" id="addCart_' + response.productPrices[i].priceId + '" value="Add List" class="btn-primary col-sm-8" /></td>'
                                 + '</tr>';
                         }
                         priceDetails = priceDetails + '</table></div>';
@@ -93,30 +92,45 @@ function populateOfferFromProduct(elem) {
             }
 
             $("#" + elementId + "_price").removeClass("hide");
-            $("#" + elementId).toggleClass("col-sm-4 col-sm-12");
+            $(".product-details-div").toggleClass("col-sm-4 col-sm-12");
             $("#" + elementId + "_image").toggleClass("col-sm-12 col-sm-4");
             $("#close_"+ productId).removeClass("hide");
-        }
-        else{
-            $("#" + elementId).toggleClass("col-sm-12 col-sm-4");
-            $("#" + elementId + "_image").toggleClass("col-sm-4 col-sm-12");
-            $("#" + elementId + "_price").addClass("hide");
-            $("#close_"+ productId).addClass("hide");
-            elem.unbind("click");
-        }
+            $("#product_"+productId).addClass("hide");
+}
+
+function constructProductNameInCart(productId, branchId){
+
+    var productName = $("#productName_"+productId).text();
+    var branchPrice = $("#branchPrice_"+branchId).text();
+    console.log(branchPrice)
+    var cartElement = createDiv("row").append(createSpan(productName, "col-sm-6"));
+    cartElement.append(createSpan(branchPrice, "col-sm-4 pull-right"));
+    calculateSubtotal(branchPrice);
+    $(".cart-added-products").append(cartElement);
+}
+
+function calculateSubtotal(branchPrice){
+    var subTotal = parseInt($(".cart-subtotal").text());
+    subTotal+=parseInt(branchPrice);
+    $(".cart-subtotal").text(subTotal);
 }
 
 function addCartFromOfferList(elem){
-
+    var branchId = elem.attr("id").split('_')[1];
+    var productId = elem.data("select-product-id");
+    $(".cart-line-noOrder").addClass('hide').siblings().removeClass('hide');
+    constructProductNameInCart(productId, branchId);
+    closeOfferDisplay($("#close_"+productId));
 }
 
 function closeOfferDisplay(elem){
     var elementId = elem.attr("id");
     var productId = elementId.split('_')[1];
-    $("#product_" + productId).toggleClass("col-sm-12 col-sm-4");
+    $(".product-details-div").toggleClass("col-sm-12 col-sm-4");
     $("#product_" + productId + "_image").toggleClass("col-sm-4 col-sm-12");
     $("#product_" + productId + "_price").addClass("hide");
     elem.addClass("hide");
+    $("#product_"+productId).removeClass("hide");
 }
 
 function filterProducts(isFilter, renderId, productCount){
@@ -232,7 +246,6 @@ $(document).ready(function() {
 	});
     initializeCartWindow();
     bindCartDetailEvent();
-    addCartFromOfferList()
 });
 
 /**

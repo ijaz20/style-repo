@@ -1,4 +1,3 @@
-
 /*************************
 *******Typography******
 **************************/
@@ -1597,7 +1596,7 @@ h2.title {
   border-bottom: 0
 }
 
-.cart_info table tr td {
+.cart_info .cart-content-orders div span {
   border-top: 0 none;
   vertical-align: inherit;
 }
@@ -2635,16 +2634,16 @@ h2.title {
     vertical-align: middle;
 }
 
-#cart td {
+#cart span {
     font-size: 12px;
     padding-bottom: 1px;
     padding-top: 1px;
 }
-#cart .cart-line td {
+#cart .cart-line span {
     padding-bottom: 3px;
     padding-top: 3px;
 }
-#cart .cart-line-vat td, #cart .cart-line-diff-minimum-value td, #cart .cart-line-service-fee td, #cart .cart-line-delivery-fee td, #cart .cart-line-container-charges td {
+#cart .cart-line-vat span, #cart .cart-line-diff-minimum-value span, #cart .cart-line-service-fee span, #cart .cart-line-delivery-fee span, #cart .cart-line-container-charges span {
     font-size: 11px;
 }
 #cart .cart-line-price {
@@ -2717,22 +2716,10 @@ h2.title {
 #cart .cart-line-subtotal .cart-line-quantity, #cart .cart-line-subtotal .cart-line-title, #cart .cart-line-subtotal .cart-line-price {
     padding-top: 10px;
 }
-
-.cart-line-noOrder-info {
-    color: #191919;
-    display: inline-block;
-    font-weight: 700;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    min-height: 28px;
-    padding-left: 10px;
-    vertical-align: middle;
-    width: 100%;
-}
 .cart-line-diff-minimum-value .cart-line-title {
     white-space: normal;
 }
-#cart .cart-line-diff-minimum-value td {
+#cart .cart-line-diff-minimum-value span {
     padding-top: 5px;
 }
 .cart-line-total {
@@ -2746,10 +2733,10 @@ h2.title {
     font-weight: normal;
     text-decoration: line-through;
 }
-#cart td hr {
+#cart span hr {
     margin: 5px 0 1px;
 }
-#cart .whitespace td {
+#cart .whitespace div {
     height: 2px;
 }
 #cart .btn-success {
