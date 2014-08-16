@@ -75,33 +75,33 @@
 	</div>
 	<!--/header-middle-->
 
-	<!-- <div class="header-bottom">
-		header-bottom
+	<div class="header-bottom">
+		<!--header-bottom-->
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-3 pull-right">
-					<div class="input-group">
+					<!-- <div class="input-group">
 						<input type="text" class="form-control" placeholder="Search"
-							name="q">
+							name="search">
 						<div class="input-group-btn">
 							<button class="btn btn-default" type="submit">
 								<i class="glyphicon glyphicon-search"></i>
 							</button>
 						</div>
-					</div>
+					</div> -->
 				</div>
 
 				<div class="col-sm-9">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse"
-							data-target=".navbar-collapse">
-							<span class="sr-only">Toggle navigation</span> <span
-								class="icon-bar"></span> <span class="icon-bar"></span> <span
-								class="icon-bar"></span>
-						</button>
+					<div class="col-sm-6">
+							<input type="text" id="city" class="form-control" placeholder="city"
+								name="city">
+					</div>
+					<div class="col-sm-6">
+							<input type="text" id="area" class="form-control typeahead"  placeholder="area"
+								name="area">
 					</div>
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 </header>

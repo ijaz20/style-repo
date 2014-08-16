@@ -35,27 +35,37 @@
 		</div>
 
 		<div class="row">
-			<s:textfield key="branch.address.address" cssClass="form-control" />
+			<s:textfield key="branch.address1" cssClass="form-control" />
+		</div>
 
-			<div class="row">
-				<div class="col-sm-7">
-					<s:textfield key="branch.address.city" cssClass="form-control" />
-				</div>
-				<div class="col-sm-2">
-					<s:textfield key="branch.address.province" cssClass="form-control" />
-				</div>
-				<div class="col-sm-3">
-					<s:textfield key="branch.address.postalCode"
+		<div class="row">
+			<s:textfield key="branch.address2" cssClass="form-control" />
+		</div>
+
+		<div class="row">
+			<s:hidden key="branch.area.city.id" id="cityId" required="true" />
+			<s:textfield key="branch.area.city.cityName" id="city"
+				cssClass="form-control" />
+		</div>
+
+		<div class="row">
+			<s:hidden key="branch.area.id" id="areaId" />
+			<s:textfield key="branch.area.areaName" id="area"
+				cssClass="form-control" required="true" />
+		</div>
+		<%-- <div class="col-sm-4">
+					<s:textfield key="branch.landmark
 						cssClass="form-control" />
-				</div>
-			</div>
+				</div> --%>
 
-			<s:set name="country" value="branch.address.country" scope="page" />
+		<div class="row">
+			<s:set name="country" value="branch.area.city.countryCode"
+				scope="page" />
 			<div class="form-group">
 				<label for="branch.address.country"> <fmt:message
 						key="branch.address.country" />
 				</label>
-				<appfuse:country name="branch.address.country" prompt=""
+				<appfuse:country name="branch.area.city.countryCode" prompt=""
 					default="${country}" />
 			</div>
 		</div>
@@ -75,3 +85,7 @@
 	</s:form>
 </div>
 
+<script type="text/javascript">
+	initializeTypeahead('city', '/meta/city-suggestions');
+	initializeAreaTypeahead('area', '/meta/area-suggestions');
+</script>

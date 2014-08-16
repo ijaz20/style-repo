@@ -235,4 +235,22 @@
         </action>               
     </package>
     
+    <!-- Actions in this package will be prefixed with /meta/ -->
+    <package name="meta" extends="default, json-default" namespace="/meta">
+        <action name="area-suggestions" class="metaDataAction" method="getAreaSuggestions">
+        	<result type="json" >
+                <param name="root">
+                    areas
+                </param>
+            </result>
+        </action>
+        <action name="city-suggestions" class="metaDataAction" method="getCitySuggestions">
+        	<result type="json" >
+                <param name="root">
+                    cities
+                </param>
+            </result>
+        </action>        
+	</package>
+	
 </struts>

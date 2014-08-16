@@ -42,6 +42,7 @@
 	<!-- <script src="/themes/js/jquery.scrollUp.min.js"></script> -->
 	<script src="/themes/js/bootstrap.min.js"></script>
 	<script src="/themes/js/jquery.prettyPhoto.js"></script>
+	<script src="/themes/js/typeahead.js"></script>
 	<script src="/themes/js/main.js"></script>
 </body>
 
