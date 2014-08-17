@@ -19,54 +19,71 @@
 		<s:hidden key="branch.id" />
 
 		<div class="row">
-			<s:textfield key="branch.branchName" required="true" autofocus="true"
-				cssClass="form-control" />
+			<div class="col-sm-6">
+				<s:textfield key="branch.branchName" required="true"
+					autofocus="true" cssClass="form-control" />
+			</div>
+			<div class="col-sm-6">
+				<label for="partner" class="control-label"><fmt:message
+						key="branch.form.partner" /></label> <select id="partner"
+					name="branch.partner.id" class="form-control">
+					<c:forEach items="${availablePartners}" var="partner">
+						<option value="${partner.value}"
+							${fn:contains(branch.partner.id, partner.value) ? 'selected' : ''}>${partner.label}</option>
+					</c:forEach>
+				</select>
+			</div>
 		</div>
 
 		<div class="row">
-			<label for="partner" class="control-label"><fmt:message
-					key="branch.form.partner" /></label> <select id="partner"
-				name="branch.partner.id" class="form-control">
-				<c:forEach items="${availablePartners}" var="partner">
-					<option value="${partner.value}"
-						${fn:contains(branch.partner.id, partner.value) ? 'selected' : ''}>${partner.label}</option>
-				</c:forEach>
-			</select>
+			<div class="col-sm-12">
+				<s:textfield key="branch.address1" cssClass="form-control" />
+			</div>
 		</div>
 
 		<div class="row">
-			<s:textfield key="branch.address1" cssClass="form-control" />
+			<div class="col-sm-12">
+				<s:textfield key="branch.address2" cssClass="form-control" />
+			</div>
 		</div>
 
 		<div class="row">
-			<s:textfield key="branch.address2" cssClass="form-control" />
+			<div class="col-sm-6">
+				<s:textfield key="branch.landmark" cssClass="form-control" />
+			</div>
+			<div class="col-sm-6">
+				<s:hidden key="branch.area.city.id" id="cityId" required="true" />
+				<s:textfield key="branch.area.city.cityName" id="city"
+					cssClass="form-control" />
+			</div>
 		</div>
 
 		<div class="row">
-			<s:hidden key="branch.area.city.id" id="cityId" required="true" />
-			<s:textfield key="branch.area.city.cityName" id="city"
-				cssClass="form-control" />
+			<div class="col-sm-6">
+				<s:hidden key="branch.area.id" id="areaId" />
+				<s:textfield key="branch.area.areaName" id="area"
+					cssClass="form-control" required="true" />
+			</div>
+			<div class="col-sm-6">
+				<s:set name="country" value="branch.area.city.countryCode"
+					scope="page" />
+				<div class="form-group">
+					<label for="branch.address.country"> <fmt:message
+							key="branch.address.country" />
+					</label>
+					<appfuse:country name="branch.area.city.countryCode" prompt=""
+						default="${country}" />
+				</div>
+			</div>
 		</div>
 
 		<div class="row">
-			<s:hidden key="branch.area.id" id="areaId" />
-			<s:textfield key="branch.area.areaName" id="area"
-				cssClass="form-control" required="true" />
-		</div>
-		<%-- <div class="col-sm-4">
-					<s:textfield key="branch.landmark
-						cssClass="form-control" />
-				</div> --%>
-
-		<div class="row">
-			<s:set name="country" value="branch.area.city.countryCode"
-				scope="page" />
-			<div class="form-group">
-				<label for="branch.address.country"> <fmt:message
-						key="branch.address.country" />
-				</label>
-				<appfuse:country name="branch.area.city.countryCode" prompt=""
-					default="${country}" />
+			<div class="col-sm-6">
+				<s:textfield key="branch.minimumDeliveryAmount"
+					cssClass="form-control" />
+			</div>
+			<div class="col-sm-6">
+				<s:checkbox key="branch.isHomeServiceAvailabe" />
 			</div>
 		</div>
 

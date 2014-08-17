@@ -146,8 +146,8 @@ function initializeTypeahead(fieldId, URL) {
 
 function initializeAreaTypeahead(fieldId, URL) {
 	$('#' + fieldId).typeahead({
-		hint : false,
-		highlight : false,
+		hint : true,
+		highlight : true,
 		minLength : 1
 	}, {
 		name : fieldId,

@@ -10,7 +10,10 @@ import com.opensymphony.xwork2.Preparable;
 import com.style.Constants;
 import com.style.branch.service.BranchManager;
 import com.style.exception.AppException;
+import com.style.meta.service.MetaDataManager;
+import com.style.model.Area;
 import com.style.model.Branch;
+import com.style.model.City;
 import com.style.util.StringUtil;
 
 /**
@@ -22,6 +25,7 @@ public class BranchAction extends BaseAction implements Preparable {
 
 	private static final long serialVersionUID = 6776558938712115191L;
 	private BranchManager branchManager;
+	private MetaDataManager metaDataManager;
 	private List<Branch> branches;
 	private Branch branch;
 	private String id;
@@ -29,6 +33,11 @@ public class BranchAction extends BaseAction implements Preparable {
 	@Autowired
 	public void setBranchManager(BranchManager branchManager) {
 		this.branchManager = branchManager;
+	}
+
+	@Autowired
+	public void setMetaDataManager(MetaDataManager metaDataManager) {
+		this.metaDataManager = metaDataManager;
 	}
 
 	@Override
@@ -45,6 +54,13 @@ public class BranchAction extends BaseAction implements Preparable {
 		log.info("show branch");
 		if (!StringUtil.isEmptyString(getId())) {
 			branch = branchManager.getBranch(getId());
+		} else {
+			branch = new Branch();
+			Area area = new Area();
+			City city = (City) getRequest().getSession().getServletContext()
+					.getAttribute(Constants.CURRENT_CITY);
+			area.setCity(city);
+			branch.setArea(area);
 		}
 		return "success";
 	}
@@ -70,7 +86,7 @@ public class BranchAction extends BaseAction implements Preparable {
 			Calendar currentTime = new GregorianCalendar();
 			getBranch().setModifiedTime(currentTime);
 			getBranch().setModifiedBy(getRequest().getRemoteUser());
-			if(StringUtil.isEmptyString(getBranch().getId())){
+			if (StringUtil.isEmptyString(getBranch().getId())) {
 				getBranch().setCreatedTime(currentTime);
 				getBranch().setCreatedBy(getRequest().getRemoteUser());
 			}

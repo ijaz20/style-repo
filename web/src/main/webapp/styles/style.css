@@ -278,3 +278,7 @@ span.pagelinks {
     border: 1px solid #CD0A0A;
     color: #FFFFFF;
 }
+
+.checkbox {
+	margin-top : 34px !important;		
+}

@@ -122,6 +122,8 @@ public class ProductAction extends BaseAction implements Preparable {
 		log.info("show product");
 		if (!StringUtil.isEmptyString(getId())) {
 			product = productManager.getProduct(getId());
+		} else {
+			product = new Product();
 		}
 		return SUCCESS;
 	}
