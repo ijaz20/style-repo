@@ -134,4 +134,6 @@ public final class Constants {
     
     public static final String ERROR = "error";
     
+    public static final String CURRENT_CITY = "currentCity";
+    
 }

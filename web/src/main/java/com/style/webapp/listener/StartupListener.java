@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.style.Constants;
+import com.style.meta.service.MetaDataManager;
 import com.style.service.GenericManager;
 import com.style.service.LookupManager;
 
@@ -136,7 +137,8 @@ public class StartupListener implements ServletContextListener {
 		ApplicationContext ctx = WebApplicationContextUtils
 				.getRequiredWebApplicationContext(context);
 		LookupManager mgr = (LookupManager) ctx.getBean("lookupManager");
-
+		MetaDataManager metaManager = (MetaDataManager) ctx.getBean("metaDataManager");
+		
 		// get list of possible roles
 		context.setAttribute(Constants.AVAILABLE_ROLES, mgr.getAllRoles());
 		log.debug("Drop-down initialization complete [OK]");
@@ -167,6 +169,9 @@ public class StartupListener implements ServletContextListener {
 		context.setAttribute(Constants.PARTNERS, mgr.getPartners());
 		log.debug("Partners initialization complete [OK]");
 		
+		// get list of possible categories
+		context.setAttribute(Constants.CURRENT_CITY, metaManager.getCityByName("Chennai"));
+				
 		// Any manager extending GenericManager will do:
 		GenericManager manager = (GenericManager) ctx.getBean("userManager");
 		doReindexing(manager);

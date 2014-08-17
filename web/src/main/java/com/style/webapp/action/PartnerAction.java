@@ -49,6 +49,8 @@ public class PartnerAction extends BaseAction implements Preparable {
 		log.info("show partner");
 		if (!StringUtil.isEmptyString(getId())) {
 			partner = partnerManager.getPartner(getId());
+		} else {
+			partner = new Partner();
 		}
 		return "success";
 	}

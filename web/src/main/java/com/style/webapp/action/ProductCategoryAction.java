@@ -56,6 +56,8 @@ public class ProductCategoryAction extends BaseAction implements Preparable {
 		log.info("show category");
 		if (!StringUtil.isEmptyString(getId())) {
 			category = categoryManager.getProductCategory(getId());
+		} else {
+			category = new ProductCategory();
 		}
 		return "success";
 	}
