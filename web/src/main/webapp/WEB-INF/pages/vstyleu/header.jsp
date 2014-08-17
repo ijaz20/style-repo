@@ -55,16 +55,6 @@
 									<li><a href="cart.html">Cart</a></li>
 									<li><a href="/vstyleu/login">Login</a></li>
 								</ul></li>
-							<li class="dropdown"><a href="#">Blog<i
-									class="fa fa-angle-down"></i></a>
-								<ul role="menu" class="sub-menu">
-									<li><a href="blog.html">Blog List</a></li>
-									<li><a href="blog-single.html">Blog Single</a></li>
-								</ul></li>
-							<li><a href="404.html">404</a></li>
-							<li><a href="/vstyleu/contact">Contact</a></li>
-							<li><a href="cart.html"><i class="fa fa-shopping-cart"></i>
-									Cart</a></li>
 							<li><a href="/vstyleu/login"><i class="fa fa-lock"></i>
 									Login</a></li>
 						</ul>
