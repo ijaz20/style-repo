@@ -53,20 +53,10 @@
 									<li><a href="product-details.html">Product Details</a></li>
 									<li><a href="checkout.html">Checkout</a></li>
 									<li><a href="cart.html">Cart</a></li>
-									<li><a href="/vstyleu/login">Login</a></li>
 								</ul></li>
-							<li class="dropdown"><a href="#">Blog<i
-									class="fa fa-angle-down"></i></a>
-								<ul role="menu" class="sub-menu">
-									<li><a href="blog.html">Blog List</a></li>
-									<li><a href="blog-single.html">Blog Single</a></li>
-								</ul></li>
-							<li><a href="404.html">404</a></li>
-							<li><a href="/vstyleu/contact">Contact</a></li>
-							<li><a href="cart.html"><i class="fa fa-shopping-cart"></i>
-									Cart</a></li>
-							<li><a href="/vstyleu/login"><i class="fa fa-lock"></i>
-									Login</a></li>
+							<li><a href="javascript:void(0)" id="loginLink" data-toggle="modal" data-target="#myModal">
+                                Login
+                            </a></li>
 						</ul>
 					</div>
 				</div>
@@ -74,6 +64,19 @@
 		</div>
 	</div>
 	<!--/header-middle-->
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Login</h4>
+                </div>
+                    <jsp:include page="login.jsp"/>
+            </div>
+        </div>
+    </div>
+
 
 	<div class="header-bottom">
 		<!--header-bottom-->

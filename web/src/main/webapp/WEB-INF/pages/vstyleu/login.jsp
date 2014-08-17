@@ -7,29 +7,29 @@
 	<section id="form"><!--form-->
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-4 col-sm-offset-1">
-					<div class="login-form"><!--login form-->
-						<h2>Login to your account</h2>
-						<!-- <form action="#"> -->
+                <button class="btn btn-default" id="fbLogin">Connect With Facebook</button>
+                <div><!--login form-->
+                    <a href="javascript:void(0)" id="showLogin">Login</a>
+                    <a>&nbsp;|&nbsp;</a>
+                    <a href="javascript:void(0)" id="showSingup" >Signup!</a><br/><br/>
+                    <!-- <form action="#"> -->
+                </div>
+                        <div class="col-sm-4 login-form" id="showLoginDiv"><!--login form-->
 						<form method="post" id="loginForm" action="<c:url value='/j_security_check'/>"
     onsubmit="saveUsername(this);return validateForm(this)" class="form-signin" autocomplete="off">
 							<input type="text" placeholder="Name" name="j_username"/>
 							<!-- <input type="email" placeholder="Email Address"/> -->
 							<input type="text" placeholder="password" name="j_password"/>
 							<span>
-								<input type="checkbox" class="checkbox"> 
+								<input type="checkbox" class="checkbox">
 								Keep me signed in
 							</span>
-							<button type="submit" class="btn btn-default">Login</button>
-						</form>
-					</div><!--/login form-->
+							<button class="btn btn-default">Login</button>
+
+                        </form>
+                    </div>
 				</div>
-				<div class="col-sm-1">
-					<h2 class="or">OR</h2>
-				</div>
-				<div class="col-sm-4">
-					<div class="signup-form"><!--sign up form-->
-						<h2>New User Signup!</h2>
+					<div class="col-sm-4  signup-form hide"  id="showSingupDiv"><!--sign up form-->
 						<form action="#">
 							<input type="text" placeholder="Name"/>
 							<input type="email" placeholder="Email Address"/>
@@ -38,6 +38,8 @@
 						</form>
 					</div><!--/sign up form-->
 				</div>
-			</div>
 		</div>
+
+        <div id="status">
+        </div>
 	</section><!--/form-->
