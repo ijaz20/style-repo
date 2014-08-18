@@ -14,4 +14,9 @@
     <!-- Add new DAOs here -->
 
     <!-- Add new Managers here -->
+    
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="ApplicationResources"/>
+        <property name="useCodeAsDefaultMessage" value="true"/>
+    </bean> 
 </beans>

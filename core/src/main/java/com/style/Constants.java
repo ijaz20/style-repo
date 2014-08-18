@@ -130,6 +130,8 @@ public final class Constants {
     
     public static final String IMAGE_FORMAT = ".jpg";
     
+	public static final String DEFAULT_SCHEDULER_GROUP = "default";
+
     public static final String SUCCESS = "success";
     
     public static final String ERROR = "error";

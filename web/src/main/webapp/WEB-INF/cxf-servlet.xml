@@ -23,6 +23,7 @@
         <jaxrs:serviceBeans>
             <ref bean="userManager"/>
             <ref bean="notificationService"/>
+            <ref bean="schedulerManager"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider"/>
