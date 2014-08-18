@@ -19,6 +19,10 @@
                         </div>
                     </div>
                     <div class="cart-added-products">
+                        <div id="cart-error-message" class="alert alert-danger alert-dismissable" style="display: none" >
+                            <a href="#" data-dismiss="alert" class="close">&times;</a>
+                            <span>Product already added.</span>
+                        </div>
                     </div>
                     <div class="row">
                         <span class=""><hr></span>
@@ -31,8 +35,9 @@
                         <span class=""></span>
                     </div>
                     <div class="row whitespace">
+                        <input type="hidden" id="cartFormIdList" name="cForm_priceIdList" data-price-id-list="" data-product-id-list="" />
                         <span class="col-sm-12">
-                            <a title="" class="btn btn-default btn-block btn-lg " id="preorder-button">
+                            <a title="" class="btn btn-default btn-block btn-lg" id="preorder-button">
                             Proceed to checkout
                             </a>
                         </span>

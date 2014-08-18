@@ -86,7 +86,7 @@ function populateOfferFromProduct(elem) {
                         }).insertAfter($("#" + elementId + "_image"));
                         $("#displayOffer_" + productId).val("true")
                         //Don't delete this comment we need to show descripton later.
-                        //$("#" + elementId + "_details").html(response.description);
+                        //createDiv("row").html(response.description).insertAfter("#product_"+productId);
                     }
                 });
             }
@@ -98,15 +98,50 @@ function populateOfferFromProduct(elem) {
             $("#product_"+productId).addClass("hide");
 }
 
-function constructProductNameInCart(productId, branchId){
+$(".deleteProduct").on('click', function(){
+    var priceElement = $(this).prev()
+    var productElement = priceElement.prev();
+    var productIdList = $("#cartFormIdList").attr("data-product-id-list");
+    var priceIdList = $("#cartFormIdList").attr("data-price-id-list");
+});
+
+function constructProductNameInCart(productId, priceId){
 
     var productName = $("#productName_"+productId).text();
-    var branchPrice = $("#branchPrice_"+branchId).text();
-    console.log(branchPrice)
-    var cartElement = createDiv("row").append(createSpan(productName, "col-sm-6"));
-    cartElement.append(createSpan(branchPrice, "col-sm-4 pull-right"));
+    var branchPrice = $("#branchPrice_"+priceId).text();
+    var branchName =  $("#branchName_"+priceId).text();
+    var cartElement = createDiv("row").append(createSpan(productName+"("+branchName+")", "col-sm-8", "cartProductName_"+productId));
+    cartElement.append(createSpan(branchPrice, "col-sm-2", "cartPrice_"+priceId));
+    cartElement.append(createSpan("&times;", "col-sm-2 close deleteProduct"));
     calculateSubtotal(branchPrice);
     $(".cart-added-products").append(cartElement);
+}
+
+function checkCartDuplication(productId, priceId){
+    var productIdList = $("#cartFormIdList").data("productIdList");
+    var priceIdList = $("#cartFormIdList").data("priceIdList");
+    if( productIdList == ""){
+        productIdList = productId;
+        priceIdList = priceId;
+    }
+    else{
+//        if($.inArray(productId, productIdList) != -1){
+//            $('#cart-error-message').fadeIn();
+//            setTimeout(function(){
+//                $('#cart-error-message').fadeOut();
+//            }, 2000);
+//            return false;
+//        }
+//        else{
+            productIdList.push(productId);
+            priceIdList.push(priceId);
+//        }
+    }
+    $("#cartFormIdList").data("productIdList", productIdList);
+    $("#cartFormIdList").data("priceIdList", priceIdList);
+    constructProductNameInCart(productId, priceId);
+    closeOfferDisplay($("#close_"+productId));
+    return true;
 }
 
 function calculateSubtotal(branchPrice){
@@ -116,11 +151,10 @@ function calculateSubtotal(branchPrice){
 }
 
 function addCartFromOfferList(elem){
-    var branchId = elem.attr("id").split('_')[1];
+    var priceId = elem.attr("id").split('_')[1];
     var productId = elem.data("select-product-id");
     $(".cart-line-noOrder").addClass('hide').siblings().removeClass('hide');
-    constructProductNameInCart(productId, branchId);
-    closeOfferDisplay($("#close_"+productId));
+    return checkCartDuplication(productId, priceId);
 }
 
 function closeOfferDisplay(elem){
