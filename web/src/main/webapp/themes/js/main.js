@@ -98,11 +98,11 @@ function populateOfferFromProduct(elem) {
             $("#product_"+productId).addClass("hide");
 }
 
-$(".deleteProduct").on('click', function(){
-    var priceElement = $(this).prev()
+$(".deleteProduct").click(function(){
+    var priceElement = $(this).prev();
     var productElement = priceElement.prev();
-    var productIdList = $("#cartFormIdList").attr("data-product-id-list");
-    var priceIdList = $("#cartFormIdList").attr("data-price-id-list");
+    console.log(priceElement);
+    console.log(productElement);
 });
 
 function constructProductNameInCart(productId, priceId){
@@ -113,32 +113,25 @@ function constructProductNameInCart(productId, priceId){
     var cartElement = createDiv("row").append(createSpan(productName+"("+branchName+")", "col-sm-8", "cartProductName_"+productId));
     cartElement.append(createSpan(branchPrice, "col-sm-2", "cartPrice_"+priceId));
     cartElement.append(createSpan("&times;", "col-sm-2 close deleteProduct"));
+    $(".deleteProduct").bind('click')
     calculateSubtotal(branchPrice);
     $(".cart-added-products").append(cartElement);
 }
 
+var productIdList = [];
+var priceIdList = [];
 function checkCartDuplication(productId, priceId){
-    var productIdList = $("#cartFormIdList").data("productIdList");
-    var priceIdList = $("#cartFormIdList").data("priceIdList");
-    if( productIdList == ""){
-        productIdList = productId;
-        priceIdList = priceId;
+    if($.inArray(productId, productIdList) != -1){
+        $('#cart-error-message').fadeIn();
+        setTimeout(function(){
+            $('#cart-error-message').fadeOut();
+        }, 2000);
+        return false;
     }
-    else{
-//        if($.inArray(productId, productIdList) != -1){
-//            $('#cart-error-message').fadeIn();
-//            setTimeout(function(){
-//                $('#cart-error-message').fadeOut();
-//            }, 2000);
-//            return false;
-//        }
-//        else{
-            productIdList.push(productId);
-            priceIdList.push(priceId);
-//        }
+    else {
+        productIdList.push(productId);
+        priceIdList.push(priceId);
     }
-    $("#cartFormIdList").data("productIdList", productIdList);
-    $("#cartFormIdList").data("priceIdList", priceIdList);
     constructProductNameInCart(productId, priceId);
     closeOfferDisplay($("#close_"+productId));
     return true;

@@ -35,7 +35,7 @@
                         <span class=""></span>
                     </div>
                     <div class="row whitespace">
-                        <input type="hidden" id="cartFormIdList" name="cForm_priceIdList" data-price-id-list="" data-product-id-list="" />
+                        <input type="hidden" id="cartFormIdList" name="cFormPiceIdList" data-price-id-list="" data-product-id-list="" />
                         <span class="col-sm-12">
                             <a title="" class="btn btn-default btn-block btn-lg" id="preorder-button">
                             Proceed to checkout
