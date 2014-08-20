@@ -3,17 +3,14 @@ package com.style.product.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.style.dao.hibernate.GenericDaoHibernate;
 import com.style.exception.AppException;
-import com.style.model.Branch;
-import com.style.model.Partner;
 import com.style.model.Product;
-import com.style.model.ProductCategory;
+import com.style.model.ProductPrice;
 import com.style.product.dao.ProductDao;
 
 /**
@@ -31,14 +28,17 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
-	public List<Branch> getBranches(String[] branchIds) {
+	public List<ProductPrice> getPrices(List<String> priceIds) {
 		try {
-			List<Branch> branchList = (List<Branch>) getSession()
+			List<ProductPrice> prices = (List<ProductPrice>) getSession()
 					.createQuery(
-							"select branch from com.style.model.Branch as branch where branch.id in (:branchIds)")
-					.setParameterList("branchIds", branchIds).list();
-			return branchList;
+							"select price from com.style.model.ProductPrice as price where price.priceId in (:priceIds)")
+					.setParameterList("priceIds", priceIds).list();
+			return prices;
 		} catch (HibernateException e) {
 			log.error(e.getMessage(), e);
 			throw new AppException(e.getMessage(), e);
@@ -114,161 +114,9 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 	/**
 	 * {@inheritDoc}
 	 */
-	@SuppressWarnings("unchecked")
-	public List<ProductCategory> getAllProductCategoriess() {
-		try {
-			Criteria criteria = getSession().createCriteria(
-					ProductCategory.class);
-			List<ProductCategory> categories = criteria.list();
-			return categories;
-		} catch (HibernateException e) {
-			log.error(e.getMessage(), e);
-			throw new AppException(e.getMessage(), e);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public Partner savePartner(Partner partner) {
-		try {
-			return (Partner) getSession().merge(partner);
-		} catch (HibernateException e) {
-			log.error(e.getMessage(), e);
-			throw new AppException(e.getMessage(), e);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public Branch saveBranch(Branch branch) {
-		try {
-			return (Branch) getSession().merge(branch);
-		} catch (HibernateException e) {
-			log.error(e.getMessage(), e);
-			throw new AppException(e.getMessage(), e);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public ProductCategory saveCategory(ProductCategory category) {
-		try {
-			return (ProductCategory) getSession().merge(category);
-		} catch (HibernateException e) {
-			log.error(e.getMessage(), e);
-			throw new AppException(e.getMessage(), e);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
 	public Product saveProduct(Product product) {
 		try {
 			return (Product) getSession().merge(product);
-		} catch (HibernateException e) {
-			log.error(e.getMessage(), e);
-			throw new AppException(e.getMessage(), e);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressWarnings("unchecked")
-	public List<ProductCategory> getProductCategories() {
-		try {
-			log.debug("Retrieving all category names...");
-			return getSession().createCriteria(ProductCategory.class).list();
-		} catch (HibernateException e) {
-			log.error(e.getMessage(), e);
-			throw new AppException(e.getMessage(), e);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Partner> getPartners() {
-		try {
-			log.debug("Retrieving all partner names...");
-			return getSession().createCriteria(Partner.class).list();
-		} catch (HibernateException e) {
-			log.error(e.getMessage(), e);
-			throw new AppException(e.getMessage(), e);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Branch> getBranches() {
-		try {
-			log.debug("Retrieving all branch names...");
-			return getSession().createCriteria(Branch.class).list();
-		} catch (HibernateException e) {
-			log.error(e.getMessage(), e);
-			throw new AppException(e.getMessage(), e);
-		}
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressWarnings("unchecked")
-	public Partner getPartner(String id) {
-		try {
-			List<Partner> partners = getSession().createCriteria(Partner.class)
-					.add(Restrictions.eq("id", id)).list();
-			if (partners.isEmpty()) {
-				return null;
-			} else {
-				return partners.get(0);
-			}
-		} catch (HibernateException e) {
-			log.error(e.getMessage(), e);
-			throw new AppException(e.getMessage(), e);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressWarnings("unchecked")
-	public Branch getBranch(String id) {
-		try {
-			List<Branch> branches = getSession().createCriteria(Branch.class)
-					.add(Restrictions.eq("id", id)).list();
-			if (branches.isEmpty()) {
-				return null;
-			} else {
-				return branches.get(0);
-			}
-		} catch (HibernateException e) {
-			log.error(e.getMessage(), e);
-			throw new AppException(e.getMessage(), e);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressWarnings("unchecked")
-	public ProductCategory getProductCategory(String id) {
-		try {
-			List<ProductCategory> categories = getSession()
-					.createCriteria(ProductCategory.class)
-					.add(Restrictions.eq("id", id)).list();
-			if (categories.isEmpty()) {
-				return null;
-			} else {
-				return categories.get(0);
-			}
 		} catch (HibernateException e) {
 			log.error(e.getMessage(), e);
 			throw new AppException(e.getMessage(), e);
