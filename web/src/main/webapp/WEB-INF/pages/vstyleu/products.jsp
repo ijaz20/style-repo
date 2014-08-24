@@ -17,7 +17,7 @@
 	                            <a href="javascript:void(0)">
 	                            <img
 	                                src="<s:property value="imagePath"/>"
-	                                alt="<s:property value="productName"/>" height="200" width="200"/>
+	                                alt="<s:property value="productName"/>" height="150" width="150"/>
 	                            </a>
 	                            <div class="">
 		                            <p class="text-capitalize">
