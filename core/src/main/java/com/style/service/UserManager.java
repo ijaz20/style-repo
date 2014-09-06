@@ -1,7 +1,9 @@
 package com.style.service;
 
 import com.style.dao.UserDao;
+import com.style.model.SocialUser;
 import com.style.model.User;
+
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -137,4 +139,20 @@ public interface UserManager extends GenericManager<User, Long> {
      * @throws UserExistsException
      */
     User updatePassword(String username, String currentPassword, String recoveryToken, String newPassword, String applicationUrl) throws UserExistsException;
+    
+    /**
+     * save social user
+     * 
+     * @param socialuser
+     * @return
+     */
+    SocialUser saveSocialUser(SocialUser socialuser);
+    
+    /**
+     * get social user
+     * 
+     * @param userId
+     * @return
+     */
+	SocialUser getSocialUser(String userId);
 }

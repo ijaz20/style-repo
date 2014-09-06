@@ -1,12 +1,15 @@
 package com.style.service.impl;
 
 import org.apache.commons.lang.StringUtils;
+
 import com.style.dao.UserDao;
+import com.style.model.SocialUser;
 import com.style.model.User;
 import com.style.service.MailEngine;
 import com.style.service.UserExistsException;
 import com.style.service.UserManager;
 import com.style.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
@@ -15,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.jws.WebService;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -267,5 +271,19 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         }
         // or throw exception
         return null;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public SocialUser saveSocialUser(SocialUser socialuser){
+    	return userDao.saveSocialUser(socialuser);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public SocialUser getSocialUser(String userId){
+    	return userDao.getSocialUser(userId);
     }
 }

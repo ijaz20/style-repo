@@ -22,5 +22,6 @@
         <mapping class="com.style.model.Payment"/>
         <mapping class="com.style.model.Area"/>
         <mapping class="com.style.model.City"/>
+        <mapping class="com.style.model.SocialUser"/>
     </session-factory>
 </hibernate-configuration>

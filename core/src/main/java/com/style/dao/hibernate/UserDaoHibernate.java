@@ -1,7 +1,11 @@
 package com.style.dao.hibernate;
 
 import com.style.dao.UserDao;
+import com.style.exception.AppException;
+import com.style.model.Product;
+import com.style.model.SocialUser;
 import com.style.model.User;
+
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
@@ -12,7 +16,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Table;
+
 import java.util.List;
+
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -96,4 +103,36 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
         return jdbcTemplate.queryForObject(
                 "select password from " + table.name() + " where id=?", String.class, userId);
     }
+    
+    /**
+     * {@inheritDoc}
+    */
+    public SocialUser saveSocialUser(SocialUser socialuser) {
+    	if (log.isDebugEnabled()) {
+            log.debug("social user's id: " + socialuser.getEmail());
+        }
+        getSession().saveOrUpdate(socialuser);
+        // necessary to throw a DataIntegrityViolation and catch it in UserManager
+        getSession().flush();
+        return socialuser;
+    }
+    
+    /**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public SocialUser getSocialUser(String userId) {
+		try {
+			List<SocialUser> socialUsers = getSession().createCriteria(SocialUser.class)
+					.add(Restrictions.eq("userId", userId)).list();
+			if (socialUsers.isEmpty()) {
+				return null;
+			} else {
+				return socialUsers.get(0);
+			}
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
+	}
 }
