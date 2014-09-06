@@ -1,27 +1,32 @@
 package com.style.webapp.action;
 
-import com.opensymphony.xwork2.Preparable;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.mail.PasswordAuthentication;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts2.ServletActionContext;
-import com.style.Constants;
-import com.style.dao.SearchException;
-import com.style.model.Role;
-import com.style.model.User;
-import com.style.service.UserExistsException;
-import com.style.webapp.util.RequestUtil;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import com.opensymphony.xwork2.Preparable;
+import com.style.Constants;
+import com.style.dao.SearchException;
+import com.style.model.Role;
+import com.style.model.SocialUser;
+import com.style.model.User;
+import com.style.service.UserExistsException;
+import com.style.webapp.util.RequestUtil;
 
 /**
  * Action for facilitating User Management feature.
@@ -32,15 +37,21 @@ public class UserAction extends BaseAction implements Preparable {
     private User user;
     private String id;
     private String query;
+    private String email;
+    private String first_name;
+    private String gender;
+    private String last_name;
+    private String link;
+    private String name;
 
     /**
      * Grab the entity from the database before populating with request parameters
      */
     public void prepare() {
         // prevent failures on new
-        if (getRequest().getMethod().equalsIgnoreCase("post") && (!"".equals(getRequest().getParameter("user.id")))) {
+        /*if (getRequest().getMethod().equalsIgnoreCase("post") && (!"".equals(getRequest().getParameter("user.id")))) {
             user = userManager.getUser(getRequest().getParameter("user.id"));
-        }
+        }*/
     }
 
     /**
@@ -246,4 +257,95 @@ public class UserAction extends BaseAction implements Preparable {
         return SUCCESS;
     }
 
+    /**
+     * save facebook user in style app
+     * 
+     * @return
+     */
+	public String saveFacebookUser() {
+		SocialUser socialUser = new SocialUser();
+		socialUser.setUserId(getId());
+		socialUser.setEmail(getEmail());
+		socialUser.setFirstName(getFirst_name());
+		socialUser.setFullName(getName());
+		socialUser.setUsername(getEmail());
+		if (null == userManager.getSocialUser(getId())) {
+			// Set the default user role on this new user
+			socialUser.addRole(roleManager.getRole(Constants.USER_ROLE));
+			userManager.saveSocialUser(socialUser);
+		}
+		// log user in automatically
+		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+				socialUser.getUsername(), null, socialUser.getAuthorities());
+		auth.setDetails(socialUser);
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		log.info("--------"
+				+ SecurityContextHolder.getContext().getAuthentication()
+						.getPrincipal());
+		return Constants.SUCCESS;
+	}
+
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getFirst_name() {
+		return first_name;
+	}
+
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getLast_name() {
+		return last_name;
+	}
+
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 }

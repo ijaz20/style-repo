@@ -32,7 +32,7 @@
 <!--/head-->
 
 <body>
-
+	
 	<jsp:include page="/WEB-INF/pages/vstyleu/header.jsp" />
 	<jsp:include page="/WEB-INF/pages/vstyleu/main.jsp" />
 	<jsp:include page="/WEB-INF/pages/vstyleu/footer.jsp" />
@@ -44,6 +44,7 @@
 	<script src="/themes/js/jquery.prettyPhoto.js"></script>
 	<script src="/themes/js/typeahead.js"></script>
 	<script src="/themes/js/main.js"></script>
+	<script src="/themes/js/social.js"></script>
     <script src="/themes/js/Login.js"></script>
     <script src="/themes/js/util.js"></script>
 </body>

@@ -7,7 +7,7 @@
 	<section id="form"><!--form-->
 		<div class="container">
 			<div class="row">
-                <button class="btn btn-default" id="fbLogin">Connect With Facebook</button>
+                <!-- <button class="btn btn-default" id="fbLogin">Connect With Facebook</button> -->
                 <div><!--login form-->
                     <a href="javascript:void(0)" id="showLogin">Login</a>
                     <a>&nbsp;|&nbsp;</a>
@@ -29,17 +29,25 @@
                         </form>
                     </div>
 				</div>
-					<div class="col-sm-4  signup-form hide"  id="showSingupDiv"><!--sign up form-->
-						<form action="#">
-							<input type="text" placeholder="Name"/>
-							<input type="email" placeholder="Email Address"/>
-							<input type="password" placeholder="Password"/>
-							<button type="submit" class="btn btn-default">Signup</button>
-						</form>
-					</div><!--/sign up form-->
-				</div>
+				<div class="col-sm-4  signup-form hide"  id="showSingupDiv"><!--sign up form-->
+					<form action="#">
+						<input type="text" placeholder="Name"/>
+						<input type="email" placeholder="Email Address"/>
+						<input type="password" placeholder="Password"/>
+						<button type="submit" class="btn btn-default">Signup</button>
+					</form>
+				</div><!--/sign up form-->
 		</div>
 
-        <div id="status">
-        </div>
+		<fb:login-button autologoutlink="true" scope="public_profile,email,user_address,user_mobile_phone" size="large"
+                 onlogin="onlogin="checkLoginState();"">
+		  Login
+		</fb:login-button>
+
+        <!-- <fb:login-button scope="public_profile,email,phone,username" onlogin="checkLoginState();">
+		</fb:login-button> -->
+		
+		<div id="status">
+		</div>
+
 	</section><!--/form-->

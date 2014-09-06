@@ -1,6 +1,8 @@
 package com.style.dao;
 
+import com.style.model.SocialUser;
 import com.style.model.User;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Propagation;
@@ -47,4 +49,19 @@ public interface UserDao extends GenericDao<User, Long> {
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     String getUserPassword(Long userId);
     
+    /**
+     * save social user
+     * 
+     * @param socialuser
+     * @return
+     */
+    SocialUser saveSocialUser(SocialUser socialuser);
+    
+    /**
+     * get social user
+     * 
+     * @param userId
+     * @return
+     */
+	SocialUser getSocialUser(String userId);
 }

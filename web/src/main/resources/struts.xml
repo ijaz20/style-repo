@@ -253,4 +253,15 @@
         </action>        
 	</package>
 	
+	<!-- Actions in this package will be prefixed with /meta/ -->
+    <package name="social" extends="default, json-default" namespace="/social">
+        <action name="saveFacebookUser" class="userAction" method="saveFacebookUser">
+        	<result type="json" >
+                <param name="id">
+                    id
+                </param>
+            </result>
+        </action>
+	</package>
+	
 </struts>
