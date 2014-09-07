@@ -1,8 +1,10 @@
 package com.style.webapp.action;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import com.style.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Preparable;
@@ -31,14 +33,19 @@ public class BookingAction extends BaseAction implements Preparable {
 	private Calendar startTime;
 	private Calendar endTime;
 
+    private String priceIdList;
 	@Autowired
 	public void setBookingManager(BookingManager bookingManager) {
 		this.bookingManager = bookingManager;
 	}
 
 	public String saveBooking() {
-		bookingManager.save(getBooking());
-		return "success";
+        if(StringUtil.isEmptyString(priceIdList)){
+            return ERROR;
+        }
+        List<String> priceIds = Arrays.asList(priceIdList.split(","));
+        bookingManager.saveBooking(priceIds);
+		return SUCCESS;
 	}
 
 	@Override
@@ -46,7 +53,15 @@ public class BookingAction extends BaseAction implements Preparable {
 		// TODO Auto-generated method stub
 	}
 
-	public Branch getBranch() {
+    public String getPriceIdList() {
+        return priceIdList;
+    }
+
+    public void setPriceIdList(String priceIdList) {
+        this.priceIdList = priceIdList;
+    }
+
+    public Branch getBranch() {
 		return branch;
 	}
 

@@ -1,8 +1,16 @@
 package com.style.booking.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.style.model.BookingDetail;
+import com.style.model.ProductPrice;
+import com.style.model.User;
+import com.style.product.service.ProductManager;
+import com.style.service.UserManager;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.style.booking.dao.BookingDao;
@@ -22,6 +30,21 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 
 	private BookingDao bookingDao;
 
+    private ProductManager productManager;
+
+    private UserManager userManager;
+
+    @Autowired
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
+    }
+
+    @Autowired
+    public void setProductManager(ProductManager productManager) {
+        this.productManager = productManager;
+    }
+
+
 	@Autowired
 	public BookingManagerImpl(BookingDao bookingDao) {
 		super(bookingDao);
@@ -37,8 +60,37 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 	/**
 	 * {@inheritDoc}
 	 */
-	public Booking saveBooking(Booking booking) throws AppException {
-		return bookingDao.saveBooking(booking);
+	public Booking saveBooking(List<String> priceIds) throws AppException {
+        try {
+            List<ProductPrice> prices = productManager.getPrices(priceIds);
+            Booking booking = new Booking();
+            List<BookingDetail> bookingDetails = new ArrayList<BookingDetail>();
+            int totalPrice = 0;
+            int totalDsicount = 0;
+            for (ProductPrice price : prices) {
+                BookingDetail detail = new BookingDetail();
+                detail.setProduct(price.getProduct());
+                detail.setStatus("open");
+                detail.setBooking(booking);
+                detail.setPrice(price.getPrice());
+                bookingDetails.add(detail);
+                totalPrice = totalPrice + price.getPrice();
+                detail.setDiscount(0);
+                totalDsicount = totalDsicount + detail.getDiscount();
+
+            }
+            booking.setBookingDetails(bookingDetails);
+            booking.setStatus("open");
+            booking.setTotalDiscountPrice(totalDsicount);
+            booking.setTotalPrice(totalPrice);
+            booking.setNetPrice(totalPrice - totalDsicount);
+            booking.setUser((User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
+            return bookingDao.saveBooking(booking);
+        }
+        catch(HibernateException e){
+            e.printStackTrace();
+        }
+        return null;
 	}
 
 	public List<Booking> getBookings(String[] bookingIds) throws AppException {

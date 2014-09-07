@@ -51,6 +51,11 @@ $("#brand-filters a").click(function(e){
     filterProducts(true, "features_products", 0);
 });
 
+$("#preorder-button").on('click', function(){
+    $('#priceIdList').val(priceIdList);
+    $('#cartPage').submit();
+});
+
 function populateOfferFromProduct(elem) {
         var elementId = elem.attr("id");
         var productId = elementId.split('_')[1];
@@ -69,12 +74,14 @@ function populateOfferFromProduct(elem) {
                             + '<tr>'
                             + '<th class="text-center">Branch Name</th>'
                             + '<th class="text-center">Price</th>'
+                            + '<th class="text-center">Available Time</th>'
                             + '<th class="text-center">Add</th>'
                             + '</tr>';
                         for (var i in response.productPrices) {
                             priceDetails = priceDetails + '<tr>'
                                 + '<td class="text-center" id=branchName_' + response.productPrices[i].priceId + '>' + response.productPrices[i].branch.branchName + '</td>'
                                 + '<td class="text-center" id=branchPrice_' + response.productPrices[i].priceId + '>' + response.productPrices[i].price + '</td>'
+                                + '<td class="text-center" id=""><select><option>0</option><option>1</option><select></td>'
                                 + '<td class="text-center"><input type="button" data-select-product-id="'+productId+'" onclick="addCartFromOfferList($(this))" id="addCart_' + response.productPrices[i].priceId + '" value="Add List" class="btn-primary col-sm-8" /></td>'
                                 + '</tr>';
                         }
