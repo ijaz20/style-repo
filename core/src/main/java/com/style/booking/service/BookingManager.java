@@ -1,5 +1,6 @@
 package com.style.booking.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.style.exception.AppException;
@@ -17,10 +18,10 @@ public interface BookingManager extends GenericManager<Booking, String> {
 	/**
 	 * save booking
 	 * 
-	 * @param booking
+	 * @param priceIds
 	 * @return
 	 */
-	Booking saveBooking(Booking booking) throws AppException;
+	Booking saveBooking(List<String> priceIds) throws AppException;
 
 	/**
 	 * 

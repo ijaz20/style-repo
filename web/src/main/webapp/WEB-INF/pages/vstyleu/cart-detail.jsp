@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <div id="cart" class="row">
     <div id="cart-fixed-wrapper" class="col-sm-12">
         <div class="cart-content-wrapper">
@@ -35,12 +36,14 @@
                         <span class=""></span>
                     </div>
                     <div class="row whitespace">
-                        <input type="hidden" id="cartFormIdList" name="cFormPiceIdList" data-price-id-list="" data-product-id-list="" />
-                        <span class="col-sm-12">
-                            <a title="" class="btn btn-default btn-block btn-lg" id="preorder-button">
-                            Proceed to checkout
-                            </a>
-                        </span>
+                        <form id="cartPage" action="saveBooking" method="POST">
+                            <input type="hidden" id="priceIdList" name="priceIdList" data-price-id-list="" data-product-id-list="" />
+                            <span class="col-sm-12">
+                                <a title="" class="btn btn-default btn-block btn-lg" id="preorder-button">
+                                Proceed to checkout
+                                </a>
+                            </span>
+                        </form>
                     </div>
                 </div>
             </div>

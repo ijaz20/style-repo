@@ -52,6 +52,9 @@
     <bean id="reloadAction" class="com.style.webapp.action.ReloadAction" scope="prototype"
           parent="baseAction"/>
 
+    <bean id="bookingAction" class="com.style.webapp.action.BookingAction" scope="prototype"
+          parent="baseAction"/>
+
     <bean id="fileUploadAction" class="com.style.webapp.action.FileUploadAction" scope="prototype"
           parent="baseAction"/>
 </beans>

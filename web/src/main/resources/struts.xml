@@ -217,6 +217,9 @@
                 </param>
             </result>
         </action>
+        <action name="saveBooking" class="bookingAction" method="saveBooking">
+            <result name="success">/WEB-INF/pages/vstyleu/products.jsp</result>
+        </action>
         <action name="get-product" class="productAction" method="getProductById">
         	<result type="json" >
                 <param name="root">

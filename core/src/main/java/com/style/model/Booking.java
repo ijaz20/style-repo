@@ -37,7 +37,6 @@ public class Booking extends BaseObject implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String bookingId;
-	private Branch branch;
 	private List<BookingDetail> bookingDetails = new ArrayList<BookingDetail>();
 	private User user;
 	private int netPrice;
@@ -60,15 +59,6 @@ public class Booking extends BaseObject implements Serializable {
 
 	public void setBookingId(String bookingId) {
 		this.bookingId = bookingId;
-	}
-
-	@Column(name = "branch")
-	public Branch getBranch() {
-		return branch;
-	}
-
-	public void setBranch(Branch branch) {
-		this.branch = branch;
 	}
 
 	@Column(name = "user")

@@ -41,6 +41,7 @@ public class BookingDetail extends BaseObject implements Serializable {
 	private Calendar modifiedTime;
 	private String status;
 	private boolean isActive;
+    private Branch branch;
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -61,6 +62,15 @@ public class BookingDetail extends BaseObject implements Serializable {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
+    @Column(name = "branch")
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "booking_id", referencedColumnName = "bookingId", nullable = true)
