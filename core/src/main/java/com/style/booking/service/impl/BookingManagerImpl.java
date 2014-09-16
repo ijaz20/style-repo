@@ -1,6 +1,8 @@
 package com.style.booking.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.style.model.BookingDetail;
@@ -73,10 +75,16 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
                 detail.setStatus("open");
                 detail.setBooking(booking);
                 detail.setPrice(price.getPrice());
-                bookingDetails.add(detail);
+                detail.setBranch(price.getBranch());
                 totalPrice = totalPrice + price.getPrice();
                 detail.setDiscount(0);
+                Calendar now = new GregorianCalendar();
+                now.add(Calendar.HOUR, 5);
+                detail.setStartTime(now);
+                now.add(Calendar.MINUTE, 30);
+                detail.setEndTime(now);
                 totalDsicount = totalDsicount + detail.getDiscount();
+                bookingDetails.add(detail);
 
             }
             booking.setBookingDetails(bookingDetails);

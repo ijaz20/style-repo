@@ -42,6 +42,26 @@ public class BookingDetail extends BaseObject implements Serializable {
 	private String status;
 	private boolean isActive;
     private Branch branch;
+    private Calendar startTime;
+    private Calendar endTime;
+
+    @Column(name= "start_time")
+    public Calendar getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Calendar startTime) {
+        this.startTime = startTime;
+    }
+
+    @Column(name= "end_time")
+    public Calendar getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Calendar endTime) {
+        this.endTime = endTime;
+    }
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")

@@ -1,20 +1,16 @@
 package com.style.model;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Indexed;
 
@@ -41,6 +37,16 @@ public class ProductPrice extends BaseObject implements Serializable {
     private int price;
     private String currencyCode;
     private String currencySymbol;
+    private List<String> availableTime;
+
+    @Transient
+    public List<String> getAvailableTime() {
+        return availableTime;
+    }
+
+    public void setAvailableTime(List<String> availableTime) {
+        this.availableTime = availableTime;
+    }
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -53,7 +59,8 @@ public class ProductPrice extends BaseObject implements Serializable {
         this.priceId = priceId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = true)
     @JsonIgnore
     public Product getProduct() {
