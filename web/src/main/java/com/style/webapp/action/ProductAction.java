@@ -177,12 +177,17 @@ public class ProductAction extends BaseAction implements Preparable {
 		}
 	}
 
-	public String getProductById(){
+	/**
+	 * get product
+	 * 
+	 * @return
+	 */
+	public String getProductById() {
 		log.info("getting product details");
-		if(!StringUtil.isEmptyString(getId())){
+		if (!StringUtil.isEmptyString(getId())) {
 			try {
-				product = productManager.get(getId());
-			} catch (AppException e){
+				product = productManager.getProductWithAvailableTime(getId());
+			} catch (AppException e) {
 				log.error(e.getMessage(), e);
 				saveMessage("Problem in getting product");
 			}
