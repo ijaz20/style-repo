@@ -50,4 +50,13 @@ public interface ProductManager extends GenericManager<Product, String> {
 	 * @return
 	 */
 	List<ProductPrice> getPrices(List<String> priceIds) throws AppException;
+	
+	/**
+	 * get product by id with available time
+	 * 
+	 * @param id
+	 * @return
+	 * @throws AppException
+	 */
+	Product getProductWithAvailableTime(String id) throws AppException;
 }

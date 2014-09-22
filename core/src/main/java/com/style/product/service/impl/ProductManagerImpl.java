@@ -2,19 +2,17 @@ package com.style.product.service.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.style.Constants;
+import com.style.booking.service.BookingManager;
 import com.style.exception.AppException;
-import com.style.model.Branch;
-import com.style.model.LabelValue;
-import com.style.model.Partner;
 import com.style.model.Product;
-import com.style.model.ProductCategory;
 import com.style.model.ProductPrice;
 import com.style.product.dao.ProductDao;
 import com.style.product.service.ProductManager;
@@ -31,6 +29,8 @@ public class ProductManagerImpl extends GenericManagerImpl<Product, String>
 		implements ProductManager {
 
 	private ProductDao productDao;
+	
+	private BookingManager bookingManager;
 
 	@Autowired
 	public ProductManagerImpl(ProductDao productDao) {
@@ -42,6 +42,11 @@ public class ProductManagerImpl extends GenericManagerImpl<Product, String>
 	public void setProductDao(ProductDao productDao) {
 		this.dao = productDao;
 		this.productDao = productDao;
+	}
+
+	@Autowired
+	public void setBookingManager(BookingManager bookingManager) {
+		this.bookingManager = bookingManager;
 	}
 
 	/**
@@ -77,7 +82,19 @@ public class ProductManagerImpl extends GenericManagerImpl<Product, String>
 	 * {@inheritDoc}
 	 */
 	public Product getProduct(String id) throws AppException {
-		return productDao.getProduct(id);
+		Product product = productDao.getProduct(id);
+		return product;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public Product getProductWithAvailableTime(String id) throws AppException {
+		Product product = productDao.getProduct(id);
+		Calendar now = new GregorianCalendar();
+		now.add(Calendar.HOUR, 2);
+		bookingManager.getAvailableTime(product, now);
+		return product;
 	}
 	
 	/**

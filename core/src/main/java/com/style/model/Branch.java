@@ -3,6 +3,7 @@ package com.style.model;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -63,7 +65,8 @@ public class Branch extends BaseObject implements Serializable {
 	private int minimumDeliveryAmount;
 	private int serviceCharge;
 	private String openTime;
-	private String endTime;
+	private String closeTime;
+	private List<String> availableTimes;
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -215,13 +218,13 @@ public class Branch extends BaseObject implements Serializable {
 		this.openTime = openTime;
 	}
 
-	@Column(name = "end_time")
-	public String getEndTime() {
-		return endTime;
+	@Column(name = "close_time")
+	public String getCloseTime() {
+		return closeTime;
 	}
 
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
+	public void setCloseTime(String closeTime) {
+		this.closeTime = closeTime;
 	}
 
 	@Column(name = "address1")
@@ -261,6 +264,15 @@ public class Branch extends BaseObject implements Serializable {
 		this.landmark = landmark;
 	}
 
+	@Transient
+    public List<String> getAvailableTimes() {
+        return availableTimes;
+    }
+
+    public void setAvailableTime(List<String> availableTimes) {
+        this.availableTimes = availableTimes;
+    }
+    
 	/**
 	 * {@inheritDoc}
 	 */

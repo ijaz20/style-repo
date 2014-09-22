@@ -64,6 +64,7 @@
 					<th class="text-center">Partner</th>
 					<th class="text-center">Branch</th>
 					<th class="text-center">Price</th>
+					<th class="text-center">Expected Time</th>
 					<th class="text-center"><input type="button" id="addRow"
 						name="addRow" value="Add Row" class="btn btn-default col-sm-5" /></th>
 				</tr>
@@ -74,18 +75,24 @@
 								<option value="${partner.value}">${partner.label}</option>
 							</c:forEach>
 					</select></td>
+					
 					<td class="text-center"><select id="branches1"
 						name="prices[0].branch.id" class="form-control">
 							<c:forEach items="${branches}" var="branch">
 								<option value="${branch.id}">${branch.branchName}</option>
 							</c:forEach>
 					</select></td>
+					
 					<td class="hide"><input type="text" id="priceId1"
 						name="prices[0].priceId" class="form-control"/>
 					</td>
+					
 					<td class="text-center"><input type="text" id="price1"
 						name="prices[0].price" class="form-control" /></td>
 
+					<td class="text-center"><input type="text" id="expectedTime1"
+						name="prices[0].expectedTime" class="form-control" /></td>
+					
 					<td class="text-center"><input id="deleteRow1"
 						name="deleteRow" tabindex="3" type="button" value="Remove Row"
 						class="btn btn-default col-sm-5" /></td>
@@ -189,6 +196,7 @@
 			$("#branches"+oldRowNo).val("${price.branch.id}").change();
 			$("#priceId"+oldRowNo).val("${price.priceId}");
 			$("#price"+oldRowNo).val("${price.price}");
+			$("#expectedTime"+oldRowNo).val("${price.expectedTime}");
 			
 			loadBranches(newRowNo);
 			deleteRow(newRowNo);

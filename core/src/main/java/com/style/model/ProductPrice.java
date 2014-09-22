@@ -38,6 +38,7 @@ public class ProductPrice extends BaseObject implements Serializable {
     private String currencyCode;
     private String currencySymbol;
     private List<String> availableTime;
+    private String expectedTime;
 
     @Transient
     public List<String> getAvailableTime() {
@@ -109,7 +110,15 @@ public class ProductPrice extends BaseObject implements Serializable {
         this.currencySymbol = currencySymbol;
     }
 
-    public String toString() {
+    public String getExpectedTime() {
+		return expectedTime;
+	}
+
+	public void setExpectedTime(String expectedTime) {
+		this.expectedTime = expectedTime;
+	}
+
+	public String toString() {
         ToStringBuilder sb = new ToStringBuilder(this,
                 ToStringStyle.DEFAULT_STYLE).append("branchId", this.branch.getId())
                 .append("productName", this.product.getProductName());
