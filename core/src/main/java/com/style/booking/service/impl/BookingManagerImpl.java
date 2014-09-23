@@ -134,6 +134,13 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 	/**
 	 * {@inheritDoc}
 	 */
+	public List<BookingDetail> getBookingDetails(Calendar startTime, Calendar endTime) throws AppException{
+		return bookingDao.getBookingDetails(startTime, endTime);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	public Map<String, List<String>> getAvailableTime(Product product,
 			Calendar bookingDate) {
 		List<ProductPrice> prices = product.getProductPrices();
@@ -147,7 +154,7 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 		for (ProductPrice price : prices) {
 			List<String> availTimes = new ArrayList<String>();
 			if(price.getBranch().getAvailableTimes() == null){
-				price.getBranch().setAvailableTime(getTimeIntervals(
+				price.getBranch().setAvailableTimes(getTimeIntervals(
 						(bookingDate.get(Calendar.HOUR_OF_DAY) * 60)
 						+ +bookingDate.get(Calendar.MINUTE),
 				(endDate.get(Calendar.HOUR_OF_DAY) * 60)

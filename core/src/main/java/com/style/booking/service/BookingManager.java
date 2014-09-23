@@ -55,6 +55,15 @@ public interface BookingManager extends GenericManager<Booking, String> {
 	 * @return
 	 */
 	List<BookingDetail> getBookingDetails(Calendar startTime);
+	
+	/**
+	 * get booking details by date
+	 * 
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	List<BookingDetail> getBookingDetails(Calendar startTime, Calendar endTime);
 
 	/**
 	 * get availabeTimes of product on branches

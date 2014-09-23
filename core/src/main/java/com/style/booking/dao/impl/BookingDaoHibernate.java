@@ -91,6 +91,23 @@ public class BookingDaoHibernate extends GenericDaoHibernate<Booking, String>
 	 * {@inheritDoc}
 	 */
 	@SuppressWarnings("unchecked")
+	public List<BookingDetail> getBookingDetails(Calendar startTime, Calendar endTime) {
+		try {
+			List<BookingDetail> bookingList = getSession()
+					.createCriteria(BookingDetail.class)
+					.add(Restrictions.and(Restrictions.lt("startTime", endTime),
+							Restrictions.gt("endTime", startTime))).list();
+			return bookingList;
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
 	public List<BookingDetail> getBookingDetails(Calendar startTime) {
 		try {
 			Calendar todayStart = startTime;

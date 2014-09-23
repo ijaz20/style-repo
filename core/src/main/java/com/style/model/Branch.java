@@ -67,6 +67,7 @@ public class Branch extends BaseObject implements Serializable {
 	private String openTime;
 	private String closeTime;
 	private List<String> availableTimes;
+	private int noOfResource;
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -269,10 +270,19 @@ public class Branch extends BaseObject implements Serializable {
         return availableTimes;
     }
 
-    public void setAvailableTime(List<String> availableTimes) {
+    public void setAvailableTimes(List<String> availableTimes) {
         this.availableTimes = availableTimes;
     }
     
+    @Column(name = "no_of_resource")
+	public int getNoOfResource() {
+		return noOfResource;
+	}
+
+	public void setNoOfResource(int noOfResource) {
+		this.noOfResource = noOfResource;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
