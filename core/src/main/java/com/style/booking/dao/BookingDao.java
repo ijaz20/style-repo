@@ -52,5 +52,14 @@ public interface BookingDao extends GenericDao<Booking, String> {
 	 * @return
 	 */
 	List<BookingDetail> getBookingDetails(Calendar startTime);
+	
+	/**
+	 * get booking details by date
+	 * 
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	List<BookingDetail> getBookingDetails(Calendar startTime, Calendar endTime);
 
 }

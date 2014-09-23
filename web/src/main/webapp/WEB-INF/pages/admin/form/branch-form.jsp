@@ -78,13 +78,13 @@
 		</div>
 
 		<div class="row">
-			<div class="col-sm-6">
-				<%-- <s:textfield key="branch.minimumDeliveryAmount"
-					cssClass="form-control" /> --%>
+			<div class="col-sm-4">
+				<s:textfield key="branch.noOfResource" cssClass="form-control" />
+			</div>
+			<div class="col-sm-4">
 				<s:textfield key="branch.openTime" cssClass="form-control" />
 			</div>
-			<div class="col-sm-6">
-				<%-- <s:checkbox key="branch.isHomeServiceAvailabe" /> --%>
+			<div class="col-sm-4">
 				<s:textfield key="branch.closeTime" cssClass="form-control" />
 			</div>
 		</div>
