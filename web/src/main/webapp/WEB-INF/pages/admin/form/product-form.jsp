@@ -38,9 +38,9 @@
 			<label for="category" class="control-label"><fmt:message
 					key="product.form.category" /></label> <select id="category"
 				name="product.category.id" class="form-control">
-				<c:forEach items="${availableCategories}" var="cat">
-					<option value="${cat.value}"
-						${fn:contains(product.category.id, cat.value) ? 'selected' : ''}>${cat.label}</option>
+				<c:forEach items="${categories}" var="cat">
+					<option value="${cat.id}"
+						${fn:contains(product.category.id, cat.id) ? 'selected' : ''}>${cat.categoryName}</option>
 				</c:forEach>
 			</select>
 		</div>
@@ -118,11 +118,15 @@
 <script type="text/javascript">
 	function loadBranches(rowCount) {
 		var branchOptions = '';
-		<c:forEach items="${branches}" var="branch">
-		if ('${branch.partner.id}' == $("#partner" + rowCount).val()) {
-			branchOptions = branchOptions
-					+ '<option value="${branch.id}">${branch.branchName}</option>';
-		}
+		<c:forEach items="${categories}" var="cat">
+			if($('#category').val() == '${cat.id}'){
+				<c:forEach items="${cat.branches}" var="branch">
+					if ('${branch.partner.id}' == $("#partner" + rowCount).val()) {
+						branchOptions = branchOptions
+								+ '<option value="${branch.id}">${branch.branchName}</option>';
+					}
+				</c:forEach>
+			}
 		</c:forEach>
 		$('#branches' + rowCount).html(branchOptions);
 	}
@@ -203,6 +207,12 @@
 			tableRowCount++;
 		</c:forEach>
 	}
+	
+	$("#category").change(function() {
+		$('#branchDetails tr').each(function (i, row) {
+			loadBranches(++i);
+		});		
+	});
 	
 	addPartnerChangeEvent(1);
 	loadBranches(1);
