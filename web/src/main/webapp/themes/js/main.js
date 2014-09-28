@@ -31,23 +31,8 @@ function bindCartDetailEvent(){
     });
 }
 
-$("#category-filters a").click(function(e){
+$(".checkbox").change(function(e){
     var href = $(this).attr("href");//get the href so we can navigate later
-    if($(this).find("input:checkbox").is(':checked')){
-    	$(this).find("input:checkbox").prop('checked', false);
-    } else {
-    	$(this).find("input:checkbox").prop('checked', true);
-    }
-    filterProducts(true, "features_products", 0);
-});
-
-$("#brand-filters a").click(function(e){
-    var href = $(this).attr("href");//get the href so we can navigate later
-    if($(this).find("input:checkbox").is(':checked')){
-    	$(this).find("input:checkbox").prop('checked', false);
-    } else {
-    	$(this).find("input:checkbox").prop('checked', true);
-    }
     filterProducts(true, "features_products", 0);
 });
 
@@ -181,57 +166,52 @@ function closeOfferDisplay(elem){
 function filterProducts(isFilter, renderId, productCount){
 	var categories = [];
 	var brands = [];
-    $('#category-filters input:checked').each(function() {
+    $('.category input:checked').each(function() {
     	categories.push($(this).val());
     });
-    $('#brand-filters input:checked').each(function() {
+    $('.brand input:checked').each(function() {
     	brands.push($(this).val());
     });
-    
-    $
-	.ajax({
-		url : "/vstyleu/filter-products",
-		type : "POST",
-		data : {
-			productCount:productCount,
-			categories:categories,
-			brands:brands
-		},
-		dataType : "json",
-		success : function(response) {
-			if (response != null
-					&& response != '') {
-				var productsHtml = "";
-				for ( var i in response) {
-					// alert(response.products[i].name);
-					productsHtml = productsHtml
-							+ '<div class="col-sm-4" id="'
-							+ response[i].id
-							+ '">'
-							+ '<div class="product-image-wrapper">'
-							+ '<div class="single-products">'
-							+ '<div class="productinfo text-center">'
-							+ '<a href="/vstyleu/product-details?productName='+response[i].productName+'&productId='+response[i].id+'">'
-							+ '<img src="/images/products/'
-							+ response[i].productName
-							+ '.jp" alt="" />'
-							+'</a>'
-							+ '<h2>'
-							+ response[i].price.currencyCode
-							+ '' + response[i].price.price
-							+'</h2>'
-							+ '<p class="text-capitalize">'
-							+ response[i].productName
-							+ '</p>'							
-							+ '</div>'
-							+ '</div>'
-							+ '</div>'
-							+ '</div>'
-				}
+
+    var url = "/vstyleu/filter-products?ajax=true"
+    var paramMap = {
+        productCount:productCount,
+        categories:categories,
+        brands:brands
+    };
+    $.post(url,paramMap,function(response) {
+			if (response != null && response != '') {
+//				var productsHtml = "";
+//				for ( var i in response) {
+//					// alert(response.products[i].name);
+//					productsHtml = productsHtml
+//							+ '<div class="col-sm-4" id="'
+//							+ response[i].id
+//							+ '">'
+//							+ '<div class="product-image-wrapper">'
+//							+ '<div class="single-products">'
+//							+ '<div class="productinfo text-center">'
+//							+ '<a href="/vstyleu/product-details?productName='+response[i].productName+'&productId='+response[i].id+'">'
+//							+ '<img src="/images/products/'
+//							+ response[i].productName
+//							+ '.jp" alt="" />'
+//							+'</a>'
+//							+ '<h2>'
+//							+ response[i].price.currencyCode
+//							+ '' + response[i].price.price
+//							+'</h2>'
+//							+ '<p class="text-capitalize">'
+//							+ response[i].productName
+//							+ '</p>'
+//							+ '</div>'
+//							+ '</div>'
+//							+ '</div>'
+//							+ '</div>'
+//				}
 				if(isFilter){
-					$("#" + renderId).html(productsHtml);
+					$("#" + renderId).html(response);
 				} else {
-					$("#" + renderId).append(productsHtml);
+					$("#" + renderId).append(response);
 				}
 			} else {
 				// need to add no product found
@@ -242,7 +222,7 @@ function filterProducts(isFilter, renderId, productCount){
 				}
 			}
 		}
-	});
+	);
 }
 
 /* scroll to top */
@@ -250,7 +230,7 @@ function filterProducts(isFilter, renderId, productCount){
 $(window).scroll(function() {
 	if ($("#features_products").length > 0) {
 		var scrollTop = $(this).scrollTop();
-		var moreProductsTop = $("#more_products").offset().top;
+//		var moreProductsTop = $("#more_products").offset().top;
 		// scrollSideMenu();
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 			filterProducts(false, "features_products", $('#features_products').children().length);

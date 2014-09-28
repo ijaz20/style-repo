@@ -15,6 +15,12 @@
 <link href="/themes/css/animate.css" rel="stylesheet">
 <link href="/themes/css/main.css" rel="stylesheet">
 <link href="/themes/css/responsive.css" rel="stylesheet">
+    <!-- Loading Flat UI -->
+    <link href="/themes/css/flat-ui.css" rel="stylesheet">
+    <link href="/themes/css/style.css" rel="stylesheet">
+    <link href="/themes/css/newstyle.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
 <!--[if lt IE 9]>
     <script src="/themes/js/html5shiv.js"></script>
     <script src="/themes/js/respond.min.js"></script>
@@ -40,6 +46,15 @@
 	<script src="/themes/js/jquery.js"></script>
 	<script src="/themes/js/price-range.js"></script>
 	<!-- <script src="/themes/js/jquery.scrollUp.min.js"></script> -->
+    <script src="/themes/js/bootstrap-select.js"></script>
+    <script src="/themes/js/bootstrap-switch.js"></script>
+    <script src="/themes/js/flatui-checkbox.js"></script>
+    <script src="/themes/js/application.js"></script>
+    <script src="/themes/js/flatui-radio.js"></script>
+    <script src="/themes/js/jquery.tagsinput.js"></script>
+    <script src="/themes/js/jquery.placeholder.js"></script>
+    <script src="/themes/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="/bootstrap/js/holder-dropdown.js"></script>
 	<script src="/themes/js/bootstrap.min.js"></script>
 	<script src="/themes/js/jquery.prettyPhoto.js"></script>
 	<script src="/themes/js/typeahead.js"></script>
@@ -47,6 +62,20 @@
 	<script src="/themes/js/social.js"></script>
     <script src="/themes/js/Login.js"></script>
     <script src="/themes/js/util.js"></script>
+    <script>
+        $(".banner a[href^='#']").on('click', function(e) {
+        // prevent default anchor click behavior
+        e.preventDefault();
+        // animate
+        $('html, body').animate({
+        scrollTop: $(this.hash).offset().top
+        }, 300, function(){
+        // when done, add hash to url
+        // (default click behaviour)
+        window.location.hash = this.hash;
+        });
+        });
+    </script>
 </body>
 
 </html>
