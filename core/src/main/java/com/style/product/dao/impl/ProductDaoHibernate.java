@@ -49,17 +49,17 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 	 * {@inheritDoc}
 	 */
 	@SuppressWarnings({ "unchecked" })
-	public List<Product> getAllProducts(int start, String[] brands,
+	public List<Product> getAllProducts(int start, String[] partners,
 			String[] categories) {
 		List<Product> products = new ArrayList<Product>();
 		/*
 		 * Criteria criteria = getSession().createCriteria(Product.class,
 		 * "product"); criteria.addOrder(Order.asc("product.id"));
 		 * 
-		 * if (brands != null && brands.length > 0) {
+		 * if (partners != null && partners.length > 0) {
 		 * criteria.createAlias("product.productPrices", "price");
 		 * criteria.createAlias("price.branch", "branch");
-		 * criteria.add(Restrictions.in("branch.partner.id", brands)); }
+		 * criteria.add(Restrictions.in("branch.partner.id", partners)); }
 		 * 
 		 * if (categories != null && categories.length > 0) {
 		 * criteria.createAlias("product.categories", "category");
@@ -78,18 +78,18 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 		// criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		// List<Product> products = criteria.list();
 		try {
-			if (brands != null && categories != null) {
+			if (partners != null && categories != null) {
 				products = (List<Product>) getSession()
 						.createQuery(
-								"select product from Product as product join product.categories as category join product.productPrices as price join price.branch as branch where category.id in (:categories) and branch.partner.id in (:partners) group by product.id order by product.id asc")
+								"select product from Product as product join product.productPrices as price join price.branch as branch where product.category.id in (:categories) and branch.partner.id in (:partners) group by product.id order by product.id asc")
 						.setParameterList("categories", categories)
-						.setParameterList("partners", brands)
+						.setParameterList("partners", partners)
 						.setFirstResult(start).setMaxResults(start + 15).list();
-			} else if (brands != null) {
+			} else if (partners != null) {
 				products = (List<Product>) getSession()
 						.createQuery(
-								"select product from Product as product join product.productPrices as price join price.branch as branch where branch.brand.id in (:brands) group by product.id order by product.id asc")
-						.setParameterList("brands", brands)
+								"select product from Product as product join product.productPrices as price join price.branch as branch where branch.partner.id in (:partners) group by product.id order by product.id asc")
+						.setParameterList("partners", partners)
 						.setFirstResult(start).setMaxResults(start + 15).list();
 			} else if (categories != null) {
 				products = (List<Product>) getSession()
