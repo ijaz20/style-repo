@@ -181,37 +181,11 @@ function filterProducts(isFilter, renderId, productCount){
     };
     $.post(url,paramMap,function(response) {
 			if (response != null && response != '') {
-//				var productsHtml = "";
-//				for ( var i in response) {
-//					// alert(response.products[i].name);
-//					productsHtml = productsHtml
-//							+ '<div class="col-sm-4" id="'
-//							+ response[i].id
-//							+ '">'
-//							+ '<div class="product-image-wrapper">'
-//							+ '<div class="single-products">'
-//							+ '<div class="productinfo text-center">'
-//							+ '<a href="/vstyleu/product-details?productName='+response[i].productName+'&productId='+response[i].id+'">'
-//							+ '<img src="/images/products/'
-//							+ response[i].productName
-//							+ '.jp" alt="" />'
-//							+'</a>'
-//							+ '<h2>'
-//							+ response[i].price.currencyCode
-//							+ '' + response[i].price.price
-//							+'</h2>'
-//							+ '<p class="text-capitalize">'
-//							+ response[i].productName
-//							+ '</p>'
-//							+ '</div>'
-//							+ '</div>'
-//							+ '</div>'
-//							+ '</div>'
-//				}
 				if(isFilter){
 					$("#" + renderId).html(response);
 				} else {
 					$("#" + renderId).append(response);
+                    updateProducts = true;
 				}
 			} else {
 				// need to add no product found
@@ -226,15 +200,17 @@ function filterProducts(isFilter, renderId, productCount){
 }
 
 /* scroll to top */
-
+var updateProducts = true ;
 $(window).scroll(function() {
 	if ($("#features_products").length > 0) {
-		var scrollTop = $(this).scrollTop();
-//		var moreProductsTop = $("#more_products").offset().top;
-		// scrollSideMenu();
-		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-			filterProducts(false, "features_products", $('#features_products').children().length);
-		}
+
+        $(window).scroll(function() {
+            if($(window).scrollTop() + $(window).height() > $(document).height() - 100 && updateProducts) {
+                console.log("near bottom!");
+                updateProducts = false;
+                filterProducts(false, "features_products", $('#features_products').children().length);
+            }
+        });
 	}
 	// Updates scroll position to find scroll down/ up
 
@@ -248,7 +224,23 @@ $(document).ready(function() {
         console.log("test")
         checkLoginState();
     });
-	$(function() {
+    // jQuery UI Datepicker JS init
+    var datepickerSelector = '#datepicker-01';
+    $(datepickerSelector).datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        dateFormat: "d MM, yy",
+        yearRange: '-1:+1'
+    }).prev('.btn').on('click', function (e) {
+        e && e.preventDefault();
+        $(datepickerSelector).focus();
+    });
+
+// Now let's align datepicker with the prepend button
+    $(datepickerSelector).datepicker('widget').css({'margin-left': -$(datepickerSelector).prev('.btn').outerWidth()});
+
+
+    $(function() {
 		$(window).slideUp({
 			scrollName : 'scrollUp', // Element ID
 			scrollDistance : 300, // Distance from top/bottom before showing
