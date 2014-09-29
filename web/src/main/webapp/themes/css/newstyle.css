@@ -35,9 +35,14 @@ img{max-width:100%;}
 .product-bucket strong{display:block; font-weight:normal; font-size:20px; color:#666;}
 .product-bucket img{border:1px solid #ccc; padding:10px 0;}
 .popup-left-content img{border:1px solid #ccc; padding:10px 0;}
-.contact-section ul {margin:0; padding:0; width:100;}
+.contact-section ul {margin:0; padding:0; width:100; text-align: center;border: 1px solid #ccc;}
 .contact-section ul li .select .btn{ width:150px;}
-.contact-section > ul > li {padding:0; margin:0; display:inline-block; width:33%;}
+.contact-section > ul > li {display: inline-block;
+    float: none;
+    list-style: none outside none;
+    margin: 0 auto;
+    padding: 0;
+    width: 30%;}
 .specification dl{ display:table; width:100%; margin:0;}
 .specification{clear:both; text-align:center; font-size:12px; font-weight:bold;background:#f8f8f8;}
 .specification dl:first-child{ color:#fff; background:#1ea4a3; padding: 10px 0;}
@@ -47,7 +52,13 @@ img{max-width:100%;}
 .specification dl dd{ display:table-cell; width:20%; vertical-align:middle; border-bottom:1px solid #ccc; border-right:1px solid #ccc;padding:3px 0;}
 .specification dl dt strong{ display:block;}
 .specification dl dt {display:table-cell; width:25%;border-right:1px solid #ccc; padding:3px 0; border-bottom:1px solid #ccc;}
-.bucket-details{ background:#d08303; font-size:16px; color:#fff; padding: 0 10px 0 0;}
+.bucket-details{  background: none repeat scroll 0 0 #d08303;
+    bottom: 0;
+    color: #fff;
+    font-size: 16px;
+    padding: 0 10px 0 0;
+    position: absolute;
+    right: 0;}
 .bucket-details img{ border:none; padding:0; background:#22a7a4;  padding: 5px 10px; margin: 0px 10px 0px 0px;}
 .bucket-rupee{  color:#666;}
 .bucket-rupee img{border:none; padding:0 3px 0 0px; margin-bottom:3px;}
@@ -64,6 +75,7 @@ img{max-width:100%;}
 .product-bucket {
     margin: 0 12px 20px 0;
     width: 33%;
+    min-height: 327px;
 }
 	.product-bucket:nth-child(3n) {
     margin: 0 0 20px 0;
