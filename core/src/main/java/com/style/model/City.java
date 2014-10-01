@@ -1,5 +1,6 @@
 package com.style.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ import org.hibernate.search.annotations.Indexed;
 @Entity
 @Table(name = "vsu_meta_city")
 @Indexed
-public class City extends BaseObject {
+public class City extends BaseObject implements Serializable {
 
 	private static final long serialVersionUID = 3617859655330969141L;
 	private String id;
@@ -95,7 +96,7 @@ public class City extends BaseObject {
 		this.county = county;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = Area.class, mappedBy = "city", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = Area.class, mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true)
     @OrderBy("id")
     @Fetch(value = FetchMode.SELECT)
 	@JsonIgnore

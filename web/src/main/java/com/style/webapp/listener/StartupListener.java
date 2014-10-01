@@ -143,32 +143,32 @@ public class StartupListener implements ServletContextListener {
 		context.setAttribute(Constants.AVAILABLE_ROLES, mgr.getAllRoles());
 		log.debug("Drop-down initialization complete [OK]");
 
+		// get list of possible partners
+		context.setAttribute(Constants.AVAILABLE_PARTNERS, mgr.getAllPartners());
+		log.debug("Partners initialization complete [OK]");
+
+		// get list of possible branches
+		context.setAttribute(Constants.AVAILABLE_BRANCHES, mgr.getAllBranches());
+		log.debug("Partners initialization complete [OK]");
+				
 		// get list of possible categories
 		context.setAttribute(Constants.AVAILABLE_CATEGORIES,
 				mgr.getAllProductCategories());
 		log.debug("Categories initialization complete [OK]");
 
-		// get list of possible branches
-				context.setAttribute(Constants.AVAILABLE_BRANCHES, mgr.getAllBranches());
-				log.debug("Partners initialization complete [OK]");
-				
-		// get list of possible partners
-		context.setAttribute(Constants.AVAILABLE_PARTNERS, mgr.getAllPartners());
-		log.debug("Partners initialization complete [OK]");
-
-		// get list of possible categories
-		context.setAttribute(Constants.CATEGORIES,
-				mgr.getProductCategories());
-		log.debug("Categories initialization complete [OK]");
-
-		// get list of possible branches
-				context.setAttribute(Constants.BRANCHES, mgr.getBranches());
-				log.debug("Partners initialization complete [OK]");
-				
 		// get list of possible partners
 		context.setAttribute(Constants.PARTNERS, mgr.getPartners());
 		log.debug("Partners initialization complete [OK]");
 		
+		// get list of possible branches
+		context.setAttribute(Constants.BRANCHES, mgr.getBranches());
+		log.debug("Partners initialization complete [OK]");
+		
+		// get list of possible categories
+		context.setAttribute(Constants.CATEGORIES,
+				mgr.getProductCategories());
+		log.debug("Categories initialization complete [OK]");
+						
 		// get list of possible categories
 		context.setAttribute(Constants.CURRENT_CITY, metaManager.getCityByName("Chennai"));
 				
