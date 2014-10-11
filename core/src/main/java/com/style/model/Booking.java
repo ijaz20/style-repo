@@ -11,8 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
@@ -62,8 +63,8 @@ public class Booking extends BaseObject implements Serializable {
 		this.bookingId = bookingId;
 	}
 
-	@Column(name = "user")
-	@Lob
+	@OneToOne
+	@JoinColumn(name = "user_id")
 	public User getUser() {
 		return user;
 	}

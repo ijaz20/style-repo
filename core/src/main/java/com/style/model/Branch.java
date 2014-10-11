@@ -13,7 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -246,8 +245,8 @@ public class Branch extends BaseObject implements Serializable {
 		this.address2 = address2;
 	}
 
-	@Column(name = "area")
-	@Lob
+	@OneToOne
+	@JoinColumn(name = "area_id")
 	public Area getArea() {
 		return area;
 	}

@@ -9,8 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -75,8 +75,8 @@ public class BookingDetail extends BaseObject implements Serializable {
 		this.bookingDetailId = bookingDetailId;
 	}
 
-	@Column(name = "product")
-	@Lob
+	@OneToOne
+	@JoinColumn(name = "product_id")
 	public Product getProduct() {
 		return product;
 	}
@@ -85,8 +85,8 @@ public class BookingDetail extends BaseObject implements Serializable {
 		this.product = product;
 	}
 
-    @Column(name = "branch")
-    @Lob
+    @OneToOne
+	@JoinColumn(name = "branch_id")
     public Branch getBranch() {
         return branch;
     }

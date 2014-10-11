@@ -1,5 +1,7 @@
 package com.style.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +27,7 @@ import org.hibernate.search.annotations.Indexed;
 @Table(name = "vsu_meta_area")
 @Indexed
 @XmlRootElement
-public class Area extends BaseObject {
+public class Area extends BaseObject implements Serializable{
 
 	private static final long serialVersionUID = 3617859655330969141L;
 	private String id;
