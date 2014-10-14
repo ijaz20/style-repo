@@ -2405,10 +2405,12 @@ h2.title {
 }
 
 .btn.btn-primary {
-  background:#FE980F;
-  border: 0 none;
-  border-radius: 0;
-  margin-top: 16px;
+  /*background:#FE980F;*/
+  /*border: 0 none;*/
+  /*border-radius: 0;*/
+  /*margin-top: 16px;*/
+    border-radius: 5px;
+    font-size:12px;
 }
 
 .blank-arrow {
