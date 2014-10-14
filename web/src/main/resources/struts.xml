@@ -23,6 +23,7 @@
         <interceptors>
             <!-- Interceptor to handle allowing only admins to certain actions -->
             <interceptor name="adminOnly" class="adminInterceptor"/>
+            <interceptor name="constantsInterceptor" class="constantsInterceptor"/>
             <!-- Interceptor to handle accessDenied exceptions thrown from service/model layer called from within actions -->
             <interceptor name="accessDenied" class="accessDeniedInterceptor"/>
             <!-- Copied from struts-default.xml and changed validation exclude methods -->
@@ -207,7 +208,50 @@
     
     <!-- Actions in this package will be prefixed with /product/ -->
     <package name="vstyleu" extends="default, json-default" namespace="/vstyleu">
+        <interceptors>
+            <!-- Interceptor to handle allowing only admins to certain actions -->
+            <interceptor name="adminOnly" class="adminInterceptor"/>
+            <interceptor name="constantsInterceptor" class="constantsInterceptor"/>
+            <!-- Interceptor to handle accessDenied exceptions thrown from service/model layer called from within actions -->
+            <interceptor name="accessDenied" class="accessDeniedInterceptor"/>
+            <!-- Copied from struts-default.xml and changed validation exclude methods -->
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="accessDenied"/>
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="debugging"/>
+                <interceptor-ref name="profiling"/>
+                <interceptor-ref name="scopedModelDriven"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">cancel,execute,delete,edit,list</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+            </interceptor-stack>
+            <interceptor-stack name="fileUploadStack">
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+            <interceptor-stack name="adminCheck">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="adminOnly"/>
+            </interceptor-stack>
+        </interceptors>
         <action name="products" class="productAction" method="getAllProducts">
+            <interceptor-ref name="constantsInterceptor"/>
             <result name="success">/WEB-INF/pages/vstyleu/products.jsp</result>
         </action>
         <action name="filter-products" class="productAction" method="getFilteredProducts">
@@ -218,11 +262,9 @@
             <result name="success">/WEB-INF/pages/vstyleu/products.jsp</result>
         </action>
         <action name="get-product" class="productAction" method="getProductById">
-        	<result type="json" >
-                <param name="root">
-                    product
-                </param>
-            </result>
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="constantsInterceptor"/>
+            <result name="success">/WEB-INF/pages/vstyleu/product-details.jsp</result>
         </action>        
 		<action name="product-details" class="productAction" method="getProductDetails">
             <result name="success">/WEB-INF/pages/vstyleu/product-details.jsp</result>
