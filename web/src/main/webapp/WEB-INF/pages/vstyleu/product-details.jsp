@@ -33,6 +33,7 @@
                         </li>
                         <li class="col-md-4">
                             <s:select list="list_timeInterval" name="preferableTimeInterval" id="preferableTimeInterval" cssClass="form-control" theme="simple"/>
+                            <div class="data-caret"><span class="caret"></span></div>
                         </li>
                     </ul>
                     <div class="specification">
@@ -45,8 +46,11 @@
                         <s:iterator var="offerList" value="%{product.productPrices}">
                             <dl><dt><strong><s:property value="%{#offerList.branch.branchName}"/></strong></dt>
                                 <dd><img src="/images/rupee.png"> <s:property value="%{#offerList.price}"/></dd>
-                                <dd><s:select list="%{#offerList.branch.availableTimes}" name="availableTimeList" id="availableTimeList" cssClass="form-control" theme="simple"/></dd>
-                                <dd><a href="#">Add to Cart</a></dd>
+                                <dd>
+                                    <s:select list="%{#offerList.branch.availableTimes}" name="availableTimeList" id="availableTimeList" cssClass="form-control" theme="simple"/>
+                                    <div class="data-caret"><span class="caret"></span></div>
+                                </dd>
+                                <dd><button class="btn btn-primary">Add to Cart</button></dd>
                             </dl>
                         </s:iterator>
                     </div>

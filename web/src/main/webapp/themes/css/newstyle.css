@@ -84,10 +84,10 @@ img{max-width:100%;}
 }
 
 .data-caret {
-    padding: 8px 5px 0 !important;
+    padding: 3px 5px 0 !important;
 }
 .data-caret {
-    position: absolute;
+    position: relative;
     right: 0;
     text-align: center;
     top: 0;
