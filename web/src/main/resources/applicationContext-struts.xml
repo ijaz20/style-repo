@@ -9,6 +9,7 @@
     
     <bean id="accessDeniedInterceptor" class="com.style.webapp.interceptor.AccessDeniedInterceptor" />
     <bean id="constantsInterceptor" class="com.style.webapp.interceptor.ConstantsExposeInterceptor"/>
+    <bean id="mobileInterceptor" class="com.style.webapp.interceptor.MobileInterceptor"/>
 
     <bean id="baseAction" class="com.style.webapp.action.BaseAction" scope="prototype">
     </bean>

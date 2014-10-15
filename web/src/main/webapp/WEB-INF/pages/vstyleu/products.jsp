@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
 
+<s:hidden name="mobileSite" id="mobileSite" value="%{mobileSite}"/>
 <div class="col-md-9 col-sm-9 col-lg-9 content-right-nav">
     <div class="title">Featured products</div>
     <div class="content-area" id="features_products">
