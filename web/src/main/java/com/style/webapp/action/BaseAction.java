@@ -152,6 +152,9 @@ public class BaseAction extends ActionSupport {
         return getRequest().getSession();
     }
 
+    public Object getSessionAttribute(String s) {
+        return getSession().getAttribute(s);
+    }
     /**
      * Convenience method to send e-mail to users
      *
@@ -175,6 +178,9 @@ public class BaseAction extends ActionSupport {
         mailEngine.sendMessage(mailMessage, templateName, model);
     }
 
+    private boolean mobileSite = false;
+    private boolean mobileWapSite = false;
+
     public void setUserManager(UserManager userManager) {
         this.userManager = userManager;
     }
@@ -195,6 +201,21 @@ public class BaseAction extends ActionSupport {
         this.templateName = templateName;
     }
 
+    public boolean isMobileSite() {
+        return mobileSite;
+    }
+
+    public void setMobileSite(boolean mobileSite) {
+        this.mobileSite = mobileSite;
+    }
+
+    public boolean isMobileWapSite() {
+        return mobileWapSite;
+    }
+
+    public void setMobileWapSite(boolean mobileWapSite) {
+        this.mobileWapSite = mobileWapSite;
+    }
     /**
      * Convenience method for setting a "from" parameter to indicate the previous page.
      *
