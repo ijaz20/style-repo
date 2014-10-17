@@ -58,7 +58,10 @@
 	<script src="/themes/js/bootstrap.min.js"></script>
 	<script src="/themes/js/jquery.prettyPhoto.js"></script>
 	<script src="/themes/js/typeahead.js"></script>
+    <script src="/themes/js/jquery.hoverIntent.js"></script>
+    <script src="/themes/js/jquery.lazyload.js"></script>
 	<script src="/themes/js/main.js"></script>
+    <script src="/themes/js/nav-bar.js"></script>
 	<script src="/themes/js/social.js"></script>
     <script src="/themes/js/Login.js"></script>
     <script src="/themes/js/util.js"></script>
