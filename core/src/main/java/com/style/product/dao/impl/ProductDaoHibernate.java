@@ -32,13 +32,15 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 	 * {@inheritDoc}
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ProductPrice> getPrices(List<String> priceIds) {
+	public ProductPrice getPrice(String priceId) {
 		try {
-			List<ProductPrice> prices = (List<ProductPrice>) getSession()
-					.createQuery(
-							"select price from com.style.model.ProductPrice as price where price.priceId in (:priceIds)")
-					.setParameterList("priceIds", priceIds).list();
-			return prices;
+            List<ProductPrice> prices = getSession().createCriteria(ProductPrice.class)
+                    .add(Restrictions.eq("priceId", priceId)).list();
+            if (prices.isEmpty()) {
+                return null;
+            } else {
+                return prices.get(0);
+            }
 		} catch (HibernateException e) {
 			log.error(e.getMessage(), e);
 			throw new AppException(e.getMessage(), e);

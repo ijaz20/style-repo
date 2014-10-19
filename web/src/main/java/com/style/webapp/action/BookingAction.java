@@ -33,18 +33,18 @@ public class BookingAction extends BaseAction implements Preparable {
 	private Calendar startTime;
 	private Calendar endTime;
 
-    private String priceIdList;
+    private String offerId;
+    private String bookingId;
 	@Autowired
 	public void setBookingManager(BookingManager bookingManager) {
 		this.bookingManager = bookingManager;
 	}
 
 	public String saveBooking() {
-        if(StringUtil.isEmptyString(priceIdList)){
+        if(StringUtil.isEmptyString(offerId)){
             return ERROR;
         }
-        List<String> priceIds = Arrays.asList(priceIdList.split(","));
-        bookingManager.saveBooking(priceIds);
+        bookingManager.saveBooking(offerId, bookingId);
 		return SUCCESS;
 	}
 
@@ -53,12 +53,20 @@ public class BookingAction extends BaseAction implements Preparable {
 		// TODO Auto-generated method stub
 	}
 
-    public String getPriceIdList() {
-        return priceIdList;
+    public String getBookingId() {
+        return bookingId;
     }
 
-    public void setPriceIdList(String priceIdList) {
-        this.priceIdList = priceIdList;
+    public void setBookingId(String bookingId) {
+        this.bookingId = bookingId;
+    }
+
+    public String getOfferId() {
+        return offerId;
+    }
+
+    public void setOfferId(String offerId) {
+        this.offerId = offerId;
     }
 
     public Branch getBranch() {

@@ -3,6 +3,7 @@ package com.style.booking.dao.impl;
 import java.util.Calendar;
 import java.util.List;
 
+import com.style.model.User;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -86,6 +87,26 @@ public class BookingDaoHibernate extends GenericDaoHibernate<Booking, String>
 			throw new AppException(e.getMessage(), e);
 		}
 	}
+
+    //TODO clean this code with browser and session id by Mathivanan
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    public Booking getBooking(User user) {
+        try {
+            List<Booking> bookings = getSession().createCriteria(Booking.class)
+                    .add(Restrictions.eq("user", user)).list();
+            if (bookings.isEmpty()) {
+                return null;
+            } else {
+                return bookings.get(0);
+            }
+        } catch (HibernateException e) {
+            log.error(e.getMessage(), e);
+            throw new AppException(e.getMessage(), e);
+        }
+    }
 	
 	/**
 	 * {@inheritDoc}

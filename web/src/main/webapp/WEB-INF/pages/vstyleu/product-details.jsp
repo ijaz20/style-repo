@@ -50,7 +50,7 @@
                                     <s:select list="%{#offerList.branch.availableTimes}" name="availableTimeList" id="availableTimeList" cssClass="form-control" theme="simple"/>
                                     <div class="data-caret"><span class="caret"></span></div>
                                 </dd>
-                                <dd><button class="btn btn-primary">Add to Cart</button></dd>
+                                <dd><button id="product_<s:property value='%{#offerList.priceId}'/>" class="add-to-cart btn btn-primary">Add to Cart</button></dd>
                             </dl>
                         </s:iterator>
                     </div>

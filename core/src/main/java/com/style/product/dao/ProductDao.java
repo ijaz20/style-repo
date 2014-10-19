@@ -44,5 +44,5 @@ public interface ProductDao extends GenericDao<Product, String> {
 	 * @param priceIds
 	 * @return
 	 */
-	List<ProductPrice> getPrices(List<String> priceIds);
+	ProductPrice getPrice(String priceId);
 }

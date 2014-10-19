@@ -7,16 +7,17 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 
+import com.style.booking.service.BookingManager;
+import com.style.model.*;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Preparable;
 import com.style.Constants;
 import com.style.exception.AppException;
-import com.style.model.Product;
-import com.style.model.ProductPrice;
 import com.style.product.service.ProductManager;
 import com.style.util.StringUtil;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * Action for facilitating product Management feature.
@@ -30,6 +31,10 @@ public class ProductAction extends BaseAction implements Preparable {
 	private List<Product> products;
 	private Product product;
 	private String id;
+
+    private BookingManager bookingManager;
+
+    private Booking booking;
 	private String productCount;
 	private List<ProductPrice> prices;
 	private File file;
@@ -46,6 +51,19 @@ public class ProductAction extends BaseAction implements Preparable {
 		// TODO Auto-generated method stub
 	}
 
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
+    @Autowired
+    public void setBookingManager(BookingManager bookingManager) {
+        this.bookingManager = bookingManager;
+    }
+
 	/**
 	 * get all products
 	 * 
@@ -55,6 +73,15 @@ public class ProductAction extends BaseAction implements Preparable {
 		log.info("getting all products");
 		try {
 			products = productManager.getAllProducts(0, null, null);
+            if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User) {
+                booking = bookingManager.getBooking((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+            }
+            else{
+                String userName = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                if(!"anonymousUser".equalsIgnoreCase(userName)){
+                    bookingManager.getBooking(userManager.getUserByUsername(userName));
+                }
+            }
 			return SUCCESS;
 		} catch (AppException e) {
 			saveMessage(e.getMessage());

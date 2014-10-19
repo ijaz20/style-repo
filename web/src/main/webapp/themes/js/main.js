@@ -21,16 +21,6 @@ function scrollSideMenu() {
 	}
 }
 
-function initializeCartWindow(){
-    $(".cart-line-noOrder").addClass('active').siblings().addClass('hide');
-}
-
-function bindCartDetailEvent(){
-    $("#addRow").on("click", function(){
-
-    });
-}
-
 $(".checkbox").change(function(e){
     var href = $(this).attr("href");//get the href so we can navigate later
     filterProducts(true, "features_products", 0);
@@ -99,7 +89,22 @@ function addCartFromOfferList(elem){
     $(".cart-line-noOrder").addClass('hide').siblings().removeClass('hide');
     return checkCartDuplication(productId, priceId);
 }
+function updateCart(elem) {
+    var elementId = elem.attr("id");
+    var offerId = elementId.split('_')[1];
+    var url = "/vstyleu/saveBooking?ajax=true"
+    var paramMap = {
+        offerId: offerId,
+        bookingId:$("#bookingId").val()
+    };
+    $.post(url, paramMap, function (response) {
+            if (response != null && response != '') {
+                $("#product_offer").modal('hide');
 
+            }
+        }
+    );
+}
 function closeOfferDisplay(elem){
     var elementId = elem.attr("id");
     var productId = elementId.split('_')[1];
@@ -162,60 +167,6 @@ $(window).scroll(function() {
 
 });
 
-function gghhg(elem) {
-    var elementId = elem.attr("id");
-    var productId = elementId.split('_')[1];
-    if($("#displayOffer_"+productId).val() != "true") {
-        $.ajax({
-            url: "/vstyleu/get-product",
-            type: "GET",
-            asyn: false,
-            data: {
-                id: productId
-            },
-            dataType: "json",
-            success: function (response) {
-                var priceDetails = '<div class="row table-responsive">'
-                    + '<table id="branchDetails" class="table table-striped">'
-                    + '<tr>'
-                    + '<th class="text-center">Branch Name</th>'
-                    + '<th class="text-center">Price</th>'
-                    + '<th class="text-center">Available Time</th>'
-                    + '<th class="text-center">Add</th>'
-                    + '</tr>';
-                for (var i in response.productPrices) {
-                    priceDetails = priceDetails + '<tr>'
-                        + '<td class="text-center" id=branchName_' + response.productPrices[i].priceId + '>' + response.productPrices[i].branch.branchName + '</td>'
-                        + '<td class="text-center" id=branchPrice_' + response.productPrices[i].priceId + '>' + response.productPrices[i].price + '</td>'
-                        + '<td class="text-center" id=""><select>';
-                    var options = "";
-                    for(var j=0; j < response.productPrices[i].branch.availableTimes.length; j++ ) {
-                        options = options + '<option>'+response.productPrices[i].branch.availableTimes[j]+'</option>';
-                    }
-
-                    priceDetails = priceDetails + options + '<select></td>'
-                        + '<td class="text-center"><input type="button" data-select-product-id="'+productId+'" onclick="addCartFromOfferList($(this))" id="addCart_' + response.productPrices[i].priceId + '" value="Add List" class="btn-primary col-sm-8" /></td>'
-                        + '</tr>';
-                }
-                priceDetails = priceDetails + '</table></div>';
-                $('<div/>', {
-                    id: elementId + "_price",
-                    class: "col-sm-6",
-                    html: priceDetails
-                }).insertAfter($("#" + elementId + "_image"));
-                $("#displayOffer_" + productId).val("true")
-                //Don't delete this comment we need to show descripton later.
-                //createDiv("row").html(response.description).insertAfter("#product_"+productId);
-            }
-        });
-    }
-
-    $("#" + elementId + "_price").removeClass("hide");
-    $(".product-details-div").toggleClass("col-sm-4 col-sm-12");
-    $("#" + elementId + "_image").toggleClass("col-sm-12 col-sm-4");
-    $("#close_"+ productId).removeClass("hide");
-    $("#product_"+productId).addClass("hide");
-}
 
 function populateOfferFromProduct(elem) {
     var elementId = elem.attr("id");
@@ -239,7 +190,12 @@ function showProductDetails(){
         populateOfferFromProduct($(this));
     });
 }
-$(document).ready(function() {
+function generateCartDetails(){
+    $(".container").on('click', '.add-to-cart' ,function(){
+        updateCart($(this));
+    })
+}
+$(function(){
 	if ($("#left-sidebar").length > 0) {
 		scrollSideMenu();
 	}
@@ -248,6 +204,7 @@ $(document).ready(function() {
         checkLoginState();
     });
     showProductDetails();
+    generateCartDetails();
     // jQuery UI Datepicker JS init
     var datepickerSelector = '#datepicker-01';
     $(datepickerSelector).datepicker({
@@ -289,8 +246,6 @@ $(document).ready(function() {
 		// Z-Index for the overlay
 		});
 	});
-    initializeCartWindow();
-    bindCartDetailEvent();
 
 });
 

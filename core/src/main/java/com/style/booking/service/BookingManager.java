@@ -8,6 +8,7 @@ import com.style.exception.AppException;
 import com.style.model.Booking;
 import com.style.model.BookingDetail;
 import com.style.model.Product;
+import com.style.model.User;
 import com.style.service.GenericManager;
 
 /**
@@ -21,10 +22,11 @@ public interface BookingManager extends GenericManager<Booking, String> {
 	/**
 	 * save booking
 	 * 
-	 * @param priceIds
+	 * @param priceId
+     * @param bookingId
 	 * @return
 	 */
-	Booking saveBooking(List<String> priceIds) throws AppException;
+	Booking saveBooking(String priceId, String bookingId) throws AppException;
 
 	/**
 	 * 
@@ -65,6 +67,7 @@ public interface BookingManager extends GenericManager<Booking, String> {
 	 */
 	List<BookingDetail> getBookingDetails(Calendar startTime, Calendar endTime);
 
+    Booking getBooking(User user);
 	/**
 	 * get availabeTimes of product on branches
 	 * 
