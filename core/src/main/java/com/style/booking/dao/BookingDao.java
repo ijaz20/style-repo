@@ -7,6 +7,7 @@ import com.style.dao.GenericDao;
 import com.style.model.Booking;
 import com.style.model.Booking;
 import com.style.model.BookingDetail;
+import com.style.model.User;
 
 /**
  * Booking Data Access Object (GenericDao) interface.
@@ -52,7 +53,15 @@ public interface BookingDao extends GenericDao<Booking, String> {
 	 * @return
 	 */
 	List<BookingDetail> getBookingDetails(Calendar startTime);
-	
+
+    /**
+     *
+     * @param user
+     * @return
+     */
+    Booking getBooking(User user);
+
+
 	/**
 	 * get booking details by date
 	 * 

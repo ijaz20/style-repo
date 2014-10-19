@@ -1,58 +1,24 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<div id="cart" class="row">
-    <div id="cart-fixed-wrapper" class="col-sm-12">
-        <div class="cart-content-wrapper">
-            <div class="cart-content-header">
-                YOUR ORDER
-            </div>
-            <div class="cart-content-teaser clearfix">
-                <div class="cart-vendor-title"></div>
-                <div class="cart-vendor-image">
-                    <img title="" alt="" src="">
-                </div>
-            </div>
-            <div class="cart-content-body">
-                <div class="cart-content-separator"></div>
-                <div class="cart-content-orders-container">
-                    <div class="row cart-line-noOrder">
-                        <div>
-                            <span class="col-sm-12">Select your style!</span>
-                        </div>
-                    </div>
-                    <div class="cart-added-products">
-                        <div id="cart-error-message" class="alert alert-danger alert-dismissable" style="display: none" >
-                            <a href="#" data-dismiss="alert" class="close">&times;</a>
-                            <span>Product already added.</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <span class=""><hr></span>
-                    </div>
-                    <div class="row cart-subtotal-div">
-                        <span class="col-sm-4">Subtotal</span>
-                        <span class="col-sm-4 pull-right cart-subtotal">0</span>
-                    </div>
-                    <div class="row">
-                        <span class=""></span>
-                    </div>
-                    <div class="row whitespace">
-                        <form id="cartPage" action="saveBooking" method="POST">
-                            <input type="hidden" id="priceIdList" name="priceIdList" data-price-id-list="" data-product-id-list="" />
-                            <span class="col-sm-12">
-                                <a title="" class="btn btn-default btn-block btn-lg" id="preorder-button">
-                                Proceed to checkout
-                                </a>
-                            </span>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="cart-content-footer text-center hide">
-             <span class="cart-footer-info-icon"></span>
-             <span class="cart-footer-info-text">
-                 Delivery in: 1h
-             </span>
-        </div>
-    </div>
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <input type="hidden" name="bookingId" id="bookingId" value="<s:property value="%{booking.bookingId}"/>"/>
+    <ul class="nav navbar-nav menu-section-left">
+
+        <li class="ll-link"><a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="#"><strong><s:property value="%{booking == null? 0:booking.bookingDetails.size()}"/></strong><img src="/images/menu-cart-button.png"></a>
+            <ul class="tabbable dropdown-menu popover bottom cc-sub">
+                <li class="tab-lesft">
+                    <ul class="nav nav-tabs nav-append-content">
+                        <s:if test="%{booking.bookingDetails != null && booking.bookingDetails.size() > 0}">
+                            <s:iterator var="booking" value="booking.bookingDetails">
+                                <li><a href="#"><s:property value="%{#booking.product.productName}"/></a></li>
+                            </s:iterator>
+                        </s:if>
+                        <s:else>
+                            <li><a href="javascript:void(0)">No style in your cart</a></li>
+                        </s:else>
+                    </ul>
+                </li>
+                <!-- /tab-content -->
+            </ul>
+        </li>
+    </ul>
 </div>

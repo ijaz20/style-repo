@@ -46,10 +46,10 @@ public interface ProductManager extends GenericManager<Product, String> {
 	/**
 	 * get product prices by id's
 	 * 
-	 * @param priceIds
+	 * @param priceId
 	 * @return
 	 */
-	List<ProductPrice> getPrices(List<String> priceIds) throws AppException;
+	ProductPrice getPrice(String priceId) throws AppException;
 	
 	/**
 	 * get product by id with available time

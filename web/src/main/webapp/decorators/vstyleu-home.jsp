@@ -19,6 +19,7 @@
     <link href="/themes/css/flat-ui.css" rel="stylesheet">
     <link href="/themes/css/style.css" rel="stylesheet">
     <link href="/themes/css/newstyle.css" rel="stylesheet">
+    <link href="/themes/css/nav-bar.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="/images/favicon.ico">
 <!--[if lt IE 9]>

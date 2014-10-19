@@ -261,7 +261,7 @@
             <result name="success">/WEB-INF/pages/vstyleu/ajax-product.jsp</result>
         </action>
         <action name="saveBooking" class="bookingAction" method="saveBooking">
-            <result name="success">/WEB-INF/pages/vstyleu/products.jsp</result>
+            <result name="success">/WEB-INF/pages/vstyleu/cart-detail.jsp</result>
         </action>
         <action name="get-product" class="productAction" method="getProductById">
             <interceptor-ref name="defaultStack"/>

@@ -100,7 +100,7 @@ public class ProductManagerImpl extends GenericManagerImpl<Product, String>
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<ProductPrice> getPrices(List<String> priceIds) throws AppException{
-		return productDao.getPrices(priceIds);
+	public ProductPrice getPrice(String priceId) throws AppException{
+		return productDao.getPrice(priceId);
 	}
 }

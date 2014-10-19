@@ -65,14 +65,14 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 	/**
 	 * {@inheritDoc}
 	 */
-	public Booking saveBooking(List<String> priceIds) throws AppException {
+	public Booking saveBooking(String priceId, String bookingId) throws AppException {
         try {
-            List<ProductPrice> prices = productManager.getPrices(priceIds);
+            ProductPrice price = productManager.getPrice(priceId);
             Booking booking = new Booking();
             List<BookingDetail> bookingDetails = new ArrayList<BookingDetail>();
             int totalPrice = 0;
             int totalDsicount = 0;
-            for (ProductPrice price : prices) {
+            if (price != null) {
                 BookingDetail detail = new BookingDetail();
                 detail.setProduct(price.getProduct());
                 detail.setStatus("open");
@@ -197,6 +197,15 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 
 		return branchAvailableTimes;
 	}
+
+    /**
+     *
+     * @param user
+     * @return
+     */
+    public Booking getBooking(User user){
+        return bookingDao.getBooking(user);
+    }
 	
 	/**
 	 * get time intervals
