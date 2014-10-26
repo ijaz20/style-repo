@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.style.model.types.BookingState;
+import com.style.util.StringUtil;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -70,12 +72,12 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
             ProductPrice price = productManager.getPrice(priceId);
             Booking booking = new Booking();
             List<BookingDetail> bookingDetails = new ArrayList<BookingDetail>();
+            BookingDetail detail = new BookingDetail();
             int totalPrice = 0;
             int totalDsicount = 0;
             if (price != null) {
-                BookingDetail detail = new BookingDetail();
                 detail.setProduct(price.getProduct());
-                detail.setStatus("open");
+                detail.setStatus(BookingState.OPEN);
                 detail.setBooking(booking);
                 detail.setPrice(price.getPrice());
                 detail.setBranch(price.getBranch());
@@ -92,19 +94,38 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
                 bookingDetails.add(detail);
 
             }
-            booking.setBookingDetails(bookingDetails);
-            booking.setStatus("open");
-            booking.setTotalDiscountPrice(totalDsicount);
-            booking.setTotalPrice(totalPrice);
-            booking.setNetPrice(totalPrice - totalDsicount);
-            booking.setUser((User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
-            return bookingDao.saveBooking(booking);
+            if(!StringUtil.isEmptyString(bookingId)){
+                 booking = getBookingById(bookingId);
+                 booking.getBookingDetails().add(detail);
+                return bookingDao.saveBooking(booking);
+            }
+            else {
+                booking.setBookingDetails(bookingDetails);
+                booking.setStatus("open");
+                booking.setTotalDiscountPrice(totalDsicount);
+                booking.setTotalPrice(totalPrice);
+                booking.setNetPrice(totalPrice - totalDsicount);
+                booking.setUser((User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
+                return bookingDao.saveBooking(booking);
+            }
         }
         catch(HibernateException e){
             e.printStackTrace();
         }
         return null;
 	}
+
+    public Booking getBookingById(String bookingId){
+        log.info("getting booking details");
+        if(!StringUtil.isEmptyString(bookingId)){
+            try {
+                return get(bookingId);
+            } catch (AppException e){
+                log.error(e.getMessage(), e);
+            }
+        }
+        return null;
+    }
 
 	public List<Booking> getBookings(String[] bookingIds) throws AppException {
 		return bookingDao.getBookings(bookingIds);
