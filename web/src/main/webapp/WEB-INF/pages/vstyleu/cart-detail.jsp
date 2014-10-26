@@ -9,8 +9,12 @@
                     <ul class="nav nav-tabs nav-append-content">
                         <s:if test="%{booking.bookingDetails != null && booking.bookingDetails.size() > 0}">
                             <s:iterator var="booking" value="booking.bookingDetails">
-                                <li><a href="#"><s:property value="%{#booking.product.productName}"/></a></li>
+                                <li><a href="#"><s:property value="%{#booking.product.productName}"/></a>
+                                    <i class="fa fa-inr" style="padding-left: 50px;"></i>
+                                    <span><s:property value="%{#booking.product.price.price}"/></span>
+                                </li>
                             </s:iterator>
+                            <button id="" class="btn btn-primary">Checkout</button>
                         </s:if>
                         <s:else>
                             <li><a href="javascript:void(0)">No style in your cart</a></li>

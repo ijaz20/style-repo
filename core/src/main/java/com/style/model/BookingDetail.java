@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.style.model.types.BookingState;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -40,7 +41,7 @@ public class BookingDetail extends BaseObject implements Serializable {
 	private Booking booking;
 	private Calendar createdTime;
 	private Calendar modifiedTime;
-	private String status;
+	private BookingState status;
 	private boolean isActive;
     private Branch branch;
     private Calendar startTime;
@@ -143,11 +144,11 @@ public class BookingDetail extends BaseObject implements Serializable {
 	}
 
 	@Column(name = "status")
-	public String getStatus() {
+	public BookingState getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(BookingState status) {
 		this.status = status;
 	}
 
