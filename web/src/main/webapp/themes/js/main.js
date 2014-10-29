@@ -100,7 +100,9 @@ function updateCart(elem) {
     $.post(url, paramMap, function (response) {
             if (response != null && response != '') {
                 $("#product_offer").modal('hide');
-
+                $('.cart-menu').html('');
+                $('.cart-menu').html(response);
+                $('.ll-link').toggleClass('open close');
             }
         }
     );

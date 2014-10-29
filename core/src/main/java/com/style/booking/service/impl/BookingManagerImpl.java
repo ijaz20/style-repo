@@ -96,6 +96,7 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
             }
             if(!StringUtil.isEmptyString(bookingId)){
                  booking = getBookingById(bookingId);
+                 detail.setBooking(booking);
                  booking.getBookingDetails().add(detail);
                 return bookingDao.saveBooking(booking);
             }

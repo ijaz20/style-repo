@@ -45,7 +45,7 @@ public class BookingAction extends BaseAction implements Preparable {
         if(StringUtil.isEmptyString(offerId)){
             return ERROR;
         }
-        bookingManager.saveBooking(offerId, bookingId);
+        booking = bookingManager.saveBooking(offerId, bookingId);
 		return SUCCESS;
 	}
 

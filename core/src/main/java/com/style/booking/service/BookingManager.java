@@ -28,6 +28,13 @@ public interface BookingManager extends GenericManager<Booking, String> {
 	 */
 	Booking saveBooking(String priceId, String bookingId) throws AppException;
 
+    /**
+     *
+     * @param bookingId
+     * @return
+     * @throws AppException
+     */
+    Booking getBookingById(String bookingId) throws AppException;
 	/**
 	 * 
 	 * @param bookingIds
