@@ -5,7 +5,7 @@
 </head>
 <s:iterator var="product" value="%{products}" status="rowstatus">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 product-bucket pad-left" id="product_<s:property value='%{id}'/>">
-        <a href="#"><img src="<s:property value="imagePath"/>">
+        <a href="javascript:void(0)"><img src="<s:property value="imagePath"/>">
             <strong><s:property value="productName"/></strong>
             <span class="product-details"><s:property value="%{description}"/> </span>
             <%--<span class="bucket-rupee"><img src="/images/rupee.png" alt="<s:property value="productName"/>">95</span>--%>

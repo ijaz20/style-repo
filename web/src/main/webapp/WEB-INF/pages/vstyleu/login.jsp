@@ -1,53 +1,105 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-</head>
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="continueLabel1" aria-hidden="true">
+    <div class="modal-dialog loginpopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+                <h2 class="modal-title" id="continueLabel1">Log in to VstyleU</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row login-box">
 
-	<section id="form"><!--form-->
-		<div class="container">
-			<div class="row">
-                <!-- <button class="btn btn-default" id="fbLogin">Connect With Facebook</button> -->
-                <div><!--login form-->
-                    <a href="javascript:void(0)" id="showLogin">Login</a>
-                    <a>&nbsp;|&nbsp;</a>
-                    <a href="javascript:void(0)" id="showSingup" >Signup!</a><br/><br/>
-                    <!-- <form action="#"> -->
-                </div>
-                        <div class="col-sm-4 login-form" id="showLoginDiv"><!--login form-->
-						<form method="post" id="loginForm" action="<c:url value='/j_security_check'/>"
-    onsubmit="saveUsername(this);return validateForm(this)" class="form-signin" autocomplete="off">
-							<input type="text" placeholder="Name" name="j_username"/>
-							<!-- <input type="email" placeholder="Email Address"/> -->
-							<input type="text" placeholder="password" name="j_password"/>
-							<span>
-								<input type="checkbox" class="checkbox">
-								Keep me signed in
-							</span>
-							<button class="btn btn-default">Login</button>
-
-                        </form>
+                    <div class="login-inform col-xs-12 col-sm-6 col-lg-6 cold-md-6 hide-on-mobile">
+                        <h2>Create an account with</h2>
+                        <p>Why Facebook/Google plus?</p>
+                        <ul class="login-benefits">
+                            <li>We don't post on your wall</li>
+                            <li>We don't access your private data</li>
+                            <li>We don't post on your friend wall.</li>
+                        </ul>
+                        <p></p>
                     </div>
-				</div>
-				<div class="col-sm-4  signup-form hide"  id="showSingupDiv"><!--sign up form-->
-					<form action="#">
-						<input type="text" placeholder="Name"/>
-						<input type="email" placeholder="Email Address"/>
-						<input type="password" placeholder="Password"/>
-						<button type="submit" class="btn btn-default">Signup</button>
-					</form>
-				</div><!--/sign up form-->
-		</div>
+                    <div class="login-details col-xs-12 col-sm-6 col-lg-6 cold-md-6">
+                        <div class="socialbtn">
+                            <a class="btn btn-block btn-social btn-google-plus">
+                                <i class="fa fa-google-plus"></i> Login with Google Plus
+                            </a>
+                            <a class="btn btn-block btn-social btn-facebook">
+                                <i class="fa fa-facebook"></i> Login with Facebook
+                            </a>
+                        </div>
+                        <%--<fb:login-button autologoutlink="true" scope="public_profile,email,user_address,user_mobile_phone" size="large"--%>
+                        <%--onlogin="onlogin="checkLoginState();"">--%>
+                        <%--Login--%>
+                        <!-- Nav tabs -->
+                        <div class="logintab">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="active"><a href="#exituser" role="tab" data-toggle="tab">Existing User</a></li>
+                                <li><a href="#newuser" role="tab" data-toggle="tab">New User</a></li>
+                            </ul>
+                        </div>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="exituser">
+                                <form method="post" id="loginForm" action="<c:url value='/j_security_check'/>"
+                                      onsubmit="saveUsername(this);return validateForm(this)" class="form-signin" autocomplete="off">
 
-		<fb:login-button autologoutlink="true" scope="public_profile,email,user_address,user_mobile_phone" size="large"
-                 onlogin="onlogin="checkLoginState();"">
-		  Login
-		</fb:login-button>
+                                    <div class="form-group">
+                                        <label for="Username">Email/Username</label>
+                                        <input type="text" placeholder="Enter your email/username" name="j_username" id="j_username"class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Password">Password</label>
+                                        <input type="password" placeholder="Password" id="j_password" name="j_password" class="form-control">
+                                    </div>
+                                    <div class="checkbox checked">
+                                        <label>
+                                            <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span><input type="checkbox"> Remember me on this computer
+                                        </label>
 
-        <!-- <fb:login-button scope="public_profile,email,phone,username" onlogin="checkLoginState();">
-		</fb:login-button> -->
-		
-		<div id="status">
-		</div>
+                                    </div>
+                                    <div class="forgetpwd"><a href="javascript:void(0)">Forget Password?</a></div>
+                                    <div class="row loginbtn">
+                                        <div class="col-sm-12 col-lg-12 cold-md-12">
+                                            <button type="submit" class="btn btn-primary">Login</button>
+                                        </div>
+                                    </div>
 
-	</section><!--/form-->
+                                </form>
+
+                            </div>
+                            <div class="tab-pane" id="newuser">
+                                <form name="signupForm" action="saveSignup" method="post" validate="true"
+                                        autocomplete="off" cssClass="well">
+                                <div class="form-group">
+                                        <label for="j_username">Email/Username</label>
+                                        <input type="text" class="form-control" id="Username" name="Username"  placeholder="Enter your email/username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="j_password">Password</label>
+                                        <input type="password" class="form-control" id="Password" name="Password" placeholder="Password">
+                                    </div>
+                                    <div class="checkbox checked">
+                                        <label>
+                                            <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span><input type="checkbox"> Remember me on this computer
+                                        </label>
+
+                                    </div>
+                                    <div class="row loginbtn">
+                                        <div class="col-sm-12 col-lg-12 cold-md-12">
+                                            <button type="submit" class="btn btn-primary">Create account</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
