@@ -14,6 +14,7 @@
 <link href="/themes/css/price-range.css" rel="stylesheet">
 <link href="/themes/css/animate.css" rel="stylesheet">
 <link href="/themes/css/main.css" rel="stylesheet">
+<link href="/themes/css/login.css" rel="stylesheet">
 <link href="/themes/css/responsive.css" rel="stylesheet">
     <!-- Loading Flat UI -->
     <link href="/themes/css/flat-ui.css" rel="stylesheet">

@@ -20,7 +20,7 @@
 .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus{border-radius:10px;background:#5dade2;color:#FFFFFF;}
 .navbar-collapse .navbar-nav.navbar-right:last-child > .dropdown:last-child > a{border-radius: 0;}
 .down-arrow{font-size:20px;position:relative;top:-5px;}
-.user-icon{font-size: 18px;}
+.user-icon{font-size: 18px; color: #d08303}
 .navbar-collapse .menu-logout{border-left: 1px solid #000000;border-right: 1px solid #000000;}
 .menu-section-right .menu-login{font-weight:normal;}
 .dropdown-menu li > a:hover, .dropdown-menu li > a:active, .dropdown-menu li > a:focus{background: #5dade2; color: #FFFFFF;} 

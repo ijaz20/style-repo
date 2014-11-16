@@ -3,7 +3,8 @@
     <input type="hidden" name="bookingId" id="bookingId" value="<s:property value="%{booking.bookingId}"/>"/>
     <ul class="nav navbar-nav menu-section-left">
 
-        <li class="ll-link"><a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="#"><strong><s:property value="%{booking == null? 0:booking.bookingDetails.size()}"/></strong><img src="/images/menu-cart-button.png"></a>
+        <li class="ll-link">
+            <a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="#"><strong><s:property value="%{booking == null? 0:booking.bookingDetails.size()}"/></strong><img src="/images/menu-cart-button.png"></a>
             <ul class="tabbable dropdown-menu popover bottom cc-sub">
                 <li class="tab-lesft">
                     <ul class="nav nav-tabs nav-append-content">

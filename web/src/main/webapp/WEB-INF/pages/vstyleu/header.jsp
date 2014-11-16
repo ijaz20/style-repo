@@ -15,7 +15,18 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
 
                 <div class="menu-section-right pull-right">
-                    <span class="login"><a href="javascript:void(0)" id="loginLink" data-toggle="modal" data-target="#myModal">log in</a><a href="#">Contacts</a></span>
+                    <span class="login">
+                        <a href="javascript:void(0)">Contact us</a>
+                            <c:choose>
+                                <c:when test="${pageContext.request.remoteUser != null}">
+                                    <input type="hidden" id="loginUser" name="loginUser" value="${pageContext.request.remoteUser}" />
+                                    <a id="loginLink" href="/logout"><i class="glyphicon glyphicon-user user-icon"></i> <span class="userRight">Hi, ${pageContext.request.remoteUser}</span><i style="margin-left: 4px" class="glyphicon glyphicon-collapse-down"></i></a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="javascript:void(0)" id="loginLink" data-toggle="modal" data-target="#loginModal">log in</a>
+                                </c:otherwise>
+                            </c:choose>
+                    </span>
                     <div class="header-cart">
                         <div class="input-group">
                             <span class="input-group-addon"><img src="/images/search-icon.png"></span>
@@ -28,17 +39,7 @@
                     </div>
 
                 </div><!-- /.navbar-collapse -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Login</h4>
-                            </div>
-                            <jsp:include page="login.jsp"/>
-                        </div>
-                    </div>
-                </div>
+                <jsp:include page="login.jsp"/>
             </div><!-- /.container-fluid -->
         </nav>
     </div>

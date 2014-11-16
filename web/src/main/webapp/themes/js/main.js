@@ -30,7 +30,21 @@ $("#preorder-button").on('click', function(){
     $('#priceIdList').val(priceIdList);
     $('#cartPage').submit();
 });
+$("#loginLink").on('mouseover', function(){
+    var loginText = $(this).text();
+    if(loginText != 'log in'){
+        $("#loginLink .glyphicon").hide();
+        $(".userRight").text('log out');
+    }
+})
 
+$("#loginLink").on('mouseout', function(){
+    var loginText = $(this).text();
+    if(loginText.trim() == 'log out'){
+        $("#loginLink .glyphicon").show();
+        $(".userRight").text('Hi, '+$('#loginUser').val());
+    }
+})
 
 $(document).on( 'click', '.deleteProduct', function(){
     var priceElement = $(this).prev();
