@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.style.model.types.BookingState;
+import com.style.util.CommonUtil;
 import com.style.util.StringUtil;
+
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -92,8 +94,10 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
                 detail.setEndTime(now);
                 totalDsicount = totalDsicount + detail.getDiscount();
                 bookingDetails.add(detail);
-
             }
+            String browserId = CommonUtil.getBrowserId();
+            log.info("browser Id :: "+ browserId);
+            booking.setBrowserId(browserId);
             if(!StringUtil.isEmptyString(bookingId)){
                  booking = getBookingById(bookingId);
                  detail.setBooking(booking);
@@ -106,7 +110,9 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
                 booking.setTotalDiscountPrice(totalDsicount);
                 booking.setTotalPrice(totalPrice);
                 booking.setNetPrice(totalPrice - totalDsicount);
-                booking.setUser((User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
+                if(!CommonUtil.isAnonymous()) {
+                	booking.setUser((User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
+                }
                 return bookingDao.saveBooking(booking);
             }
         }

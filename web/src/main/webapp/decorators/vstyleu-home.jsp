@@ -68,6 +68,7 @@
     <script src="/themes/js/Login.js"></script>
     <script src="/themes/js/util.js"></script>
     <script>
+        setCookie("browserId", getGUID(), 30);
         $(".banner a[href^='#']").on('click', function(e) {
         // prevent default anchor click behavior
         e.preventDefault();

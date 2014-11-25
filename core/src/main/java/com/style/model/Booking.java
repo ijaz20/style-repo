@@ -51,6 +51,7 @@ public class Booking extends BaseObject implements Serializable {
 	private String status;
 	private boolean isActive;
 	private Payment payment;
+	private String browserId;
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -172,6 +173,15 @@ public class Booking extends BaseObject implements Serializable {
 
 	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	@Column(name = "browser_id")
+	public String getBrowserId() {
+		return browserId;
+	}
+
+	public void setBrowserId(String browserId) {
+		this.browserId = browserId;
 	}
 
 	/**
