@@ -138,4 +138,6 @@ public final class Constants {
     
     public static final String CURRENT_CITY = "currentCity";
     
+    public static final String BROWSER_ID = "browserId";
+    
 }
