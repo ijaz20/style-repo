@@ -27,7 +27,7 @@
                                         <span class="input-group-btn">
                                           <button class="btn" type="button"><span class="fui-calendar"></span></button>
                                         </span>
-                                    <input type="text" class="form-control" value="14 March, 2013" id="datepicker-01"/>
+                                    <input type="text" class="form-control" value="14-March-2013" id="datepicker-01"/>
                                 </div>
                             </div>
                         </li>
@@ -47,7 +47,7 @@
                             <dl><dt><strong><s:property value="%{#offerList.branch.branchName}"/></strong></dt>
                                 <dd><img src="/images/rupee.png"> <s:property value="%{#offerList.price}"/></dd>
                                 <dd>
-                                    <s:select list="%{#offerList.branch.availableTimes}" name="availableTimeList" id="availableTimeList" cssClass="form-control" theme="simple"/>
+                                    <s:select list="%{#offerList.branch.availableTimes}" name="availableTimeList" id="availableTimeList_<s:property value='%{#offerList.priceId}'/>" cssClass="form-control" theme="simple"/>
                                     <div class="data-caret"><span class="caret"></span></div>
                                 </dd>
                                 <dd><button id="product_<s:property value='%{#offerList.priceId}'/>" class="add-to-cart btn btn-primary">Add to Cart</button></dd>

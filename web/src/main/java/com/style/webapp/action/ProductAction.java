@@ -31,15 +31,13 @@ public class ProductAction extends BaseAction implements Preparable {
 	private List<Product> products;
 	private Product product;
 	private String id;
-
     private BookingManager bookingManager;
-
     private Booking booking;
 	private String productCount;
 	private List<ProductPrice> prices;
 	private File file;
 	private String filePath;
-
+	private Calendar bookingDate;
 
 	@Autowired
 	public void setProductManager(ProductManager productManager) {
@@ -213,7 +211,7 @@ public class ProductAction extends BaseAction implements Preparable {
 		log.info("getting product details");
 		if (!StringUtil.isEmptyString(getId())) {
 			try {
-				product = productManager.getProductWithAvailableTime(getId());
+				product = productManager.getProductWithAvailableTime(getId(), new GregorianCalendar());
 			} catch (AppException e) {
 				log.error(e.getMessage(), e);
 				saveMessage("Problem in getting product");
@@ -279,5 +277,13 @@ public class ProductAction extends BaseAction implements Preparable {
 
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+	}
+
+	public Calendar getBookingDate() {
+		return bookingDate;
+	}
+
+	public void setBookingDate(Calendar bookingDate) {
+		this.bookingDate = bookingDate;
 	}
 }

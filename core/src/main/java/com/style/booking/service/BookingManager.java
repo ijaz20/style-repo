@@ -26,7 +26,7 @@ public interface BookingManager extends GenericManager<Booking, String> {
      * @param bookingId
 	 * @return
 	 */
-	Booking saveBooking(String priceId, String bookingId) throws AppException;
+	Booking saveBooking(String priceId, String bookingId, Calendar bookingDate) throws AppException;
 
     /**
      *
@@ -82,7 +82,7 @@ public interface BookingManager extends GenericManager<Booking, String> {
 	 * @param bookingDate
 	 * @return
 	 */
-	Map<String, List<String>> getAvailableTime(Product product,
+	Product getAvailableTime(Product product,
 			Calendar bookingDate);
 
 }

@@ -1,9 +1,11 @@
 package com.style.booking.dao.impl;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.style.model.User;
+
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -131,11 +133,13 @@ public class BookingDaoHibernate extends GenericDaoHibernate<Booking, String>
 	@SuppressWarnings("unchecked")
 	public List<BookingDetail> getBookingDetails(Calendar startTime) {
 		try {
-			Calendar todayStart = startTime;
-			todayStart.set(Calendar.HOUR_OF_DAY, 0);
-			todayStart.set(Calendar.MINUTE, 0);
-			Calendar todayEnd = todayStart;
-			todayEnd.add(Calendar.DATE, 1);
+			Calendar todayStart = new GregorianCalendar();
+			Calendar todayEnd = new GregorianCalendar();
+			int year = startTime.get(Calendar.YEAR);
+			int month = startTime.get(Calendar.MONTH);
+			int day = startTime.get(Calendar.DAY_OF_MONTH);
+			todayStart.set(year, month, day, 00, 00, 00);
+			todayEnd.set(year, month, day, 23, 59, 59);
 			List<BookingDetail> bookingList = getSession()
 					.createCriteria(BookingDetail.class)
 					.add(Restrictions.and(Restrictions.and(Restrictions
