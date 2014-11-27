@@ -1,6 +1,7 @@
 package com.style.product.service;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.List;
 
 import com.style.exception.AppException;
@@ -58,5 +59,5 @@ public interface ProductManager extends GenericManager<Product, String> {
 	 * @return
 	 * @throws AppException
 	 */
-	Product getProductWithAvailableTime(String id) throws AppException;
+	Product getProductWithAvailableTime(String id, Calendar bookingDate) throws AppException;
 }

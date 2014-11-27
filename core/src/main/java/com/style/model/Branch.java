@@ -2,8 +2,10 @@ package com.style.model;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -25,6 +27,7 @@ import org.apache.struts2.json.annotations.JSON;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Indexed;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This class represents the basic "Branch" object in VSU that allows for
@@ -67,6 +70,7 @@ public class Branch extends BaseObject implements Serializable {
 	private String closeTime;
 	private List<String> availableTimes;
 	private int noOfResource;
+	private Map<Integer, Integer> availableResource = new HashMap<Integer, Integer>();
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -280,6 +284,15 @@ public class Branch extends BaseObject implements Serializable {
 
 	public void setNoOfResource(int noOfResource) {
 		this.noOfResource = noOfResource;
+	}
+
+	@Transient
+	public Map<Integer, Integer> getAvailableResource() {
+		return availableResource;
+	}
+
+	public void setAvailableResource(Map<Integer, Integer> availableResource) {
+		this.availableResource = availableResource;
 	}
 
 	/**

@@ -1,11 +1,16 @@
 package com.style.webapp.action;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.style.exception.AppException;
 import com.style.util.StringUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Preparable;
@@ -33,6 +38,8 @@ public class BookingAction extends BaseAction implements Preparable {
 	private Calendar bookingDate;
 	private Calendar startTime;
 	private Calendar endTime;
+	private String timeStart;
+	private String bookingDateString;
 
     private String offerId;
     private String bookingId;
@@ -45,7 +52,18 @@ public class BookingAction extends BaseAction implements Preparable {
         if(StringUtil.isEmptyString(offerId)){
             return ERROR;
         }
-        booking = bookingManager.saveBooking(offerId, bookingId);
+        DateFormat df = new SimpleDateFormat("dd-MM-yy");
+        bookingDate  = new GregorianCalendar();
+        try {
+			bookingDate.setTime(df.parse(bookingDateString));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        bookingDate.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeStart.split(":")[0]));
+        bookingDate.set(Calendar.MINUTE, Integer.parseInt(timeStart.split(":")[1]));
+        booking = bookingManager.saveBooking(offerId, bookingId, bookingDate);
 		return SUCCESS;
 	}
 
@@ -152,6 +170,22 @@ public class BookingAction extends BaseAction implements Preparable {
 
 	public BookingManager getBookingManager() {
 		return bookingManager;
+	}
+
+	public String getTimeStart() {
+		return timeStart;
+	}
+
+	public void setTimeStart(String timeStart) {
+		this.timeStart = timeStart;
+	}
+
+	public String getBookingDateString() {
+		return bookingDateString;
+	}
+
+	public void setBookingDateString(String bookingDateString) {
+		this.bookingDateString = bookingDateString;
 	}
 
 }

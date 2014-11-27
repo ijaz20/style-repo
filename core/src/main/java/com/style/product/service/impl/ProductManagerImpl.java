@@ -89,11 +89,16 @@ public class ProductManagerImpl extends GenericManagerImpl<Product, String>
 	/**
 	 * {@inheritDoc}
 	 */
-	public Product getProductWithAvailableTime(String id) throws AppException {
+	public Product getProductWithAvailableTime(String id, Calendar bookingDate)
+			throws AppException {
 		Product product = productDao.getProduct(id);
 		Calendar now = new GregorianCalendar();
-		now.add(Calendar.HOUR, 2);
-		bookingManager.getAvailableTime(product, now);
+		if (bookingDate.get(Calendar.DAY_OF_MONTH) == now
+				.get(Calendar.DAY_OF_MONTH)) {
+			bookingDate.set(Calendar.HOUR_OF_DAY,
+					now.get(Calendar.HOUR_OF_DAY) + 2);
+		}
+		product = bookingManager.getAvailableTime(product, bookingDate);
 		return product;
 	}
 	

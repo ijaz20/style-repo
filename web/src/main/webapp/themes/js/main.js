@@ -158,7 +158,9 @@ function updateCart(elem) {
     var url = "/vstyleu/saveBooking?ajax=true"
     var paramMap = {
         offerId: offerId,
-        bookingId:$("#bookingId").val()
+        bookingId:$("#bookingId").val(),
+        timeStart:$("#availableTimeList_"+offerId).val(),
+        bookingDateString:$("#datepicker-01").val()
     };
     $.post(url, paramMap, function (response) {
             if (response != null && response != '') {
@@ -275,7 +277,7 @@ $(function(){
     $(datepickerSelector).datepicker({
         showOtherMonths: true,
         selectOtherMonths: true,
-        dateFormat: "d MM, yy",
+        dateFormat: "dd-MM-yy",
         yearRange: '-1:+1'
     }).prev('.btn').on('click', function (e) {
         e && e.preventDefault();
