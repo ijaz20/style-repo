@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
 
-<div class="menu-section">
+<div class="menu-section header-main">
     <div class="container">
         <nav class="navbar navbar-default menu-container header-section" role="navigation">
             <div class="container-fluid">

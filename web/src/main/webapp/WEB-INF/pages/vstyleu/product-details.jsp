@@ -41,7 +41,7 @@
                             <dd>Price</dd>
                             <dd>Available time</dd>
                             <dd>Add</dd>
-                            <dd>Buy</dd>
+                            <dd class="mobi-hide">Buy</dd>
                         </dl>
                         <s:iterator var="offerList" value="%{product.productPrices}">
                             <dl><dt><strong><s:property value="%{#offerList.branch.branchName}"/></strong></dt>
@@ -50,7 +50,7 @@
                                     <s:select list="%{#offerList.branch.availableTimes}" name="availableTimeList" id="availableTimeList_<s:property value='%{#offerList.priceId}'/>" cssClass="form-control" theme="simple"/>
                                 </dd>
                                 <dd><button id="product_<s:property value='%{#offerList.priceId}'/>" class="add-to-cart btn btn-primary">Add to Cart</button></dd>
-                                <dd><button id="pay_product_<s:property value='%{#offerList.priceId}'/>" class="add-to-cart btn btn-primary">Proceed To Pay</button></dd>
+                                <dd class="mobi-hide"><button id="pay_product_<s:property value='%{#offerList.priceId}'/>" class="add-to-cart btn btn-primary">Proceed To Pay</button></dd>
                             </dl>
                         </s:iterator>
                     </div>
@@ -59,7 +59,7 @@
         </div>
 
         <div class="modal-footer">
-            <a href="#" class="btn">OK</a>
+
         </div>
     </div>
 </div>
