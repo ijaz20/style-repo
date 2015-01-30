@@ -64,6 +64,14 @@ public interface UserManager extends GenericManager<User, Long> {
     User saveUser(User user) throws UserExistsException;
 
     /**
+     * save branch as user profile
+     * 
+     * @param user
+     * @return
+     */
+    User saveBranchProfile(User user);
+    
+    /**
      * Removes a user from the database
      *
      * @param user the user to remove

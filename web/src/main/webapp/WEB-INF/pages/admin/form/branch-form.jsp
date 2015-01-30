@@ -23,6 +23,16 @@
 				<s:textfield key="branch.branchName" required="true"
 					autofocus="true" cssClass="form-control" />
 			</div>
+			<c:if test="${branch.id != '' && branch.id != 'null'}">
+				<div class="col-sm-6">
+					<s:textfield key="branch.username" required="true"
+						autofocus="true" cssClass="form-control" />
+				</div>
+				<div class="col-sm-6">
+					<s:textfield key="branch.password" required="true"
+						autofocus="true" cssClass="form-control" />
+				</div>
+			</c:if>
 			<div class="col-sm-6">
 				<label for="partner" class="control-label"><fmt:message
 						key="branch.form.partner" /></label> <select id="partner"

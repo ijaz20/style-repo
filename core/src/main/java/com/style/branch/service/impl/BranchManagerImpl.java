@@ -3,15 +3,25 @@ package com.style.branch.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.mail.MailException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
+import com.style.Constants;
 import com.style.branch.dao.BranchDao;
 import com.style.branch.service.BranchManager;
 import com.style.exception.AppException;
 import com.style.model.Branch;
 import com.style.model.LabelValue;
+import com.style.model.User;
+import com.style.service.UserExistsException;
+import com.style.service.UserManager;
 import com.style.service.impl.GenericManagerImpl;
+import com.style.util.StringUtil;
 
 /**
  * Implementation of BranchManager interface.
@@ -23,7 +33,8 @@ public class BranchManagerImpl extends GenericManagerImpl<Branch, String>
 		implements BranchManager {
 
 	private BranchDao branchDao;
-
+	private UserManager userManager;
+	
 	@Autowired
 	public BranchManagerImpl(BranchDao branchDao) {
 		super(branchDao);
@@ -36,10 +47,18 @@ public class BranchManagerImpl extends GenericManagerImpl<Branch, String>
 		this.branchDao = branchDao;
 	}
 
+	@Autowired
+	public void setUserManager(UserManager userManager) {
+		this.userManager = userManager;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
 	public Branch saveBranch(Branch branch) throws AppException {
+		if(StringUtil.isEmptyString(branch.getId()) && !StringUtil.isEmptyString(branch.getUsername()) && !StringUtil.isEmptyString(branch.getUsername())){
+			userManager.saveBranchProfile(new User(branch.getUsername(), branch.getPassword()));
+		}
 		return branchDao.saveBranch(branch);
 	}
 

@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -59,12 +60,14 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private String passwordHint;
     private String firstName;                   // required
     private String lastName;                    // required
+    private String fullName;
     private String email;                       // required; unique
     private String phoneNumber;
     private String website;
     private Address address = new Address();
     private Integer version;
     private Set<Role> roles = new HashSet<Role>();
+    private Branch userBranch;
     private boolean enabled;
     private boolean accountExpired;
     private boolean accountLocked;
@@ -85,6 +88,17 @@ public class User extends BaseObject implements Serializable, UserDetails {
         this.username = username;
     }
 
+    /**
+     * Create a new instance and set the username and password.
+     * 
+     * @param username
+     * @param password
+     */
+    public User(String username, String password){
+    	this.username = username;
+    	this.password = password;
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @DocumentId
@@ -118,19 +132,19 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return passwordHint;
     }
 
-    @Column(name = "first_name", nullable = false, length = 50)
+    @Column(name = "first_name", length = 250)
     @Field
     public String getFirstName() {
         return firstName;
     }
 
-    @Column(name = "last_name", nullable = false, length = 50)
+    @Column(name = "last_name", length = 250)
     @Field
     public String getLastName() {
         return lastName;
     }
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     @Field
     public String getEmail() {
         return email;
@@ -154,16 +168,31 @@ public class User extends BaseObject implements Serializable, UserDetails {
      */
     @Transient
     public String getFullName() {
-        return firstName + ' ' + lastName;
+        return fullName;
     }
 
-    @Embedded
+    public void setFullName(String fullName) {
+		this.fullName = firstName + ' ' + lastName;
+	}
+
+	@Embedded
     @IndexedEmbedded
     public Address getAddress() {
         return address;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "branch_id", referencedColumnName = "id", nullable = true)
+	@JsonIgnore
+	public Branch getUserBranch() {
+		return userBranch;
+	}
+
+	public void setUserBranch(Branch userBranch) {
+		this.userBranch = userBranch;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)    
     @JoinTable(
             name = "user_role",

@@ -80,7 +80,7 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 				detail.setStatus(BookingState.OPEN);
 				detail.setBooking(booking);
 				detail.setPrice(price.getPrice());
-				detail.setBranch(price.getBranch());
+				booking.setBranch(price.getBranch());
 				totalPrice = totalPrice + price.getPrice();
 				detail.setDiscount(0);
 				Calendar now = new GregorianCalendar();
@@ -119,6 +119,17 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 		return null;
 	}
 
+	public List<Booking> getBranchBookingSchedules(String branchId){
+		return bookingDao.getBranchBookingSchedules(branchId);
+	}
+	
+	/**
+	 *{@inheritDoc} 
+	 */
+	public List<ProductPrice> getBranchProductPrices(String branchId) {
+		return productManager.getBranchProductPrices(branchId);
+	}
+	
 	public Booking getBookingById(String bookingId) {
 		log.info("getting booking details");
 		if (!StringUtil.isEmptyString(bookingId)) {
@@ -166,6 +177,108 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 	}
 
 	/**
+	 *{@inheritDoc} 
+	 */
+	public List<BookingDetail> getBranchBookingDetails(String branchId, Calendar startTime){
+		return bookingDao.getBranchBookingDetails(branchId, startTime);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<String> getBranchProductAvailableTimes(Branch branch,
+			Product product, Calendar bookingDate) {
+		Calendar endDate = new GregorianCalendar();
+		int hours = bookingDate.get(Calendar.HOUR_OF_DAY);
+		int minutes = bookingDate.get(Calendar.MINUTE);
+		int year = bookingDate.get(Calendar.YEAR);
+		int month = bookingDate.get(Calendar.MONTH);
+		int day = bookingDate.get(Calendar.DATE);
+		endDate.set(year, month, day, 23, 59, 59);
+		// get booking details of booking date
+		List<BookingDetail> bookingDetails = getBranchBookingDetails(branch.getId(), bookingDate);
+		// iterate product price to get each branch available time
+		for (int k = 0; k < product.getProductPrices().size(); k++) {
+			ProductPrice price = product.getProductPrices().get(k);
+			List<String> availTimes = new ArrayList<String>();
+			// get all product time interval's
+			if (branch.getAvailableTimes() == null) {
+				availTimes = getBranchTimes(branch,
+						Integer.parseInt(price.getExpectedTime()), (hours * 60)
+								+ minutes);
+			}
+			// iterate booking details to remove time interval from branch
+			// product time interval
+			for (BookingDetail bookingDetail : bookingDetails) {
+				// check the booking details branch and price branch
+				int start = (hours * 60) + minutes;
+				int end = endDate.get(Calendar.MINUTE)
+						+ (endDate.get(Calendar.HOUR_OF_DAY) * 60);
+				// iterate every product intervals to match booking detail
+				// interval
+				for (int i = start; i < end; i = i
+						+ Integer.parseInt(price.getExpectedTime())) {
+					int existingBookStart = bookingDetail.getStartTime().get(
+							Calendar.MINUTE)
+							+ (bookingDetail.getStartTime().get(
+									Calendar.HOUR_OF_DAY) * 60);
+					int existingBookEnd = bookingDetail.getEndTime().get(
+							Calendar.MINUTE)
+							+ (bookingDetail.getEndTime().get(
+									Calendar.HOUR_OF_DAY) * 60);
+					// iterate booking detail interval and remove the interval
+					// from branch product time interval
+					for (int j = existingBookStart; j < existingBookEnd; j = j
+							+ Integer.parseInt(price.getExpectedTime())) {
+						// check the booking start time greater or equal to
+						// already booked interval
+						if (i >= j
+								&& i <= (j + Integer.parseInt(price
+										.getExpectedTime()))) {
+							// check the already booked interval is in between
+							// branch product interval
+							int key = j;
+							if ((j % Integer.parseInt(price.getExpectedTime())) != 0) {
+								key = (j / Integer.parseInt(price
+										.getExpectedTime()))
+										* Integer.parseInt(price
+												.getExpectedTime());
+							}
+
+							// book resource in that interval
+							if (branch.getAvailableResource().get(key) == null) {
+								branch.getAvailableResource().put(key, 1);
+							} else {
+								branch.getAvailableResource()
+										.put(key,
+												branch.getAvailableResource()
+														.get(key) + 1);
+							}
+							// after book last resource remove the interval from
+							// the product branch interval to intimate time not
+							// available
+							if (branch.getAvailableResource().get(key) == branch
+									.getNoOfResource()) {
+								int mins = 0;
+								int hrs = j / 60;
+								if ((j % Integer.parseInt(price
+										.getExpectedTime())) == 0) {
+									mins = j % 60;
+								}
+								String time = hrs + ":" + mins;
+								availTimes.remove(time);
+							}
+
+						}
+					}
+				}
+			}
+			branch.setAvailableTimes(availTimes);
+		}
+		return branch.getAvailableTimes();
+	}
+	
+	/**
 	 * {@inheritDoc}
 	 */
 	public Product getAvailableTime(Product product, Calendar bookingDate) {
@@ -191,7 +304,7 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 			//iterate booking details to remove time interval from branch product time interval 
 			for (BookingDetail bookingDetail : bookingDetails) {
 				//check the booking details branch and price branch
-				if (bookingDetail.getBranch().getId()
+				if (bookingDetail.getBooking().getBranch().getId()
 						.equals(price.getBranch().getId())) {
 					int start = (hours * 60) + minutes;
 					int end = endDate.get(Calendar.MINUTE)
@@ -315,5 +428,12 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 			}
 		}
 		return timeIntervals;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public Product getProduct(String productId){
+		return productManager.get(productId);
 	}
 }

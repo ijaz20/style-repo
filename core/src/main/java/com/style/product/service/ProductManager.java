@@ -60,4 +60,12 @@ public interface ProductManager extends GenericManager<Product, String> {
 	 * @throws AppException
 	 */
 	Product getProductWithAvailableTime(String id, Calendar bookingDate) throws AppException;
+	
+	/**
+	 * get product price for branch
+	 * 
+	 * @param branchId
+	 * @return
+	 */
+	List<ProductPrice> getBranchProductPrices(String branchId);
 }

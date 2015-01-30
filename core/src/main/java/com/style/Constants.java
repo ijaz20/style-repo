@@ -65,6 +65,11 @@ public final class Constants {
     public static final String ADMIN_ROLE = "ROLE_ADMIN";
 
     /**
+     * The name of the Branch administrator role, as specified in web.xml
+     */
+    public static final String BRANCH_ADMIN_ROLE = "ROLE_BRANCH_ADMIN";
+    
+    /**
      * The name of the User role, as specified in web.xml
      */
     public static final String USER_ROLE = "ROLE_USER";

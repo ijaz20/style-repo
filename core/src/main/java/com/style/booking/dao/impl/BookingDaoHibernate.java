@@ -152,5 +152,49 @@ public class BookingDaoHibernate extends GenericDaoHibernate<Booking, String>
 			throw new AppException(e.getMessage(), e);
 		}
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public List<BookingDetail> getBranchBookingDetails(String branchId, Calendar startTime) {
+		try {
+			Calendar todayStart = new GregorianCalendar();
+			Calendar todayEnd = new GregorianCalendar();
+			int year = startTime.get(Calendar.YEAR);
+			int month = startTime.get(Calendar.MONTH);
+			int day = startTime.get(Calendar.DAY_OF_MONTH);
+			todayStart.set(year, month, day, 00, 00, 00);
+			todayEnd.set(year, month, day, 23, 59, 59);
+			List<BookingDetail> bookingList = getSession()
+					.createCriteria(BookingDetail.class)
+					.add(Restrictions.and(Restrictions.and(Restrictions
+							.and(Restrictions.lt("startTime", todayEnd)),
+							Restrictions.gt("startTime", todayStart)),
+							Restrictions.gt("endTime", startTime)))
+							.add(Restrictions.eq("booking.branch.id.", branchId)).list();
+			return bookingList;
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Booking> getBranchBookingSchedules(String branchId) {
+		try {
+			List<Booking> bookingList = (List<Booking>) getSession()
+					.createQuery(
+							"select booking from com.style.model.Booking as booking where booking.branch.id = '"
+									+ branchId + "'").list();
+			return bookingList;
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
+	}
 
 }

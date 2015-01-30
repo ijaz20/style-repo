@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.style.dao.hibernate.GenericDaoHibernate;
 import com.style.exception.AppException;
+import com.style.model.Booking;
 import com.style.model.Product;
 import com.style.model.ProductPrice;
 import com.style.product.dao.ProductDao;
@@ -125,6 +126,23 @@ public class ProductDaoHibernate extends GenericDaoHibernate<Product, String>
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ProductPrice> getBranchProductPrices(String branchId) {
+		try {
+			List<ProductPrice> bookingList = (List<ProductPrice>) getSession()
+					.createQuery(
+							"select productPrice from com.style.model.ProductPrice as productPrice where productPrice.branch.id = '"
+									+ branchId + "'").list();
+			return bookingList;
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */

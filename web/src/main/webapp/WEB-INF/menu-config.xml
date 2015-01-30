@@ -4,8 +4,8 @@
         <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
     </Displayers>
     <Menus>
-        <Menu name="Home" title="home.title" page="/home" roles="ROLE_ADMIN,ROLE_USER"/>
-        <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="Home" title="home.title" page="/home" roles="ROLE_ADMIN,ROLE_USER,ROLE_BRANCH_ADMIN"/>
+        <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile" roles="ROLE_ADMIN,ROLE_USER,ROLE_BRANCH_ADMIN"/>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" page="/admin/users">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
             <Item name="ActiveUsers" title="home.activeUsers" page="/admin/activeUsers"/>
@@ -22,6 +22,10 @@
             <Item name="New Category" title="New Category" page="/admin/showCategory"/>
             <Item name="New Product" title="New Product" page="/admin/showProduct"/>
         </Menu>
-        <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="Booking" title="Booking" description="Booking Details" roles="ROLE_BRANCH_ADMIN" page="/branch/home">
+        	<Item name="Schedules" title="Schedules" page="/branch/schedules"/>
+            <Item name="New Booking" title="New Booking" page="/branch/showBranchBooking"/>
+        </Menu>
+        <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER,ROLE_BRANCH_ADMIN"/>
     </Menus>
 </MenuConfig>

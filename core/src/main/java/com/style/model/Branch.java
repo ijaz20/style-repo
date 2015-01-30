@@ -49,6 +49,8 @@ public class Branch extends BaseObject implements Serializable {
 
 	private String id;
 	private String branchName;
+	private String username;
+	private String password;
 	private String address1;
 	private String address2;
 	private Area area;
@@ -70,6 +72,7 @@ public class Branch extends BaseObject implements Serializable {
 	private String closeTime;
 	private List<String> availableTimes;
 	private int noOfResource;
+	private Set<User> branchUsers = new HashSet<>();
 	private Map<Integer, Integer> availableResource = new HashMap<Integer, Integer>();
 
 	@Id
@@ -92,6 +95,24 @@ public class Branch extends BaseObject implements Serializable {
 		this.branchName = branchName;
 	}
 
+	@Transient
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@Transient
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Column(name = "description")
 	public String getDescription() {
 		return description;
@@ -99,6 +120,17 @@ public class Branch extends BaseObject implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@OneToMany(cascade = CascadeType.REMOVE, targetEntity = User.class, mappedBy = "userBranch", fetch = FetchType.LAZY, orphanRemoval = true)
+	@JsonIgnore
+	@JSON(serialize = false)
+	public Set<User> getBranchUsers() {
+		return branchUsers;
+	}
+
+	public void setBranchUsers(Set<User> branchUsers) {
+		this.branchUsers = branchUsers;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -111,7 +143,7 @@ public class Branch extends BaseObject implements Serializable {
 		this.partner = partner;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = ProductPrice.class, mappedBy = "branch", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.REMOVE, targetEntity = ProductPrice.class, mappedBy = "branch", fetch = FetchType.LAZY, orphanRemoval = true)
 	@JsonIgnore
 	@JSON(serialize = false)
 	// @Fetch(value = FetchMode.SELECT)

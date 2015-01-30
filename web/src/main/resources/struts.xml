@@ -208,6 +208,26 @@
     </package>
     
     <!-- Actions in this package will be prefixed with /product/ -->
+    <package name="branch" extends="default, json-default" namespace="/branch">
+        <action name="schedules" class="bookingAction" method="showSchedules">
+            <result name="success">/WEB-INF/pages/branch/list/schedules.jsp</result>
+            <result name="error">/WEB-INF/pages/branch/list/schedules.jsp</result>
+        </action>
+        <action name="showBranchBooking" class="bookingAction" method="showBranchBooking">
+            <result name="success">/WEB-INF/pages/branch/form/branch-booking-form.jsp</result>
+            <result name="error">/WEB-INF/pages/branch/list/branch-list.jsp</result>
+        </action>
+        <action name="getBranchAvailableTimes" class="bookingAction" method="getBranchProductAvailableTimes">
+            <interceptor-ref name="defaultStack"/>
+            <result type="json" >
+                <param name="root">
+                    branchAvailableTimes
+                </param>
+            </result>
+        </action>
+    </package>
+    
+    <!-- Actions in this package will be prefixed with /product/ -->
     <package name="vstyleu" extends="default, json-default" namespace="/vstyleu">
         <interceptors>
             <!-- Interceptor to handle allowing only admins to certain actions -->
