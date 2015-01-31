@@ -43,7 +43,6 @@ public class BookingDetail extends BaseObject implements Serializable {
 	private Calendar modifiedTime;
 	private BookingState status;
 	private boolean isActive;
-    private Branch branch;
     private Calendar startTime;
     private Calendar endTime;
 
@@ -85,16 +84,6 @@ public class BookingDetail extends BaseObject implements Serializable {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-
-    @OneToOne
-	@JoinColumn(name = "branch_id")
-    public Branch getBranch() {
-        return branch;
-    }
-
-    public void setBranch(Branch branch) {
-        this.branch = branch;
-    }
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "booking_id", referencedColumnName = "bookingId", nullable = true)

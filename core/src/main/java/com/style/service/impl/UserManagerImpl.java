@@ -1,28 +1,31 @@
 package com.style.service.impl;
 
-import org.apache.commons.lang.StringUtils;
-
-import com.style.dao.UserDao;
-import com.style.model.SocialUser;
-import com.style.model.User;
-import com.style.service.MailEngine;
-import com.style.service.UserExistsException;
-import com.style.service.UserManager;
-import com.style.service.UserService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import javax.jws.WebService;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.jws.WebService;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.style.Constants;
+import com.style.dao.UserDao;
+import com.style.exception.AppException;
+import com.style.model.SocialUser;
+import com.style.model.User;
+import com.style.service.MailEngine;
+import com.style.service.RoleManager;
+import com.style.service.UserExistsException;
+import com.style.service.UserManager;
+import com.style.service.UserService;
 
 
 /**
@@ -35,7 +38,7 @@ import java.util.Map;
 public class UserManagerImpl extends GenericManagerImpl<User, Long> implements UserManager, UserService {
     private PasswordEncoder passwordEncoder;
     private UserDao userDao;
-
+    private RoleManager roleManager;
 
     private MailEngine mailEngine;
     private SimpleMailMessage message;
@@ -56,8 +59,13 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         this.dao = userDao;
         this.userDao = userDao;
     }
+    
+    @Autowired
+    public void setRoleManager(RoleManager roleManager) {
+		this.roleManager = roleManager;
+	}
 
-    @Autowired(required = false)
+	@Autowired(required = false)
     public void setMailEngine(final MailEngine mailEngine) {
         this.mailEngine = mailEngine;
     }
@@ -157,6 +165,22 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         }
     }
 
+    public User saveBranchProfile(User user){
+        user.addRole(roleManager.getRole(Constants.BRANCH_ADMIN_ROLE));
+        user.setEnabled(true);
+        try {
+            saveUser(user);
+        } catch (AccessDeniedException ade) {
+            // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
+            log.warn(ade.getMessage());
+            throw new AppException(ade.getMessage(), ade);
+        } catch (UserExistsException e) {
+        	throw new AppException(e.getMessage(), e);
+        }
+
+        return user;
+    }
+    
     /**
      * {@inheritDoc}
      */

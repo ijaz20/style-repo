@@ -108,4 +108,11 @@ public class ProductManagerImpl extends GenericManagerImpl<Product, String>
 	public ProductPrice getPrice(String priceId) throws AppException{
 		return productDao.getPrice(priceId);
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<ProductPrice> getBranchProductPrices(String branchId){
+		return productDao.getBranchProductPrices(branchId);
+	}
 }

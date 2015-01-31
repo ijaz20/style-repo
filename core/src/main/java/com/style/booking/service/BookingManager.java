@@ -7,7 +7,9 @@ import java.util.Map;
 import com.style.exception.AppException;
 import com.style.model.Booking;
 import com.style.model.BookingDetail;
+import com.style.model.Branch;
 import com.style.model.Product;
+import com.style.model.ProductPrice;
 import com.style.model.User;
 import com.style.service.GenericManager;
 
@@ -84,5 +86,48 @@ public interface BookingManager extends GenericManager<Booking, String> {
 	 */
 	Product getAvailableTime(Product product,
 			Calendar bookingDate);
+	
+	/**
+	 * get branch booking schedules
+	 * 
+	 * @param branchId
+	 * @return
+	 */
+	List<Booking> getBranchBookingSchedules(String branchId);
 
+	/**
+	 * get product price of branch 
+	 * 
+	 * @param branchId
+	 * @return
+	 */
+	List<ProductPrice> getBranchProductPrices(String branchId);
+	
+	/**
+	 * get branch booking details
+	 * 
+	 * @param branchId
+	 * @param startTime
+	 * @return
+	 */
+	List<BookingDetail> getBranchBookingDetails(String branchId, Calendar startTime);
+	
+	/**
+	 * get branch available time
+	 * 
+	 * @param branch
+	 * @param product
+	 * @param bookingDate
+	 * @return
+	 */
+	List<String> getBranchProductAvailableTimes(Branch branch,
+			Product product, Calendar bookingDate);
+	
+	/**
+	 * get product
+	 * 
+	 * @param productId
+	 * @return
+	 */
+	Product getProduct(String productId);
 }

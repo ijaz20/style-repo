@@ -3,21 +3,27 @@ package com.style.webapp.action;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import com.style.Constants;
 import com.style.exception.AppException;
+import com.style.util.CommonUtil;
 import com.style.util.StringUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.opensymphony.xwork2.Preparable;
 import com.style.booking.service.BookingManager;
 import com.style.model.Booking;
 import com.style.model.Branch;
 import com.style.model.Product;
+import com.style.model.ProductPrice;
+import com.style.model.User;
 
 /**
  * Action for facilitating booking Management feature.
@@ -40,7 +46,8 @@ public class BookingAction extends BaseAction implements Preparable {
 	private Calendar endTime;
 	private String timeStart;
 	private String bookingDateString;
-
+	private List<ProductPrice> branchProductPrices;
+	private List<String> branchAvailableTimes;
     private String offerId;
     private String bookingId;
 	@Autowired
@@ -67,6 +74,56 @@ public class BookingAction extends BaseAction implements Preparable {
 		return SUCCESS;
 	}
 
+	/**
+	 * show branch booking
+	 * 
+	 * @return
+	 */
+	public String showBranchBooking(){
+		if (!CommonUtil.isAnonymous()) {
+			User branchUser = (User) (SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal());
+			branchProductPrices = bookingManager.getBranchProductPrices(branchUser.getUserBranch().getId());
+		}
+		booking = new Booking();
+		return Constants.SUCCESS;
+	}
+	
+	
+	public List<String> getBranchProductAvailableTimes(){
+		if (!CommonUtil.isAnonymous()) {
+			User branchUser = (User) (SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal());
+			Calendar now = new GregorianCalendar();
+			/*if (bookingDate.get(Calendar.DAY_OF_MONTH) == now
+					.get(Calendar.DAY_OF_MONTH)) {
+				bookingDate.set(Calendar.HOUR_OF_DAY,
+						now.get(Calendar.HOUR_OF_DAY) + 2);
+			}*/
+			return branchAvailableTimes = bookingManager
+					.getBranchProductAvailableTimes(branchUser.getUserBranch(),
+							bookingManager.getProduct(productId),
+							new GregorianCalendar());
+		} else {
+			return new ArrayList<String>();
+		}
+		
+	}
+	
+	/**
+	 * show branch booking schedules
+	 * 
+	 * @return
+	 */
+	public String showSchedules(){
+		if (!CommonUtil.isAnonymous()) {
+			User branchUser = (User) (SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal());
+			bookings = bookingManager.getBranchBookingSchedules(branchUser.getUserBranch().getId());
+		}
+		return Constants.SUCCESS;
+	}
+	
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
@@ -94,6 +151,22 @@ public class BookingAction extends BaseAction implements Preparable {
 
 	public void setBranch(Branch branch) {
 		this.branch = branch;
+	}
+
+	public List<ProductPrice> getBranchProductPrices() {
+		return branchProductPrices;
+	}
+
+	public void setBranchProductPrices(List<ProductPrice> branchProductPrices) {
+		this.branchProductPrices = branchProductPrices;
+	}
+
+	public List<String> getBranchAvailableTimes() {
+		return branchAvailableTimes;
+	}
+
+	public void setBranchAvailableTimes(List<String> branchAvailableTimes) {
+		this.branchAvailableTimes = branchAvailableTimes;
 	}
 
 	public Product getProduct() {

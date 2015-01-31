@@ -98,6 +98,11 @@
             <value description="name">ROLE_USER</value>
             <value description="description"><![CDATA[Default role for all Users]]></value>
         </row>
+        <row>
+            <value description="id">-3</value>
+            <value description="name">ROLE_BRANCH_ADMIN</value>
+            <value description="description"><![CDATA[Branch Administrator role (can view and edit branch details)]]></value>
+        </row>
     </table>
     <table name="user_role">
         <column>user_id</column>

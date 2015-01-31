@@ -41,6 +41,7 @@ public class Booking extends BaseObject implements Serializable {
 	private String bookingId;
 	private List<BookingDetail> bookingDetails = new ArrayList<BookingDetail>();
 	private User user;
+	private Branch branch;
 	private int netPrice;
 	private int totalPrice;
 	private int totalDiscountPrice;
@@ -52,6 +53,8 @@ public class Booking extends BaseObject implements Serializable {
 	private boolean isActive;
 	private Payment payment;
 	private String browserId;
+	private String username;
+	private String phoneNumber;
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -74,6 +77,16 @@ public class Booking extends BaseObject implements Serializable {
 		this.user = user;
 	}
 
+	@OneToOne
+	@JoinColumn(name = "branch_id")
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
+    
 	@OneToMany(cascade = CascadeType.ALL, targetEntity = BookingDetail.class, mappedBy = "booking", fetch = FetchType.EAGER, orphanRemoval = true)
 	@OrderBy("bookingDetailId")
 	@Fetch(value = FetchMode.SELECT)
@@ -146,6 +159,22 @@ public class Booking extends BaseObject implements Serializable {
 
 	public void setModifiedTime(Calendar modifiedTime) {
 		this.modifiedTime = modifiedTime;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	@Column(name = "status")

@@ -12,6 +12,7 @@
     <menu:displayMenu name="UserMenu"/>
     <menu:displayMenu name="AdminMenu"/>
     <menu:displayMenu name="Product Management"/>
+    <menu:displayMenu name="Booking"/>
     <menu:displayMenu name="Logout"/>
 </ul>
 </div>
