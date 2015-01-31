@@ -1,5 +1,6 @@
 package com.style.model;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,8 +21,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.style.Constants;
+import com.style.util.StringUtil;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
@@ -90,7 +94,14 @@ public class Product extends BaseObject implements Serializable {
 	
     @Column(name="image_path")
     public String getImagePath(){
-    	return imagePath;
+        File imgFile =  new File(ServletActionContext.getServletContext().getRealPath("") + imagePath);
+        if(imgFile.exists() && imagePath.split("/").length != 3){
+            return imagePath;
+        }
+        else {
+            return Constants.DEFAULT_PRODUCT_IMAGE_PATH;
+        }
+
     }
 
     public void setImagePath(String imagePath) {

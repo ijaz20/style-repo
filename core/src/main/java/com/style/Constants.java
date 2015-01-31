@@ -130,6 +130,8 @@ public final class Constants {
     public static final String INDIAN_CURRENCY_CODE = "Rs.";
     
     public static final String PRODUCT_IMAGE_PATH = "/images/products/";
+
+    public static final String DEFAULT_PRODUCT_IMAGE_PATH = "/images/products/default-image.png";
     
     public static final String PARTNER_IMAGE_PATH = "/images/partners/";
     
