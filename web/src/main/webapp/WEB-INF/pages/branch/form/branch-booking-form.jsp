@@ -95,7 +95,7 @@
 
 	function loadAvailableTimes(rowCount){
 		var url = "/branch/getBranchAvailableTimes?ajax=true"
-		var productId = $("product"+rowCount).val();
+		var productId = $("#product"+rowCount).val();
 	    var paramMap = {
 	        productId:productId
 	    };
@@ -103,12 +103,7 @@
 				if (response != null && response != '') {
 					alert(response);
 				} else {
-					// need to add no product found
-					if(isFilter){
-						$("#" + renderId).html("No Results Found");
-					} else {
-						//$("#" + renderId).append(productsHtml);
-					}
+					alert(response);
 				}
 			}
 		);

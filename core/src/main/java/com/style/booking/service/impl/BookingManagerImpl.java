@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.style.booking.dao.BookingDao;
 import com.style.booking.service.BookingManager;
+import com.style.branch.service.BranchManager;
 import com.style.exception.AppException;
 import com.style.model.Booking;
 import com.style.model.BookingDetail;
@@ -41,6 +42,8 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 
 	private UserManager userManager;
 
+	private BranchManager branchManager;
+	
 	@Autowired
 	public void setUserManager(UserManager userManager) {
 		this.userManager = userManager;
@@ -49,6 +52,11 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 	@Autowired
 	public void setProductManager(ProductManager productManager) {
 		this.productManager = productManager;
+	}
+
+	@Autowired
+	public void setBranchManager(BranchManager branchManager) {
+		this.branchManager = branchManager;
 	}
 
 	@Autowired
@@ -180,7 +188,7 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 	 *{@inheritDoc} 
 	 */
 	public List<BookingDetail> getBranchBookingDetails(String branchId, Calendar startTime){
-		return bookingDao.getBranchBookingDetails(branchId, startTime);
+		return bookingDao.getBranchBookingDetails(branchManager.get(branchId), startTime);
 	}
 	
 	/**
@@ -202,10 +210,12 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 			ProductPrice price = product.getProductPrices().get(k);
 			List<String> availTimes = new ArrayList<String>();
 			// get all product time interval's
-			if (branch.getAvailableTimes() == null) {
+			if (branch.getAvailableTimes() == null || branch.getAvailableTimes().size() == 0) {
 				availTimes = getBranchTimes(branch,
 						Integer.parseInt(price.getExpectedTime()), (hours * 60)
 								+ minutes);
+			} else {
+				availTimes = branch.getAvailableTimes();
 			}
 			// iterate booking details to remove time interval from branch
 			// product time interval

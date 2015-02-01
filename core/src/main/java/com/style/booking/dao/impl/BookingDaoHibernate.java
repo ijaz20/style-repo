@@ -15,6 +15,7 @@ import com.style.dao.hibernate.GenericDaoHibernate;
 import com.style.exception.AppException;
 import com.style.model.Booking;
 import com.style.model.BookingDetail;
+import com.style.model.Branch;
 
 /**
  * This class interacts with Hibernate session to save/delete and retrieve
@@ -157,7 +158,7 @@ public class BookingDaoHibernate extends GenericDaoHibernate<Booking, String>
 	 * {@inheritDoc}
 	 */
 	@SuppressWarnings("unchecked")
-	public List<BookingDetail> getBranchBookingDetails(String branchId, Calendar startTime) {
+	public List<BookingDetail> getBranchBookingDetails(Branch branch, Calendar startTime) {
 		try {
 			Calendar todayStart = new GregorianCalendar();
 			Calendar todayEnd = new GregorianCalendar();
@@ -167,12 +168,12 @@ public class BookingDaoHibernate extends GenericDaoHibernate<Booking, String>
 			todayStart.set(year, month, day, 00, 00, 00);
 			todayEnd.set(year, month, day, 23, 59, 59);
 			List<BookingDetail> bookingList = getSession()
-					.createCriteria(BookingDetail.class)
+					.createCriteria(BookingDetail.class).createAlias("booking", "booking").createAlias("booking.branch", "branch")
 					.add(Restrictions.and(Restrictions.and(Restrictions
 							.and(Restrictions.lt("startTime", todayEnd)),
 							Restrictions.gt("startTime", todayStart)),
 							Restrictions.gt("endTime", startTime)))
-							.add(Restrictions.eq("booking.branch.id.", branchId)).list();
+							.add(Restrictions.eq("booking.branch", branch)).list();
 			return bookingList;
 		} catch (HibernateException e) {
 			log.error(e.getMessage(), e);

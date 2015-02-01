@@ -90,7 +90,7 @@ public class BookingAction extends BaseAction implements Preparable {
 	}
 	
 	
-	public List<String> getBranchProductAvailableTimes(){
+	public String getBranchProductAvailableTimes(){
 		if (!CommonUtil.isAnonymous()) {
 			User branchUser = (User) (SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal());
@@ -100,12 +100,15 @@ public class BookingAction extends BaseAction implements Preparable {
 				bookingDate.set(Calendar.HOUR_OF_DAY,
 						now.get(Calendar.HOUR_OF_DAY) + 2);
 			}*/
-			return branchAvailableTimes = bookingManager
+			now.set(Calendar.HOUR_OF_DAY,now.get(Calendar.HOUR_OF_DAY)-5);
+			branchAvailableTimes = bookingManager
 					.getBranchProductAvailableTimes(branchUser.getUserBranch(),
 							bookingManager.getProduct(productId),
-							new GregorianCalendar());
+							now);
+			return Constants.SUCCESS;
 		} else {
-			return new ArrayList<String>();
+			branchAvailableTimes = new ArrayList<String>();
+			return Constants.SUCCESS;
 		}
 		
 	}

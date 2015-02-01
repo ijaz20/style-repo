@@ -46,7 +46,7 @@
                                       onsubmit="saveUsername(this);return validateForm(this)" class="form-signin" autocomplete="off">
 
                                     <div class="form-group">
-                                        <label for="Username">Email/Username</label>
+                                        <label for="Username">Email</label>
                                         <input type="text" placeholder="Enter your email/username" name="j_username" id="j_username"class="form-control">
                                     </div>
                                     <div class="form-group">
@@ -73,12 +73,12 @@
                                 <form name="signupForm" action="saveSignup" method="post" validate="true"
                                         autocomplete="off" cssClass="well">
                                 <div class="form-group">
-                                        <label for="j_username">Email/Username</label>
-                                        <input type="text" class="form-control" id="Username" name="Username"  placeholder="Enter your email/username">
+                                        <label for="j_username">Email</label>
+                                        <input type="text" class="form-control" id="Username" name="user.username"  placeholder="Enter your email/username">
                                     </div>
                                     <div class="form-group">
                                         <label for="j_password">Password</label>
-                                        <input type="password" class="form-control" id="Password" name="Password" placeholder="Password">
+                                        <input type="password" class="form-control" id="Password" name="user.password" placeholder="Password">
                                     </div>
                                     <div class="checkbox checked">
                                         <label>
