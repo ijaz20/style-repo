@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.style.dao.GenericDao;
 import com.style.model.Booking;
-import com.style.model.Booking;
 import com.style.model.BookingDetail;
+import com.style.model.Branch;
 import com.style.model.User;
 
 /**
@@ -86,5 +86,5 @@ public interface BookingDao extends GenericDao<Booking, String> {
 	 * @param startTime
 	 * @return
 	 */
-	List<BookingDetail> getBranchBookingDetails(String branchId, Calendar startTime);
+	List<BookingDetail> getBranchBookingDetails(Branch branchId, Calendar startTime);
 }

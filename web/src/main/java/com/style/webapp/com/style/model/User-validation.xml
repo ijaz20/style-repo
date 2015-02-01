@@ -11,7 +11,7 @@
             <message key="errors.required"/>
         </field-validator>
     </field>
-    <field name="user.confirmPassword">
+    <!-- <field name="user.confirmPassword">
         <field-validator type="requiredstring">
             <message key="errors.required"/>
         </field-validator>
@@ -44,5 +44,5 @@
         <field-validator type="email">
             <message key="errors.email"/>
         </field-validator>
-    </field>
+    </field> -->
 </validators>
