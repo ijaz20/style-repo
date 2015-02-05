@@ -196,7 +196,7 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 	 */
 	public List<String> getBranchProductAvailableTimes(Branch branch,
 			Product product, Calendar bookingDate) {
-		Calendar endDate = new GregorianCalendar();
+ 		Calendar endDate = new GregorianCalendar();
 		int hours = bookingDate.get(Calendar.HOUR_OF_DAY);
 		int minutes = bookingDate.get(Calendar.MINUTE);
 		int year = bookingDate.get(Calendar.YEAR);
@@ -205,6 +205,7 @@ public class BookingManagerImpl extends GenericManagerImpl<Booking, String>
 		endDate.set(year, month, day, 23, 59, 59);
 		// get booking details of booking date
 		List<BookingDetail> bookingDetails = getBranchBookingDetails(branch.getId(), bookingDate);
+		branch.setAvailableTimes(new ArrayList<String>());
 		// iterate product price to get each branch available time
 		for (int k = 0; k < product.getProductPrices().size(); k++) {
 			ProductPrice price = product.getProductPrices().get(k);
