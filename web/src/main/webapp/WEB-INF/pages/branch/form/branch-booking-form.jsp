@@ -93,6 +93,18 @@
 		addBookingRow();
 	});
 
+	function addOnChangeEvent(rowCount){
+		$('#product'+rowCount).change(function() {
+			loadAvailableTimes(rowCount);
+		});
+	}
+	
+	function deleteRow(rowCount) {
+		$("#deleteRow" + rowCount).click(function() {
+			$(this).closest('tr').remove();
+		});
+	}
+	
 	function loadAvailableTimes(rowCount){
 		var url = "/branch/getBranchAvailableTimes?ajax=true"
 		var productId = $("#product"+rowCount).val();
@@ -101,9 +113,12 @@
 	    };
 	    $.post(url,paramMap,function(response) {
 				if (response != null && response != '') {
-					alert(response);
+					$('#branchAvailableTime'+rowCount).empty();
+					$.each(response, function(val, text) {
+			            $("#branchAvailableTime"+rowCount).append( $("<option></option>").val(val).html(text) )
+		            }); // there was also a ) missing here
 				} else {
-					alert(response);
+					console.log(response);
 				}
 			}
 		);
@@ -122,21 +137,15 @@
 			var new1 = store.replace(oldRowNo, newRowNo);
 			$(this).attr("id", new1);
 			$(this).attr("name", new1);
-			$(this).attr("onChanage", loadAvailableTimes(newRowNo));
 		});
 		last_row.appendTo($('#bookingDetails'));
+		loadAvailableTimes(newRowNo)
+		addOnChangeEvent(newRowNo);
 		deleteRow(newRowNo);
 	}
 
-	function deleteRow(rowCount) {
-		$("#deleteRow" + rowCount).click(function() {
-			$(this).closest('tr').remove();
-		});
-	}
-	
 	loadAvailableTimes(1);
+	addOnChangeEvent(1);
 	deleteRow(1);
-	$('#product1').change(function() {
-		loadAvailableTimes(1);
-	});
+	
 </script>
