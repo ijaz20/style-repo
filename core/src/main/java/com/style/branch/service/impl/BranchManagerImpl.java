@@ -56,10 +56,18 @@ public class BranchManagerImpl extends GenericManagerImpl<Branch, String>
 	 * {@inheritDoc}
 	 */
 	public Branch saveBranch(Branch branch) throws AppException {
-		if(StringUtil.isEmptyString(branch.getId()) && !StringUtil.isEmptyString(branch.getUsername()) && !StringUtil.isEmptyString(branch.getUsername())){
-			userManager.saveBranchProfile(new User(branch.getUsername(), branch.getPassword()));
+		if (!StringUtil.isEmptyString(branch.getUsername()) && !StringUtil.isEmptyString(branch.getUsername())){
+			User user = new User(branch.getUsername(), branch.getPassword());
+			user.setUserBranch(branch);
+			userManager.saveBranchProfile(user);
 		}
-		return branchDao.saveBranch(branch);
+		
+		if(!StringUtil.isEmptyString(branch.getId())){
+			return branchDao.saveBranch(branch);
+		} else {
+			return saveBranch(branch);
+		}
+		
 	}
 
 	public List<Branch> getBranches(String[] branchIds) throws AppException {
