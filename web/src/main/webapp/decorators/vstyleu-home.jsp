@@ -3,10 +3,8 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="keywords" content="online spa, online parlour, online salon, chennai, compare spa, copare salon, online booking spa, online booking salon, online booking parlour, India, find spa, find salon">
-<meta name="Description" content="Online Spa/Salon booking in India, Compare and find Spa/Salon in India">
+<jsp:include page="/common/meta.jsp"/>
+<jsp:include page="/common/tracking/ga.jsp"/>
 <link href="/themes/css/bootstrap.min.css" rel="stylesheet">
 <link href="/themes/css/font-awesome.min.css" rel="stylesheet">
 <link href="/themes/css/prettyPhoto.css" rel="stylesheet">
