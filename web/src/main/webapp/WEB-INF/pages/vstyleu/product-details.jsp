@@ -1,8 +1,4 @@
 <%@ include file="/common/taglibs.jsp"%>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-</head>
-
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -13,7 +9,7 @@
         <div class="modal-body">
             <div class="popupbox col-md-12 col-sm-12 pad-left pad-right">
                 <div class="col-md-4 col-xs-12 col-lg-4 col-sm-4 popup-left-content pad-left">
-                    <a href="#"><img alt="<s:property value="%{product.productName}"/>" src="<s:property value="%{imagePath}"/>"><strong><s:property value="%{product.productName}"/> </strong><span
+                    <a href="#"><img alt="<s:property value="%{product.productName}"/>" title="<s:property value="%{product.productName}"/>" src="<s:property value="%{imagePath}"/>"><strong><s:property value="%{product.productName}"/> </strong><span
                             class="product-details"><s:property value="%{product.description}"/></span><span
                             class="bucket-rupee"></span></a>
                 </div>
@@ -27,7 +23,7 @@
                                         <span class="input-group-btn">
                                           <button class="btn" type="button"><span class="fui-calendar"></span></button>
                                         </span>
-                                    <input type="text" class="form-control" value="14-March-2013" id="datepicker-01"/>
+                                    <input type="text" class="form-control calender" value="14-March-2013" id="datepicker-01"/>
                                 </div>
                             </div>
                         </div>

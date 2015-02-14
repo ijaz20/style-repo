@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+<title> <fmt:message key="webapp.name"/> | <fmt:message key="webapp.tagline"/></title>
 <jsp:include page="/common/meta.jsp"/>
 <jsp:include page="/common/tracking/ga.jsp"/>
 <link href="/themes/css/bootstrap.min.css" rel="stylesheet">
