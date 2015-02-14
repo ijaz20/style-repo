@@ -72,7 +72,7 @@ public class Branch extends BaseObject implements Serializable {
 	private String closeTime;
 	private List<String> availableTimes;
 	private int noOfResource;
-	private Set<User> branchUsers = new HashSet<>();
+	private Set<User> branchUsers = new HashSet<User>();
 	private Map<Integer, Integer> availableResource = new HashMap<Integer, Integer>();
 
 	@Id

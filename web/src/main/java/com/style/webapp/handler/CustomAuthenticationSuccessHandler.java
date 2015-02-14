@@ -22,7 +22,7 @@ public class CustomAuthenticationSuccessHandler implements
 		/* Redirect on the successful authentication of the user */
 		Collection<? extends GrantedAuthority> auths = authResult
 				.getAuthorities();
-		List<String> roles = new ArrayList<>();
+		List<String> roles = new ArrayList<String>();
 		for (GrantedAuthority ga : auths) {
 			roles.add(ga.getAuthority());
 		}
