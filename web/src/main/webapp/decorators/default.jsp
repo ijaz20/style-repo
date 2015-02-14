@@ -5,6 +5,8 @@
     <meta http-equiv="Cache-Control" content="no-store"/>
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="online spa, online parlour, online salon, chennai, compare spa, copare salon, online booking spa, online booking salon, online booking parlour, India, find spa, find salon">
+    <meta name="Description" content="Online Spa/Salon booking in India, Compare and find Spa/Salon in India">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="<c:url value="/images/favicon.ico"/>"/>
     <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
@@ -21,7 +23,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<c:url value='/'/>"><fmt:message key="webapp.name"/></a>
+            <a class="navbar-brand" href="<c:url value='/admin/home'/>"><fmt:message key="webapp.name"/></a>
         </div>
 
         <%@ include file="/common/menu.jsp" %>

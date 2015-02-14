@@ -4,15 +4,16 @@
         <pattern>/*ajax=true*</pattern>
         <pattern>/struts/*</pattern>
         <pattern>/resources/*</pattern>
-    </excludes> 
+    </excludes>
     <decorator name="admin" page="default.jsp">
         <pattern>/admin*</pattern>
     </decorator>
     <decorator name="branch" page="default.jsp">
         <pattern>/branch*</pattern>
-    </decorator>  
+    </decorator>
     <decorator name="style-home" page="vstyleu-home.jsp">
         <pattern>/style-home*</pattern>
+        <pattern>*vstyleu/products/error.jsp*</pattern>
     </decorator>
     <decorator name="vstyleu" page="vstyleu-home.jsp">
         <pattern>/*</pattern>

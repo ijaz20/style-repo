@@ -1,18 +1,23 @@
 <%@ page language="java" isErrorPage="true" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
 
-<html>
-<head>
-    <title><fmt:message key="errorPage.title"/></title>
-</head>
-<body id="error">
-    <div class="container">
-        <h1><fmt:message key="errorPage.heading"/></h1>
-        <%@ include file="/common/messages.jsp" %>
-
-        <p><fmt:message key="errorPage.message"/></p>
+<page:applyDecorator name="branch">
+    <head>
+        <title><fmt:message key='404.title'/></title>
+        <meta name="heading" content="<fmt:message key='404.title'/>"/>
+    </head>
+    <body>
+    <div class="error-page-wrap">
+        <%--<img src="/images/404/404-error.png" alt="Back To Home." title="Back To Home."/>--%>
+        <a class="btn btn--red home-button mtop" href="https://www.vstyleu.com">Back to home</a>
     </div>
-</body>
-</html>
+    <script type="text/javascript">
+        window.onload = function() {
+            setTimeout('window.location="/";', 15 * 1000);
+        };
+    </script>
+    </body>
+</page:applyDecorator>
