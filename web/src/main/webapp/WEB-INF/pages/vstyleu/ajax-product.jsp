@@ -1,8 +1,5 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-</head>
 <s:iterator var="product" value="%{products}" status="rowstatus">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 product-bucket" id="product_<s:property value='%{id}'/>">
         <a href="javascript:void(0)"><img class="prod-image" title="<s:property value="productName"/>" alt="<s:property value="productName"/>" src="<s:property value="imagePath"/>">

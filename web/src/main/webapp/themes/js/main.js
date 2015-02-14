@@ -146,12 +146,6 @@ function calculateSubtotal(branchPrice, operation){
     $(".cart-subtotal").text(subTotal);
 }
 
-function addCartFromOfferList(elem){
-    var priceId = elem.attr("id").split('_')[1];
-    var productId = elem.data("select-product-id");
-    $(".cart-line-noOrder").addClass('hide').siblings().removeClass('hide');
-    return checkCartDuplication(productId, priceId);
-}
 function updateCart(elem) {
     var elementId = elem.attr("id");
     var offerId = elementId.split('_')[1];
@@ -164,22 +158,13 @@ function updateCart(elem) {
     };
     $.post(url, paramMap, function (response) {
             if (response != null && response != '') {
-                $("#product_offer").modal('hide');
+                $("#product-offer").modal('hide');
                 $('.cart-menu').html('');
                 $('.cart-menu').html(response);
                 $('.ll-link').toggleClass('open close');
             }
         }
     );
-}
-function closeOfferDisplay(elem){
-    var elementId = elem.attr("id");
-    var productId = elementId.split('_')[1];
-    $(".product-details-div").toggleClass("col-sm-12 col-sm-4");
-    $("#product_" + productId + "_image").toggleClass("col-sm-4 col-sm-12");
-    $("#product_" + productId + "_price").addClass("hide");
-    elem.addClass("hide");
-    $("#product_"+productId).removeClass("hide");
 }
 
 function filterProducts(isFilter, renderId, productCount){
@@ -234,6 +219,21 @@ $(window).scroll(function() {
 
 });
 
+function initiateCalender(datepickerSelector){
+    $(datepickerSelector).datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        dateFormat: "dd-MM-yy",
+        yearRange: '-1:+1'
+    }).prev('.btn').on('click', function (e) {
+        e && e.preventDefault();
+        $(datepickerSelector).focus();
+    });
+
+// Now let's align datepicker with the prepend button
+    $(datepickerSelector).datepicker('widget').css({'margin-left': -$(datepickerSelector).prev('.btn').outerWidth()});
+
+}
 
 function populateOfferFromProduct(elem) {
     var elementId = elem.attr("id");
@@ -244,9 +244,10 @@ function populateOfferFromProduct(elem) {
     };
     $.post(url,paramMap,function(response) {
             if (response != null && response != '') {
-                $("#product_offer").html('');
-                $("#product_offer").html(response);
-                $("#product_offer").modal('show');
+                $("#product-offer").html('');
+                $("#product-offer").html(response);
+                $("#product-offer").modal('show');
+                initiateCalender("#product-offer .calender")
             }
         }
     );
@@ -272,21 +273,6 @@ $(function(){
     });
     showProductDetails();
     generateCartDetails();
-    // jQuery UI Datepicker JS init
-    var datepickerSelector = '#datepicker-01';
-    $(datepickerSelector).datepicker({
-        showOtherMonths: true,
-        selectOtherMonths: true,
-        dateFormat: "dd-MM-yy",
-        yearRange: '-1:+1'
-    }).prev('.btn').on('click', function (e) {
-        e && e.preventDefault();
-        $(datepickerSelector).focus();
-    });
-
-// Now let's align datepicker with the prepend button
-    $(datepickerSelector).datepicker('widget').css({'margin-left': -$(datepickerSelector).prev('.btn').outerWidth()});
-
 
     $(function() {
 		$(window).slideUp({
