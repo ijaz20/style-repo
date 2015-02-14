@@ -45,7 +45,8 @@ public class BranchDaoHibernate extends GenericDaoHibernate<Branch, String>
 	 */
 	public Branch saveBranch(Branch branch) {
 		try {
-			return (Branch) getSession().merge(branch);
+			getSession().saveOrUpdate(branch);
+			return branch ;
 		} catch (HibernateException e) {
 			log.error(e.getMessage(), e);
 			throw new AppException(e.getMessage(), e);

@@ -26,6 +26,7 @@ import com.style.service.RoleManager;
 import com.style.service.UserExistsException;
 import com.style.service.UserManager;
 import com.style.service.UserService;
+import com.style.util.StringUtil;
 
 
 /**
@@ -123,12 +124,14 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      */
     @Override
     public User saveUser(final User user) throws UserExistsException {
-
         if (user.getVersion() == null) {
             // if new user, lowercase userId
             user.setUsername(user.getUsername().toLowerCase());
         }
 
+        if(StringUtil.isEmptyString(user.getEmail()) && StringUtil.isValidEmailAddress(user.getUsername())){
+        	user.setEmail(user.getUsername());
+        }
         // Get and prepare password management-related artifacts
         boolean passwordChanged = false;
         if (passwordEncoder != null) {

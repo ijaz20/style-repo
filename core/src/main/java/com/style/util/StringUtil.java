@@ -1,5 +1,8 @@
 package com.style.util;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+
 /**
  * String util to help string conventions
  * 
@@ -36,4 +39,21 @@ public final class StringUtil {
 		}
 		return false;
 	}
+	
+	/**
+	 * check is email address or not
+	 * 
+	 * @param email
+	 * @return
+	 */
+	public static boolean isValidEmailAddress(String email) {
+ 	   boolean result = true;
+ 	   try {
+ 	      InternetAddress emailAddr = new InternetAddress(email);
+ 	      emailAddr.validate();
+ 	   } catch (AddressException ex) {
+ 	      result = false;
+ 	   }
+ 	   return result;
+ 	}
 }

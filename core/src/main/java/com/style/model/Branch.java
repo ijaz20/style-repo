@@ -143,7 +143,7 @@ public class Branch extends BaseObject implements Serializable {
 		this.partner = partner;
 	}
 
-	@OneToMany(cascade = CascadeType.REMOVE, targetEntity = ProductPrice.class, mappedBy = "branch", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.PERSIST, targetEntity = ProductPrice.class, mappedBy = "branch", fetch = FetchType.LAZY, orphanRemoval = true)
 	@JsonIgnore
 	@JSON(serialize = false)
 	// @Fetch(value = FetchMode.SELECT)
