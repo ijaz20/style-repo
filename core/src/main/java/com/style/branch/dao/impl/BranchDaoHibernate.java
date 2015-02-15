@@ -3,6 +3,7 @@ package com.style.branch.dao.impl;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -86,4 +87,18 @@ public class BranchDaoHibernate extends GenericDaoHibernate<Branch, String>
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Branch> getPartnerBranches(String partnerName) {
+		try {
+			List<Branch> branches = getSession().createQuery("from Branch branch where branch.partner.partnerName='"+partnerName+"'").list();
+	        return branches;
+		} catch (HibernateException e) {
+			log.error(e.getMessage(), e);
+			throw new AppException(e.getMessage(), e);
+		}
+	}
+	
 }

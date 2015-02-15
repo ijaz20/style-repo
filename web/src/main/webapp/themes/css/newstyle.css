@@ -66,7 +66,7 @@ img{max-width:100%;}
 .bucket-rupee{  color:#666;}
 .bucket-rupee img{border:none; padding:0 3px 0 0px; margin-bottom:3px;}
 .product-details{margin-bottom: 10px; display:block; color:#666666; font-size:14px;line-height: 19px; height: 60px;overflow: hidden}
-.leftnav-product-list { margin:0; padding:0;}
+.leftnav-product-list { margin:0; padding:0; max-height:250px; overflow:auto;}
 .leftnav-product-list  li{ list-style:none; padding:0;border-bottom: 1px solid #e5e5e5; padding:0px 0px 0px 15px;}
 .leftnav-products{ font-size:14px;}
 .leftnav-products strong{font-size:24px; background: url(../../images/left-head-bg.jpg) repeat-x left top;  display: block; color:#fff;
@@ -85,6 +85,44 @@ img{max-width:100%;}
     margin: 15px 0;
     padding: 0;
     width: 31%;
+}
+
+.partner-bucket {
+    margin: 15px 0;
+}
+
+.brand-image{
+	width:168px;
+	height:60px;
+	vertical-align:middle;
+}
+
+.branch-title{
+	background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("../../images/left-head-bg.jpg");
+    background-origin: padding-box;
+    background-position: left top;
+    background-repeat: repeat-x;
+    background-size: auto auto;
+    color: #fff !important;
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 29px;
+    padding-bottom: 6px;
+    padding-left: 20px;
+    padding-right: 0;
+    padding-top: 6px;
+}
+
+.menu-vertical-border{
+	border-right: 1px solid #9c9c9c;
+}
+
+.review-img{
+	width: 120px;
+	height: 20px;	
 }
 
 .data-caret {

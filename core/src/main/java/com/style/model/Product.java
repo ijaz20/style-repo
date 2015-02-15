@@ -94,14 +94,7 @@ public class Product extends BaseObject implements Serializable {
 	
     @Column(name="image_path")
     public String getImagePath(){
-        File imgFile =  new File(ServletActionContext.getServletContext().getRealPath("") + imagePath);
-        if(imgFile.exists() && imagePath.split("/").length != 3){
-            return imagePath;
-        }
-        else {
-            return Constants.DEFAULT_PRODUCT_IMAGE_PATH;
-        }
-
+        return Constants.DEFAULT_PRODUCT_IMAGE_PATH;
     }
 
     public void setImagePath(String imagePath) {

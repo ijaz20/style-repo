@@ -42,4 +42,11 @@ public interface BranchDao extends GenericDao<Branch, String> {
 	 */
 	Branch getBranch(String id);
 
+	/**
+	 * get partner branches
+	 * 
+	 * @param partnerName
+	 * @return
+	 */
+	List<Branch> getPartnerBranches(String partnerName);
 }

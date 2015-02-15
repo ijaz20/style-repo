@@ -51,5 +51,13 @@ public interface BranchManager extends GenericManager<Branch, String> {
 	 * @return
 	 */
 	Branch getBranch(String id) throws AppException;
+	
+	/**
+	 * get partner branches
+	 * 
+	 * @param partnerName
+	 * @return
+	 */
+	List<Branch> getPartnerBranches(String partnerName);
 
 }
