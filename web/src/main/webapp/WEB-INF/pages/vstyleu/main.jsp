@@ -29,7 +29,7 @@
 	<%--</div>--%>
 <%--</section>--%>
 <div class="container content_sections pad-right">
-    <jsp:include page="/WEB-INF/pages/vstyleu/product-filters.jsp" />
+    <%-- <jsp:include page="/WEB-INF/pages/vstyleu/product-filters.jsp" /> --%>
     <decorator:body />
 
 </div>

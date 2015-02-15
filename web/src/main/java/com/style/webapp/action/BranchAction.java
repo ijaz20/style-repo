@@ -29,6 +29,7 @@ public class BranchAction extends BaseAction implements Preparable {
 	private List<Branch> branches;
 	private Branch branch;
 	private String id;
+	private String brand;
 
 	@Autowired
 	public void setBranchManager(BranchManager branchManager) {
@@ -75,6 +76,12 @@ public class BranchAction extends BaseAction implements Preparable {
 		return "success";
 	}
 
+	public String getPartnerBranches(){
+		System.out.println("brand==========="+getRequest().getParameter("brand"));
+		branches = branchManager.getPartnerBranches(getRequest().getParameter("brand"));
+		return Constants.SUCCESS;
+	}
+	
 	/**
 	 * save branch
 	 * 
@@ -132,6 +139,14 @@ public class BranchAction extends BaseAction implements Preparable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 }

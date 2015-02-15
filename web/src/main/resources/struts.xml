@@ -271,6 +271,17 @@
                 <interceptor-ref name="adminOnly"/>
             </interceptor-stack>
         </interceptors>
+        
+        <action name="brands" class="partnerAction" method="getBrands">
+            <interceptor-ref name="constantsInterceptor"/>
+            <interceptor-ref name="mobileInterceptor"/>
+            <result name="success">/WEB-INF/pages/vstyleu/brands.jsp</result>
+        </action>
+        <action name="branches" class="branchAction" method="getPartnerBranches">
+            <interceptor-ref name="constantsInterceptor"/>
+            <interceptor-ref name="mobileInterceptor"/>
+            <result name="success">/WEB-INF/pages/vstyleu/branches.jsp</result>
+        </action> 
         <action name="products" class="productAction" method="getAllProducts">
             <interceptor-ref name="constantsInterceptor"/>
             <interceptor-ref name="mobileInterceptor"/>

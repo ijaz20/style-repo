@@ -29,6 +29,7 @@ public class PartnerAction extends BaseAction implements Preparable {
 	private Partner partner;
 	private File file;
 	private String filePath;
+	private String brand;
 
 	@Autowired
 	public void setPartnerManager(PartnerManager partnerManager) {
@@ -101,6 +102,16 @@ public class PartnerAction extends BaseAction implements Preparable {
 		}
 	}
 
+	/**
+	 * get all brands
+	 * 
+	 * @return
+	 */
+	public String getBrands(){
+		partners = partnerManager.getPartners();
+		return Constants.SUCCESS;
+	}
+	
 	public List<Partner> getPartners() {
 		return partners;
 	}
@@ -139,6 +150,14 @@ public class PartnerAction extends BaseAction implements Preparable {
 
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 }

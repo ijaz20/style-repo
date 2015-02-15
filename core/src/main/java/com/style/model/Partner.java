@@ -1,5 +1,6 @@
 package com.style.model;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -16,10 +17,14 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.json.annotations.JSON;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Indexed;
+
+import com.style.Constants;
+import com.style.util.StringUtil;
 
 /**
  * This class represents the basic "Brand" object in VSU that allows for
@@ -80,7 +85,7 @@ public class Partner extends BaseObject implements Serializable {
 	
     @Column(name="image_path")
     public String getImagePath(){
-    	return imagePath;
+        return Constants.DEFAULT_PRODUCT_IMAGE_PATH;
     }
 
     public void setImagePath(String imagePath) {

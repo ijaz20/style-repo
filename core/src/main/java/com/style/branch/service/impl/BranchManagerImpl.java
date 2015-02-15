@@ -102,4 +102,7 @@ public class BranchManagerImpl extends GenericManagerImpl<Branch, String>
 		return branchDao.getBranch(id);
 	}
 
+	public List<Branch> getPartnerBranches(String partnerName){
+		return branchDao.getPartnerBranches(partnerName);
+	}
 }
