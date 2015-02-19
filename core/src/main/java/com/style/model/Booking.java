@@ -3,6 +3,7 @@ package com.style.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -55,7 +56,8 @@ public class Booking extends BaseObject implements Serializable {
 	private String browserId;
 	private String username;
 	private String phoneNumber;
-
+	private Date bookingDate;
+	
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
@@ -175,6 +177,14 @@ public class Booking extends BaseObject implements Serializable {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public Date getBookingDate() {
+		return bookingDate;
+	}
+
+	public void setBookingDate(Date bookingDate) {
+		this.bookingDate = bookingDate;
 	}
 
 	@Column(name = "status")

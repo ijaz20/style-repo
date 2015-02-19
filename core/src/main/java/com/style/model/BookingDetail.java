@@ -1,5 +1,6 @@
 package com.style.model;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -45,6 +46,7 @@ public class BookingDetail extends BaseObject implements Serializable {
 	private boolean isActive;
     private Calendar startTime;
     private Calendar endTime;
+    private String bookingTime;
 
     @Column(name= "start_time")
     public Calendar getStartTime() {
@@ -130,6 +132,14 @@ public class BookingDetail extends BaseObject implements Serializable {
 
 	public void setModifiedTime(Calendar modifiedTime) {
 		this.modifiedTime = modifiedTime;
+	}
+
+	public String getBookingTime() {
+		return bookingTime;
+	}
+
+	public void setBookingTime(String bookingTime) {
+		this.bookingTime = bookingTime;
 	}
 
 	@Column(name = "status")

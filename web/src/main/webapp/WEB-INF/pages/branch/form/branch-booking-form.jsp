@@ -15,7 +15,7 @@
 </div>
 <div class="col-sm-12">
 	<s:form action="saveBranchBooking" enctype="multipart/form-data"
-		method="post" validate="true" id="partnerForm" cssClass="well">
+		method="post" validate="true" id="bookingForm" cssClass="well">
 		<s:hidden key="booking.id" />
 
 		<div class="row col-sm-12">
@@ -29,7 +29,7 @@
 		</div>
 		
 		<div class="row col-sm-6">
-			<s:textfield key="booking.Date" required="true"
+			<s:textfield key="booking.bookingDate"
 				autofocus="true" cssClass="form-control" />
 		</div>
 		
@@ -45,26 +45,20 @@
 						name="addRow" value="Add Row" class="btn btn-default col-sm-2" /></th>
 				</tr>
 				<tr>
-					<td class="text-center"><select id="product1" name="product1"
+					<td class="text-center"><select id="product1" name="bookingDetails[0].product.id"
 						class="form-control">
 							<c:forEach items="${branchProductPrices}" var="productPrice">
 								<option value="${productPrice.product.id}">${productPrice.product.productName}</option>
 							</c:forEach>
 					</select></td>
 					<td class="text-center"><select id="branchAvailableTime1"
-						name="branchAvailableTime1" class="form-control">
+						name="bookingDetails[0].bookingTime" class="form-control">
 							<c:forEach items="${branchAvailableTimes}" var="branchAvailableTimes">
 								<option value="${branchAvailableTime}">${branchAvailableTime}</option>
 							</c:forEach>
 					</select></td>
 					<td class="text-center"><input type="text" id="productPrice1"
-						name="productPrice1" class="form-control"/>
-					</td>
-					<td class="text-center"><input type="text" id="productDiscount1"
-						name="productDiscount1" class="form-control"/>
-					</td>
-					<td class="text-center"><input type="text" id="productNetPrice1"
-						name="productNetPrice1" class="form-control"/>
+						name="bookingDetails[0].price" class="form-control"/>
 					</td>
 					<td class="text-center"><input id="deleteRow1"
 						name="deleteRow" tabindex="3" type="button" value="Remove Row"
@@ -133,10 +127,12 @@
 		var $last = $('#bookingDetails tr:last');
 		var last_row = $last.clone();
 		$(last_row).find(":input").each(function() {
-			var store = $(this).attr("id");
-			var new1 = store.replace(oldRowNo, newRowNo);
-			$(this).attr("id", new1);
-			$(this).attr("name", new1);
+			var oldId = $(this).attr("id");
+			var oldName = $(this).prop('name');
+			var newId = oldId.replace(oldRowNo, newRowNo);
+			var newName = oldName.replace(oldRowNo - 1, newRowNo - 1);
+			$(this).attr("id", newId);
+			$(this).attr("name", newName);
 		});
 		last_row.appendTo($('#bookingDetails'));
 		loadAvailableTimes(newRowNo)

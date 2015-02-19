@@ -62,7 +62,7 @@
                                     <div class="forgetpwd"><a href="javascript:void(0)">Forget Password?</a></div>
                                     <div class="row loginbtn">
                                         <div class="col-sm-12 col-lg-12 cold-md-12">
-                                            <button type="submit" class="btn btn-primary">Login</button>
+                                            <button type="button" id="loginButton" class="btn btn-primary">Login</button>
                                         </div>
                                     </div>
 

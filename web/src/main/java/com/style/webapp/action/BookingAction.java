@@ -20,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.opensymphony.xwork2.Preparable;
 import com.style.booking.service.BookingManager;
 import com.style.model.Booking;
+import com.style.model.BookingDetail;
 import com.style.model.Branch;
 import com.style.model.Product;
 import com.style.model.ProductPrice;
@@ -50,6 +51,8 @@ public class BookingAction extends BaseAction implements Preparable {
 	private List<String> branchAvailableTimes;
     private String offerId;
     private String bookingId;
+    private List<BookingDetail> bookingDetails;
+    
 	@Autowired
 	public void setBookingManager(BookingManager bookingManager) {
 		this.bookingManager = bookingManager;
@@ -71,6 +74,16 @@ public class BookingAction extends BaseAction implements Preparable {
         bookingDate.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeStart.split(":")[0]));
         bookingDate.set(Calendar.MINUTE, Integer.parseInt(timeStart.split(":")[1]));
         booking = bookingManager.saveBooking(offerId, bookingId, bookingDate);
+		return SUCCESS;
+	}
+	
+	public String saveBranchBooking() {
+		for(BookingDetail detail : getBookingDetails()){
+			System.out.println(detail.getProduct().getId());
+			detail.setBooking(getBooking());
+			getBooking().getBookingDetails().add(detail);
+		}
+        booking = bookingManager.save(getBooking());
 		return SUCCESS;
 	}
 
@@ -262,6 +275,14 @@ public class BookingAction extends BaseAction implements Preparable {
 
 	public void setBookingDateString(String bookingDateString) {
 		this.bookingDateString = bookingDateString;
+	}
+
+	public List<BookingDetail> getBookingDetails() {
+		return bookingDetails;
+	}
+
+	public void setBookingDetails(List<BookingDetail> bookingDetails) {
+		this.bookingDetails = bookingDetails;
 	}
 
 }

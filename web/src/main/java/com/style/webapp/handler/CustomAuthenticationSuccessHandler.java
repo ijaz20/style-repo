@@ -26,14 +26,29 @@ public class CustomAuthenticationSuccessHandler implements
 		for (GrantedAuthority ga : auths) {
 			roles.add(ga.getAuthority());
 		}
+		String responseURL = "/";
+
 		if (roles.contains("ROLE_ADMIN")) {
-			response.sendRedirect(response.encodeURL("/admin"));
+			responseURL = "/admin";
+			//response.sendRedirect(response.encodeURL("/admin"));
 		} else if (roles.contains("ROLE_BRANCH_ADMIN")) {
-			response.sendRedirect(response.encodeURL("/branch"));
-		} else if (roles.contains("ROLE_USER")) {
-			response.sendRedirect(response.encodeURL("/"));
+			responseURL = "/branch";
+			//response.sendRedirect(response.encodeURL("/branch"));
+		}/* else if (roles.contains("ROLE_USER")) {
+			responseURL = "/";
+			//response.sendRedirect(response.encodeURL("/"));
+		}*/
+
+		if ("true".equals(request.getHeader("X-Ajax-call"))) {
+			try {
+				response.getWriter().print(
+						"status : success, redirectUrl : " + responseURL);
+				response.getWriter().flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		} else {
-			response.sendRedirect(response.encodeURL("/"));
+			response.sendRedirect(response.encodeURL(responseURL));
 		}
 	}
 }
