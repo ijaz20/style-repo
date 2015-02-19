@@ -70,6 +70,53 @@ function scrollSideMenu() {
 	}
 }
 
+// login via ajax request
+$('#loginButton')
+		.click(
+				function() {
+					var user_pass = $("#j_username").val();
+					var user_name = $("#j_password").val();
+
+					// Ajax login - we send credentials to
+					// j_spring_security_check (as in form based login
+					$.ajax({
+						url : "/j_security_check",
+						data : {
+							j_username : user_name,
+							j_password : user_pass
+						},
+						type : "POST",
+						beforeSend : function(xhr) {
+							xhr.setRequestHeader("X-Ajax-call", "true");
+						},
+						success : function(result) {
+							//alert(JSON.stringify(result));
+							if (result != null && result != null) {
+								var resultString = JSON
+										.stringify(result);
+								if (resultString.split(",")[0]
+										.split(":")[1] == "success") {
+									var url = resultString.split(",")[1]
+											.split(":")[1];
+									//alert(url);
+									alert("logedin successfully!");
+									$('#loginModal').modal('toggle');
+									//document.location.href = url;
+								} else {
+									var errorMessage = resultString
+											.split(",")[1].split(":")[1];
+									alert(errorMessage);
+								}
+							}
+						},
+						error : function(XMLHttpRequest, textStatus,
+								errorThrown) {
+							alert("Bad user/password");
+							return false;
+						}
+				});
+		});
+
 $(".checkbox").change(function(e){
     var href = $(this).attr("href");//get the href so we can navigate later
     filterProducts(true, "features_products", 0);

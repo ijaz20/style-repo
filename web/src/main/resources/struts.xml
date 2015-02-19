@@ -215,7 +215,11 @@
         </action>
         <action name="showBranchBooking" class="bookingAction" method="showBranchBooking">
             <result name="success">/WEB-INF/pages/branch/form/branch-booking-form.jsp</result>
-            <result name="error">/WEB-INF/pages/branch/list/branch-list.jsp</result>
+            <result name="error">/WEB-INF/pages/branch/list/schedules.jsp</result>
+        </action>
+        <action name="saveBranchBooking" class="bookingAction" method="saveBranchBooking">
+            <result name="success">/WEB-INF/pages/branch/list/schedules.jsp</result>
+            <result name="error">/WEB-INF/pages/branch/form/branch-booking-form.jsp</result>
         </action>
         <action name="getBranchAvailableTimes" class="bookingAction" method="getBranchProductAvailableTimes">
             <interceptor-ref name="defaultStack"/>
