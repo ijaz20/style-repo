@@ -6,6 +6,7 @@
 <title> <fmt:message key="webapp.name"/> | <fmt:message key="webapp.tagline"/></title>
 <jsp:include page="/common/meta.jsp"/>
 <jsp:include page="/common/tracking/ga.jsp"/>
+<jsp:include page="/common/tracking/gtm.jsp"/>
 <link href="/themes/css/bootstrap.min.css" rel="stylesheet">
 <link href="/themes/css/font-awesome.min.css" rel="stylesheet">
 <link href="/themes/css/prettyPhoto.css" rel="stylesheet">

@@ -4,6 +4,7 @@
 <head>
     <jsp:include page="/common/meta.jsp"/>
     <jsp:include page="/common/tracking/ga.jsp"/>
+    <jsp:include page="/common/tracking/gtm.jsp"/>
     <link rel="icon" href="<c:url value="/images/favicon.ico"/>"/>
     <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
     <t:assets/>
